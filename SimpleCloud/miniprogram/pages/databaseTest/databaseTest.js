@@ -1,6 +1,34 @@
 // pages/databaseTest/databaseTest.js
-Page({
+const test_db = wx.cloud.database()
+let content = ""
+let holeId = ""
 
+Page({
+  addContent(event){ content = event.detail.value },
+  delContent(event) { holeId = event.detail.value },
+  updId() { holeId = event.detail.value },
+  updContent() { content = event.detail.value },
+  addData(){
+    test_db.collection("Test").add({
+      data:{
+        createTime: test_db.serverDate(),
+        content: content,
+        type: "帖子",
+        num_likes: 0,
+        num_collections: 0,
+        num_reply: 0,
+        hot: 1
+      }}).then(res => {console.log(res)})
+  },
+  getData(){
+    test_db.collection("Test").where({num_likes: 0}).get().then(res => {console.log(res)})
+  },
+  delData(){
+    test_db.collection("Test").doc(holeId).remove().then(res => { console.log(res) })
+  },
+  updData(){
+    test_db.collection("Test").doc(id).update({ data: content }).then(res => { console.log(res) })
+  },
   _handlerSubmit: function (evt) {
     //console.log(evt)
     // 1.get value
