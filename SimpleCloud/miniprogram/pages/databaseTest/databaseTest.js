@@ -4,30 +4,71 @@ let content = ""
 let holeId = ""
 
 Page({
+  data: {
+    datalist: []
+  },
   addContent(event){ content = event.detail.value },
   delContent(event) { holeId = event.detail.value },
-  updId() { holeId = event.detail.value },
-  updContent() { content = event.detail.value },
+  updId(event) { holeId = event.detail.value },
+  updContent(event) { content = event.detail.value },
   addData(){
-    test_db.collection("Test").add({
+    wx.cloud.callFunction({
+      name:"addHole",
       data:{
-        createTime: test_db.serverDate(),
-        content: content,
-        type: "帖子",
-        num_likes: 0,
-        num_collections: 0,
-        num_reply: 0,
-        hot: 1
-      }}).then(res => {console.log(res)})
+        holeContent: content,
+        holeType: "帖子",
+        userId: wx.getStorageSync('userId'),
+        userName: wx.getStorageSync('userName')
+      },
+      success(res){
+        console.log("添加数据成功", res)
+      },
+      fail(res) {
+        console.log("添加数据失败", res)
+      }
+    })
   },
   getData(){
-    test_db.collection("Test").where({num_likes: 0}).get().then(res => {console.log(res)})
+    let that = this
+    wx.cloud.callFunction({
+      name: "getHoles",
+      success(res){
+        console.log("请求云函数成功", res)
+        that.setData({datalist: res.result.data}) //现在datalist里面就存着返回的数据
+      },
+      fail(res){
+        console.log("请求云函数失败", res)
+      }
+    })
   },
   delData(){
-    test_db.collection("Test").doc(holeId).remove().then(res => { console.log(res) })
+    wx.cloud.callFunction({
+      name: "delHole",
+      data: {
+        holeId: holeId
+      },
+      success(res) {
+        console.log("删除数据成功", res)
+      },
+      fail(res) {
+        console.log("删除数据失败", res)
+      }
+    })
   },
   updData(){
-    test_db.collection("Test").doc(id).update({ data: content }).then(res => { console.log(res) })
+    wx.cloud.callFunction({
+      name: "updateHole",
+      data: {
+        holeId: holeId,
+        holeContect: content,
+      },
+      success(res) {
+        console.log("更新数据成功", res)
+      },
+      fail(res) {
+        console.log("更新数据失败", res)
+      }
+    })
   },
   _handlerSubmit: function (evt) {
     //console.log(evt)
