@@ -1,9 +1,15 @@
-<form bindsubmit="_handlerSubmit">
-  <input placeholder="请输入账号" name="account"></input>
-  <input placeholder="请输入密码" name="pwd"></input>
-  <button form-type="submit" id="register">注册</button>
-  <button form-type="submit" id="login">登陆</button>
-</form>
+ <view class="container">
+ 
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+      size="default"
+    ></button>
+  </view>
 
 <!-- 添加和查询数据 -->
 <input placeholder="请输入树洞内容" bindinput="addContent"></input>
@@ -16,3 +22,5 @@
 <input placeholder="更新树洞的id" bindinput="updId"></input>
 <input placeholder="更新树洞的内容" bindinput="updContent"></input>
 <button bindtap="updData">更新数据</button>
+
+</view>

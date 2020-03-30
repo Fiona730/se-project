@@ -1,12 +1,69 @@
 // pages/databaseTest/databaseTest.js
+const app = getApp()
 const test_db = wx.cloud.database()
 let content = ""
 let holeId = ""
 
 Page({
   data: {
-    datalist: []
+    avatarUrl: "user_unlogin.png",
+    userInfo: {},
+    logged: false,
+    takeSession: false,
+    requestResult: '',
+    datalist: [],
   },
+
+  onLoad: function () {
+
+    // 获取用户信息
+    wx.getSetting({
+      success: res => {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称，不会弹框
+          wx.getUserInfo({
+            success: res => {
+              app.globalData.userInfo = res.userInfo
+              this.setData({
+                avatarUrl: res.userInfo.avatarUrl,
+                userInfo: res.userInfo
+              })
+            }
+          })
+        }
+      }
+    }),
+
+    wx.cloud.callFunction({
+      name: 'login',
+      data: {},
+      success: res => {
+        console.log('[云函数] [login] user openid: ', res.result.openid)
+        app.globalData.openid = res.result.openid
+        // wx.navigateTo({
+        //   url: '../userConsole/userConsole',
+        // })
+      },
+      fail: err => {
+        console.error('[云函数] [login] 调用失败', err)
+        // wx.navigateTo({
+        //   url: '../deployFunctions/deployFunctions',
+        // })
+      }
+    })
+  },
+
+  onGetUserInfo: function (e) {
+    if (!this.data.logged && e.detail.userInfo) {
+      this.setData({
+        logged: true,
+        avatarUrl: e.detail.userInfo.avatarUrl,
+        userInfo: e.detail.userInfo
+      })
+      console.log("userInfo", e.detail.userInfo)
+    }
+  },
+
   addContent(event){ content = event.detail.value },
   delContent(event) { holeId = event.detail.value },
   updId(event) { holeId = event.detail.value },
@@ -17,8 +74,8 @@ Page({
       data:{
         holeContent: content,
         holeType: "帖子",
-        userId: wx.getStorageSync('userId'),
-        userName: wx.getStorageSync('userName')
+        userId: app.globalData.openid,
+        userName: app.globalData.userInfo.nickName
       },
       success(res){
         console.log("添加数据成功", res)
@@ -70,52 +127,12 @@ Page({
       }
     })
   },
-  _handlerSubmit: function (evt) {
-    //console.log(evt)
-    // 1.get value
-    let account = evt.detail.value.account
-    let pwd = evt.detail.value.pwd
-    // console.log(account, pwd)
-    //2.save into cloud database
-    const db = wx.cloud.database()
-    const accountCollection = db.collection("Sample")
 
-    if (evt.detail.target.id === "login") {
-      accountCollection.where({
-        account: account,
-        pwd: pwd
-      }).get().then(res => {
-        if (res.data.length > 0) {
-          console.log("Login successful", res)
-        }
-        else {
-          console.log("Login unsuccessful", res)
-        }
-      }).catch(err => {
-        console.log("Login unsuccessful", err)
-      })
-    }
-    else {
-      accountCollection.add({
-        data: {
-          account: account,
-          pwd: pwd
-        },
-      })
-    }
-  },
   
   /**
    * Page initial data
    */
   data: {
-
-  },
-
-  /**
-   * Lifecycle function--Called when page load
-   */
-  onLoad: function (options) {
 
   },
 

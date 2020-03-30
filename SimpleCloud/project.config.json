@@ -35,24 +35,27 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 0,
+			"current": -1,
 			"list": [
-				{
-					"id": -1,
-					"name": "db guide",
-					"pathName": "pages/databaseGuide/databaseGuide",
-					"query": ""
-				},
 				{
 					"id": -1,
 					"name": "databaseTest",
 					"pathName": "pages/databaseTest/databaseTest",
+					"query": "",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "storageTest",
 					"pathName": "pages/storageTest/storageTest",
+					"query": "",
+					"scene": null
+				},
+				{
+					"id": -1,
+					"name": "pages/index/index",
+					"pathName": "pages/index/index",
+					"query": "",
 					"scene": null
 				}
 			]
