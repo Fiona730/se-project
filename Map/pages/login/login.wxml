@@ -1,0 +1,7 @@
+<view class="container">
+　　<view class='content'>
+　　　　<view>字条罗盘申请获取以下权限</view>
+　　　　<text>获得你的公开信息(位置，头像等)</text>
+　　</view>
+　　<button class='bottom' wx:if="{{canIUse}}" open-type="getUserInfo" bindgetuserinfo="bindGetUserInfo" type='primary'> 授权登录</button>
+</view>
