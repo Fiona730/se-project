@@ -4,7 +4,9 @@ const app = getApp()
 
 Page({
   data: {
-    canIUse: wx.canIUse('button.open-type.getUserInfo')
+    canIUse: wx.canIUse('button.open-type.getUserInfo'),
+    userInfo:null,
+    hasUserInfo:false,
   },
 
   onLoad: function () {

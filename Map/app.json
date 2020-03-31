@@ -1,5 +1,5 @@
 {
-  "pages": [
+  "pages": [ 
     "pages/login/login",
     "pages/map/map",
     "pages/setting/setting"

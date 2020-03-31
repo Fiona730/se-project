@@ -7,6 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    hasUserInfo: false,
     userInfo : {},
     switch1Chked : false,
     switch2Chked : false,
@@ -17,14 +18,22 @@ Page({
    */
   onLoad: function (options) {
     if(app.globalData.userInfo){
-      this.setData({userInfo:app.globalData.userInfo})
+      this.setData({userInfo:app.globalData.userInfo,
+          hasUserInfo:true})
+    }else{
+      this.setData({hasUserInfo:false})
+      //是否强制登录？
     }
   },
 
   tapLogout: function(){
     // 用户点击退出登录
+    app.globalData.userInfo = null;
+    wx.redirectTo({
+      url: '/pages/setting/setting',
+    })
     wx.showToast({
-      title: '开发中> <',
+      title: '退出登录成功',
       duration: 1500,
       mask: true,
     })
@@ -32,11 +41,19 @@ Page({
 
   tapUserPage: function(){
     // 用户点击用户页面入口
-    wx.showToast({
-      title: '开发中> <',
-      duration: 1500,
-      mask: true,
-    })
+    if(this.data.hasUserInfo){
+      wx.showToast({
+        title: '开发中> <',
+        duration: 1500,
+        mask: true,
+      })
+    }
+    else{
+      // 没登录...!
+      wx.redirectTo({
+        url: '/pages/login/login',
+      })
+    }
   },
 
   /**

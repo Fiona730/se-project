@@ -73,6 +73,20 @@ Page({
   },
 
   onLoad: function () {
+    // if (app.globalData.userInfo) {
+    //   console.log("用户信息存在")
+    //   this.setData({
+    //     userInfo: app.globalData.userInfo,
+    //     hasUserInfo: true
+    //   })
+    // }
+    // else{
+    //   this.setData({hasUserInfo: false})
+      // 强制跳转到登录界面？
+      // wx.navigateTo({url: '/pages/login/login',})
+    //}
+  },
+  onShow: function () {
     if (app.globalData.userInfo) {
       console.log("用户信息存在")
       this.setData({
@@ -80,11 +94,15 @@ Page({
         hasUserInfo: true
       })
     }
-  },
-  onShow: function () {
+    else {
+      this.setData({ hasUserInfo: false })
+      // 强制跳转到登录界面？
+      // wx.navigateTo({url: '/pages/login/login',})
+    }
     var that = this;
     that.setData({
-      location: true
+      location: true,
+      userInfo: app.globalData.userInfo,
     })
     that.getLocation()
   },
@@ -121,7 +139,7 @@ Page({
   },
   //点击未登录头像，登录
   nouser: function () {
-
+    wx.navigateTo({ url: '/pages/login/login', })
   },
   //点击帖子
   markertap: function () {
