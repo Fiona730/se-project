@@ -1,11 +1,12 @@
 {
   "pages": [
     "pages/login/login",
-    "pages/map/map"
+    "pages/map/map",
+    "pages/setting/setting"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#66ccff",
     "navigationBarTitleText": "字条罗盘",
     "navigationBarTextStyle": "black"
   },

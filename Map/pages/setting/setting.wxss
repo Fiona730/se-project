@@ -1,0 +1,109 @@
+/* pages/setting/setting.wxss */
+
+.set-container{
+  height: 100%;
+  width: 100%;
+  overflow-x:hidden;
+  padding: 25rpx 0rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*justify-content: space-between;*/
+  /* background: #F0F4F3; */
+  box-sizing: border-box;
+}
+
+.user {
+  width: 100%;
+  background: #ffffff;
+  padding: 25rpx 0;
+  margin: 15rpx 0 0 0;
+  border-top: 1px solid #eee;
+  border-bottom: 1px solid #dcdcdc;
+  box-shadow: 0 2px 5px #eeeeee;
+}
+.user .userinfo-avatar{
+  flex: 1;
+  display: inline-block;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 80rpx;
+}
+.user .user-info{
+  flex: 5;
+  text-align: left;
+}
+.user .user-info text{
+  display: block;
+}
+.user .user-info .userinfo-nickname{
+  padding: 0 0 10rpx 0;
+  font-size: 35rpx;
+  color: rgb(255, 190, 244);
+}
+.user .user-info .edit{
+  font-size: 30rpx;
+  color: #bababa;
+  line-height: 34rpx;
+}
+
+.avatar{
+  position: relative;
+  display: inline-block;
+}
+
+.my{
+  margin: 0 0 0 0;
+  border-top: solid 1px #ebebeb;
+  border-bottom: solid 1px #ebebeb;
+  box-shadow: 0 2px 5px #eeeeee;
+}
+.my .my-item{
+  display: flex;
+  flex-direction: row;
+  width: 750rpx;
+  background: #ffffff;
+  padding: 0rpx 0rpx;
+}
+
+.my .my-item .myitem-name{
+  flex: 5;
+  text-align: left;
+  font-size: 32rpx;
+  color: #6d6d6d;
+  line-height: 50rpx;
+  padding: 30rpx 30rpx;
+}
+
+.quit{
+  margin: 80rpx 0;
+}
+
+.quit .quit-btn{
+  text-align: center;
+  width: 500rpx;
+  height: 80rpx;
+}
+
+.quit .quit-btn .quit-text{
+  color: #ff6161;
+  font-size: 35rpx;
+}
+
+.switch{
+  margin: auto 20rpx auto 0;
+}
+
+.cells-title{
+  margin: 17rpx 0;
+  padding: 0 0 0 0;
+  width: 100%;
+  color: #9c9c9c;
+  font-size: 30rpx;
+}
+
+.title-text{
+  
+  text-align: left;
+  margin: 5rpx 15rpx;
+}

@@ -115,7 +115,9 @@ Page({
   },
   //点击头像，进入用户界面
   userchange: function () {
-    
+    wx.navigateTo({
+      url: '/pages/setting/setting',
+    })
   },
   //点击未登录头像，登录
   nouser: function () {

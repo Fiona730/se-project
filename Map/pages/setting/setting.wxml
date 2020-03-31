@@ -1,0 +1,53 @@
+<!--pages/setting/setting.wxml-->
+<view class="set-container">
+  <view class="user flex-wrp" bindtap="tapUserPage">
+    <view class="avatar flex-item">
+      <image class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+    </view>
+    <view class="user-info flex-item">
+      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+      <text class="edit">查看或编辑个人主页</text>
+    </view>
+  </view>
+
+  <view class="cells-title">
+    <text class="title-text">我的</text>
+  </view>
+  <view class="my">
+    <view class="my-item">
+      <view class="myitem-name">
+        <text>看不到我</text>
+      </view>
+      <view class="switch">
+        <switch checked="{{switch1Chked}}"></switch>
+      </view>
+    </view>
+  </view>
+
+  <view class="cells-title">
+    <text class="title-text">设置</text>
+  </view>
+
+  <view class="my">
+    <view class="my-item">
+      <view class="myitem-name flex-item">
+        <text>秘密机关</text>
+      </view>
+      <view class="switch">
+        <switch checked="{{switch2Chked}}"></switch>
+      </view>
+    </view>
+  </view>
+
+  <view class="cells-title">
+    <text class="title-text">开发选项</text>
+  </view>
+
+
+  <view class="quit flex-wrp">
+    <button class="quit-btn flex-item" bindtap="tapLogout">
+      <text class="quit-text">退出登录</text>
+    </button>
+  </view>
+
+</view>

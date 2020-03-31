@@ -8,3 +8,13 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+.flex-wrp{
+  display: flex;
+}
+
+.flex-item{
+  flex-grow: 1;
+  text-align: center;
+}
+
