@@ -139,7 +139,7 @@ Page({
   },
   //点击未登录头像，登录
   nouser: function () {
-    wx.navigateTo({ url: '/pages/login/login', })
+    wx.navigateTo({ url: '/pages/setting/setting', })
   },
   //点击帖子
   markertap: function () {
