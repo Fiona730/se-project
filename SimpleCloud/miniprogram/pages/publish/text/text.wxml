@@ -19,6 +19,16 @@
       <input class="input" placeholder="请输入内容" bindinput="contentInput"/>
   </view>
 
+  <!-- <view class="button2" bindtap="doUpload">
+    <text>上传图片</text>
+  </view> -->
+    <view class="container">
+    <view class="button2" bindtap="doUpload">
+      <text>上传图片</text>
+    </view>
+      <image class="show-image" src="{{imgPath}}" mode="aspectFit"></image>
+  </view>
+
   <view class="button1">
       <button bindtap="bindButtonPublish">发布</button>
   </view>

@@ -2,7 +2,10 @@
   "pages": [
     "pages/index/index",
     "pages/databaseTest/databaseTest",
-    "pages/storageTest/storageTest"
+    "pages/storageTest/storageTest",
+    "pages/publish/text/text",
+    "pages/publish/meet/meet",
+    "pages/publish/checkin/checkin"
   ],
   "window": {
     "backgroundTextStyle": "light",
