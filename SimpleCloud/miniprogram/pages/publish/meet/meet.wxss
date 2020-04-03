@@ -34,3 +34,15 @@
   font-size: 27rpx;
   color: #fff;
 }
+.button2{
+  margin: 58rpx 0 40rpx;
+  width:150rpx;
+  height: 74rpx;
+  float: left;
+  background: linear-gradient(to right, rgb(13, 130, 185) , rgb(74, 178, 226)); 
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 74rpx;
+  font-size: 27rpx;
+  color: #fff;
+}

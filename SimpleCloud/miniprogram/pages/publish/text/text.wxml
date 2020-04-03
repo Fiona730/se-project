@@ -18,7 +18,10 @@
   <view class="box2">
       <input class="input" placeholder="请输入内容" bindinput="contentInput"/>
   </view>
-
+  
+  <view class="locationBox">
+      {{position.latitude}},{{position.longitude}}
+  </view>
   <!-- <view class="button2" bindtap="doUpload">
     <text>上传图片</text>
   </view> -->

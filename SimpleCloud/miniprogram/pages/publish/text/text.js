@@ -5,6 +5,7 @@ Page({
     titleValue: '',
     contentValue: '',
     imgPath: '',
+    position: null
   },
   titleInput: function (e) {
     this.setData({
@@ -22,8 +23,15 @@ Page({
       tag: 'text', 
       title: this.data.titleValue, 
       content: this.data.contentValue,
-      img: this.data.imgPath
+      img: this.data.imgPath,
+      position: this.data.position
     });
+    wx.showToast({
+      title: '发布成功',
+      icon: 'success',
+      duration: 1000,
+    });
+    setTimeout(function () { wx.navigateBack();}, 1000);
   },
   doUpload: function(){
     let _this = this;
@@ -114,6 +122,18 @@ Page({
 
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
+    let _this = this;
+    wx.getLocation({
+      success: function(res) {
+        _this.setData({
+          position: res
+        });
+      },
+      fail: function(e){
+        console.error(e);
+        wx.navigateBack()
+      }
+    })
   },
   onReady: function () {
     // 页面渲染完成
