@@ -1,0 +1,36 @@
+.container{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+}
+.mask{
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,.0);
+  position:fixed;
+  top:0;
+}
+.query {
+  z-index: 999;
+  background-color: #fff;
+  position: fixed;
+  top: 20%;
+  width: 412rpx;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  height: 594rpx;
+  padding: 71rpx 56rpx 55rpx;
+  border-radius: 30rpx;
+}
+.button1{
+  margin: 58rpx 0 40rpx;
+  width:411rpx;
+  height: 74rpx;
+  background: linear-gradient(to right, #2EB90D , #67E24A); 
+  border-radius: 50rpx;
+  text-align: center;
+  line-height: 74rpx;
+  font-size: 27rpx;
+  color: #fff;
+}

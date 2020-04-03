@@ -117,4 +117,29 @@ Page({
     })
   },
 
+  /*************************/
+  publishSelect: function(){
+    wx.showActionSheet({
+      itemList: ['图文', '签到', '集合点'],
+      success: res => {
+        switch(res.tapIndex){
+          case 0:
+            wx.navigateTo({
+              url: '../publish/text/text',
+            })
+          break;
+          case 1:
+            wx.navigateTo({
+              url: '../publish/checkin/checkin',
+            })
+          break;
+          case 2:
+            wx.navigateTo({
+              url: '../publish/meet/meet',
+            })
+          break;
+        }
+      }
+    })
+  },
 })
