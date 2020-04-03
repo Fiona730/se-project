@@ -35,7 +35,7 @@
   color: #fff;
 }
 .button2{
-  margin: 58rpx 0 40rpx;
+  margin: 20rpx 0 20rpx;
   width:150rpx;
   height: 74rpx;
   float: left;
@@ -45,4 +45,11 @@
   line-height: 74rpx;
   font-size: 27rpx;
   color: #fff;
+}
+.locationBox{
+  background: rgb(192, 192, 192); /* TO FIX：这颜色肯定得改_(:з)∠)_ */
+  margin: 20rpx 0 20rpx;
+  text-align: left;
+  width: 200rpx;
+  font-size: 20rpx;
 }

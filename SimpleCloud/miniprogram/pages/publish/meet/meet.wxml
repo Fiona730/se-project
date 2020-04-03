@@ -18,16 +18,37 @@
   <view class="box2">
       <input class="input" placeholder="请输入内容" bindinput="contentInput"/>
   </view>
-
+  
+  <view class="locationBox">
+      {{position.latitude}},{{position.longitude}}
+  </view>
   <!-- <view class="button2" bindtap="doUpload">
     <text>上传图片</text>
   </view> -->
-    <view class="container">
+    <!-- <view class="container">
     <view class="button2" bindtap="doUpload">
       <text>上传图片</text>
     </view>
       <image class="show-image" src="{{imgPath}}" mode="aspectFit"></image>
+  </view> -->
+  <view class="section">
+    <view class="section__title"></view>
+    <picker mode="date" value="{{date}}" start="2020-03-19" end="2099-12-31" bindchange="bindDateChange">
+      <view class="picker">
+        集合日期: {{date}}
+      </view>
+    </picker>
   </view>
+
+  <view class="section">
+    <view class="section__title"></view>
+    <picker mode="time" value="{{time}}" start="00:00" end="23:59" bindchange="bindTimeChange">
+      <view class="picker">
+        集合时间: {{time}}
+      </view>
+    </picker>
+  </view>
+
 
   <view class="button1">
       <button bindtap="bindButtonPublish">发布</button>
