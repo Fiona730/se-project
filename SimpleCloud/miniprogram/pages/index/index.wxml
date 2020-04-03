@@ -34,10 +34,10 @@
     </navigator>
   </view>
 
-  <!-- 即时通信 -->
+  <!-- 发帖 -->
   <view class="uploader">
-    <navigator url="../im/im" open-type="navigate" class="uploader-text">
-      <text>即时通信 Demo</text>
+    <navigator url="../publish/publish" open-type="navigate" class="uploader-text">
+      <text>发帖</text>
     </navigator>
   </view>
 
