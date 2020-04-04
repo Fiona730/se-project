@@ -12,11 +12,14 @@
     bindregionchange="regionchange" 
     style="width: 100%; height: 100vh;">
     <cover-view class="top">
-      <cover-view wx:if="{{hasUserInfo}}" class="userinfo" bindtap="userchange">
+      <cover-view wx:if="{{hasUserInfo && !userInfo.avatarUrl}}" class="userinfo" bindtap="userchange">
+        <cover-image class="userinfo-avatar" src="/resources/nouser.png"></cover-image>
+      </cover-view>
+      <cover-view wx:elif="{{hasUserInfo}}" class="userinfo" bindtap="userchange">
         <cover-image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></cover-image>
       </cover-view>
       <cover-view wx:else class="nouser" bindtap="nouser">
-        <cover-image class="userinfo-avatar" src="/resources/nouser.png"></cover-image>
+        <cover-image class="userinfo-avatar" src="/resources/nouser_akarin.jpg"></cover-image>
       </cover-view>
        <cover-view class="search-box">
         <cover-view class='wordholder' bindtap='tapInput'>
