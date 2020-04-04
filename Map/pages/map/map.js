@@ -206,13 +206,19 @@ Page({
       duration: 400,
       timingFunction: 'ease-out'
     })
+    var animationchk = wx.createAnimation({
+      duration: 400,
+      timingFunction: 'ease-out'
+    })
     animationadd.rotateZ(45).step();
     animationloc.translate(-80, 0).rotateZ(360).opacity(1).step();
     animationmail.translate(80, 0).rotateZ(360).opacity(1).step();
+    animationchk.translate(0, -80).rotateZ(360).opacity(1).step();
     this.setData({
       animadd: animationadd.export(),
       animloc: animationloc.export(),
       animmail: animationmail.export(),
+      animchk: animationchk.export(),
     })
   },
   //收回动画
@@ -230,13 +236,37 @@ Page({
       duration: 400,
       timingFunction: 'ease-out'
     })
+    var animationchk = wx.createAnimation({
+      duration: 400,
+      timingFunction: 'ease-out'
+    })
     animationadd.rotateZ(0).step();
     animationloc.translate(0, 0).rotateZ(0).opacity(0).step();
     animationmail.translate(0, 0).rotateZ(0).opacity(0).step();
+    animationchk.translate(0, 0).rotateZ(0).opacity(0).step();
     this.setData({
       animadd: animationadd.export(),
       animloc: animationloc.export(),
       animmail: animationmail.export(),
+      animchk: animationchk.export(),
     })
   },
+  //图文
+  addmail: function (){
+    wx.navigateTo({
+      url: '../publish/text/text',
+    })
+  },
+  //集合点
+  addloc: function () {
+    wx.navigateTo({
+      url: '../publish/meet/meet',
+    })
+  },
+  //签到
+  addchk: function () {
+    wx.navigateTo({
+      url: '../publish/checkin/checkin',
+    })
+  }
 })

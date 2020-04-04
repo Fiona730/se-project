@@ -2,7 +2,10 @@
   "pages": [ 
     "pages/login/login",
     "pages/map/map",
-    "pages/setting/setting"
+    "pages/setting/setting",
+    "pages/publish/text/text",
+    "pages/publish/meet/meet",
+    "pages/publish/checkin/checkin"
   ],
   "window": {
     "backgroundTextStyle": "light",

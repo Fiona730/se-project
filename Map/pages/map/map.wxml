@@ -41,6 +41,9 @@
     <cover-view class="addbottom" bindtap="addmail" animation="{{animmail}}">
       <cover-image class="marker" src="/resources/mail.png"></cover-image>
     </cover-view>
+    <cover-view class="addbottom" bindtap="addchk" animation="{{animchk}}">
+      <cover-image class="marker" src="/resources/checkin.png"></cover-image>
+    </cover-view>
     <cover-view class="add" bindtap="add" animation="{{animadd}}">
       <cover-image class="marker" src="/resources/add.png"></cover-image>
     </cover-view>
