@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   data: {
     focus: false,
@@ -24,7 +25,7 @@ Page({
         holeTitle: this.data.titleValue,
         holeContent: this.data.titleValue,
         holeType: "帖子",
-        img: this.data.imgPath,
+        imgPath: this.data.imgPath,
         position: this.data.position,
         userId: app.globalData.openid,
         userName: app.globalData.userInfo.nickName
@@ -36,13 +37,13 @@ Page({
         console.log("添加数据失败", res)
       }
     })
-    console.log({
-      tag: 'text', 
-      title: this.data.titleValue, 
-      content: this.data.contentValue,
-      img: this.data.imgPath,
-      position: this.data.position
-    });
+    // console.log({
+    //   tag: 'text', 
+    //   title: this.data.titleValue, 
+    //   content: this.data.contentValue,
+    //   img: this.data.imgPath,
+    //   position: this.data.position
+    // });
     wx.showToast({
       title: '发布成功',
       icon: 'success',
