@@ -64,7 +64,7 @@ Page({
       });
       app.globalData.userInfo = info.detail.userInfo;
       console.log(app.globalData);
-      wx.navigateTo({
+      wx.redirectTo({
         url: "/pages/map/map"
       })
 

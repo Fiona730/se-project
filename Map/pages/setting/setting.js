@@ -9,6 +9,8 @@ Page({
   data: {
     hasUserInfo: false,
     userInfo : {},
+    isDev: true,
+    msgNum: 0,
     switch1Chked : false,
     switch2Chked : false,
   },
@@ -32,21 +34,13 @@ Page({
     wx.redirectTo({
       url: '/pages/setting/setting',
     })
-    wx.showToast({
-      title: '退出登录成功',
-      duration: 1500,
-      mask: true,
-    })
+    this.saySth("已退出")
   },
 
   tapUserPage: function(){
     // 用户点击用户页面入口
     if(this.data.hasUserInfo){
-      wx.showToast({
-        title: '开发中> <',
-        duration: 1500,
-        mask: true,
-      })
+      this.saySth('开发中> <')
     }
     else{
       // 没登录...!
@@ -54,6 +48,30 @@ Page({
         url: '/pages/login/login',
       })
     }
+  },
+
+  saySth:function(sth){
+    wx.showToast({
+      title: sth,
+      duration: 1500,
+      mask: true,
+    })
+  },
+
+  toMessages: function(){
+    this.saySth("开发中> <")
+  },
+
+  toFriends:function(){
+    this.saySth("开发中> <")
+  },
+
+  toPosts:function(){
+    this.saySth("开发中> <")
+  },
+
+  toCollections:function(){
+    this.saySth("开发中> <")
   },
 
   /**
@@ -81,13 +99,6 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
 
   },
 

@@ -39,7 +39,7 @@
 .user .user-info .userinfo-nickname{
   padding: 0 0 10rpx 0;
   font-size: 35rpx;
-  color: rgb(255, 190, 244);
+  color: #ffc0cb;
 }
 .user .user-info .edit{
   font-size: 30rpx;
@@ -54,15 +54,18 @@
 
 .my{
   margin: 0 0 0 0;
-  border-top: solid 1px #ebebeb;
+  border-top: solid 1px #dcdcdc;
   border-bottom: solid 1px #ebebeb;
   box-shadow: 0 2px 5px #eeeeee;
 }
 .my .my-item{
   display: flex;
   flex-direction: row;
+  align-items: center;
   width: 750rpx;
+  height: 105rpx;
   background: #ffffff;
+  border-bottom: 1px solid #eee;
   padding: 0rpx 0rpx;
 }
 
@@ -72,7 +75,7 @@
   font-size: 32rpx;
   color: #6d6d6d;
   line-height: 50rpx;
-  padding: 30rpx 30rpx;
+  padding: 0rpx 30rpx;
 }
 
 .quit{
@@ -82,16 +85,16 @@
 .quit .quit-btn{
   text-align: center;
   width: 500rpx;
-  height: 80rpx;
+  height: 85rpx;
 }
 
 .quit .quit-btn .quit-text{
   color: #ff6161;
-  font-size: 35rpx;
+  font-size: 36rpx;
 }
 
 .switch{
-  margin: auto 20rpx auto 0;
+  margin: 0 5rpx 0 0;
 }
 
 .cells-title{
@@ -106,4 +109,25 @@
   
   text-align: left;
   margin: 5rpx 15rpx;
+}
+
+.remind-num{
+	border-radius: 30%;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+
+	font-size: 35rpx;
+  font-weight: 600;
+
+  margin: 0 20rpx 0 0;
+	text-align: center;
+  align-items: center;
+	width: 75rpx;
+	line-height: 50rpx;
+	height: 50rpx;
+	color: #ffffff;
+	z-index: 100;
+	background-color: #cfcfcf;
 }

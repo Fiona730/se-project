@@ -18,12 +18,27 @@
       <text class="title-text">我的</text>
     </view>
     <view class="my">
-      <view class="my-item">
+      <view class="my-item" bindtap="toMessages">
         <view class="myitem-name">
-          <text>看不到我</text>
+          <text>我的消息</text>
         </view>
-        <view class="switch">
-          <switch checked="{{switch1Chked}}"></switch>
+        <view class="remind-num">
+          {{msgNum}}
+        </view>
+      </view>
+      <view class="my-item" bindtap="toFriends">
+        <view class="myitem-name">
+          <text>我的好友</text>
+        </view>
+      </view>
+      <view class="my-item" bindtap="toPosts">
+        <view class="myitem-name">
+          <text>我发布的</text>
+        </view>
+      </view>
+      <view class="my-item" bindtap="toCollections">
+        <view class="myitem-name">
+          <text>我的收藏</text>
         </view>
       </view>
     </view>
@@ -34,21 +49,29 @@
 
     <view class="my">
       <view class="my-item">
-        <view class="myitem-name flex-item">
+        <view class="myitem-name">
           <text>秘密机关</text>
         </view>
         <view class="switch">
-          <switch checked="{{switch2Chked}}"></switch>
+          <switch checked="{{switch1Chked}}"></switch>
         </view>
       </view>
     </view>
 
-    <view class="cells-title">
-      <text class="title-text">开发者选项</text>
+    <view wx:if="{{isDev}}">
+      <view class="cells-title">
+        <text class="title-text">开发者选项</text>
+      </view>
+      <view class ="my">
+      <view class="my-item">
+        <view class="myitem-name">
+          <text>变身！</text>
+        </view>
+      </view>
+      </view>
     </view>
 
-
-    <view class="quit flex-wrp">
+    <view class="quit flex-item">
       <button class="quit-btn flex-item" bindtap="tapLogout">
         <text class="quit-text">退出登录</text>
       </button>
