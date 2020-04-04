@@ -18,7 +18,24 @@ Page({
     })
   },
   bindButtonPublish: function () {
-    // console.log("主题：" + this.data.titleValue + " 内容：" + this.data.contentValue);
+    wx.cloud.callFunction({
+      name: "addHole",
+      data: {
+        holeTitle: this.data.titleValue,
+        holeContent: this.data.titleValue,
+        holeType: "帖子",
+        img: this.data.imgPath,
+        position: this.data.position,
+        userId: app.globalData.openid,
+        userName: app.globalData.userInfo.nickName
+      },
+      success(res) {
+        console.log("添加数据成功", res)
+      },
+      fail(res) {
+        console.log("添加数据失败", res)
+      }
+    })
     console.log({
       tag: 'text', 
       title: this.data.titleValue, 
