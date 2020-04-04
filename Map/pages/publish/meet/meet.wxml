@@ -22,15 +22,7 @@
   <view class="locationBox">
       {{position.latitude}},{{position.longitude}}
   </view>
-  <!-- <view class="button2" bindtap="doUpload">
-    <text>上传图片</text>
-  </view> -->
-    <!-- <view class="container">
-    <view class="button2" bindtap="doUpload">
-      <text>上传图片</text>
-    </view>
-      <image class="show-image" src="{{imgPath}}" mode="aspectFit"></image>
-  </view> -->
+
   <view class="section">
     <view class="section__title"></view>
     <picker mode="date" value="{{date}}" start="2020-03-19" end="2099-12-31" bindchange="bindDateChange">

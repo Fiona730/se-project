@@ -1,6 +1,12 @@
 App({
   onLaunch: function () {
     var that = this;
+    if (wx.cloud) {
+      wx.cloud.init({
+        env: 'se-course-0ypqs',
+        traceUser: true
+      })
+    }
     // 获取系统信息
     wx.getSystemInfo({
       success: function(res){
