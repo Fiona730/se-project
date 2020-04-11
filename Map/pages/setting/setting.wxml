@@ -12,7 +12,7 @@
     </view>
   </view>
 
-  <view wx:if="{{hasUserInfo}}">
+  <block wx:if="{{hasUserInfo}}">
 
     <view class="cells-title">
       <text class="title-text">我的</text>
@@ -24,11 +24,6 @@
         </view>
         <view class="remind-num">
           {{msgNum}}
-        </view>
-      </view>
-      <view class="my-item" bindtap="toFriends">
-        <view class="myitem-name">
-          <text>我的好友</text>
         </view>
       </view>
       <view class="my-item" bindtap="toPosts">
@@ -58,7 +53,7 @@
       </view>
     </view>
 
-    <view wx:if="{{isDev}}">
+    <block wx:if="{{isDev}}">
       <view class="cells-title">
         <text class="title-text">开发者选项</text>
       </view>
@@ -69,7 +64,7 @@
         </view>
       </view>
       </view>
-    </view>
+    </block>
 
     <view class="quit flex-item">
       <button class="quit-btn flex-item" bindtap="tapLogout">
@@ -77,6 +72,6 @@
       </button>
     </view>
 
-  </view>
+  </block>
 
 </view>

@@ -67,6 +67,9 @@ Page({
   },
 
   toPosts:function(){
+    wx.navigateTo({
+      url: '/pages/userpage/posts/posts',
+    })
     this.saySth("开发中> <")
   },
 
