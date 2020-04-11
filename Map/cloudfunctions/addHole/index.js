@@ -12,7 +12,7 @@ exports.main = async (event, context) => {
       content: event.holeContent,
       type: event.holeType,
       img: event.imgPath,
-      position: event.position,
+      position: db.Geo.Point(event.position.longitude, event.position.latitude),
       createTime: db.serverDate(),
       hot:1,
       num_likes: 0,
