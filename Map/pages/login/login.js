@@ -52,16 +52,30 @@ Page({
     if (info.detail.userInfo) {
       console.log("点击了同意授权");
       var that = this
-      wx.login({
-        success: function (res) {
-          if (res.code) {
-            //后端交互获取用户信息
-          }
-          else {
-            console.log("授权失败");
-          }
+      // wx.login({
+      //   success: function (res) {
+      //     if (res.code) {
+      //       //后端交互获取用户信息
+      //       console.log(res)
+      //       console.log(res.code)
+      //     }
+      //     else {
+      //       console.log("授权失败");
+      //     }
+      //   },
+      // });
+      wx.cloud.callFunction({
+        name: 'login',
+        data: {},
+        success: res => {
+          console.log('[云函数] [login] user openid: ', res.result.openid)
+          app.globalData.openid = res.result.openid
         },
-      });
+        fail: err => {
+          console.error('[云函数] [login] 调用失败', err)
+        }
+      })
+
       app.globalData.userInfo = info.detail.userInfo;
       console.log(app.globalData);
       wx.redirectTo({
