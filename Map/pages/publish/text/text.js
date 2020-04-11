@@ -23,7 +23,7 @@ Page({
       name: "addHole",
       data: {
         holeTitle: this.data.titleValue,
-        holeContent: this.data.titleValue,
+        holeContent: this.data.contentValue,
         holeType: "帖子",
         imgPath: this.data.imgPath,
         position: this.data.position,
