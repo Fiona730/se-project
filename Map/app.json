@@ -3,6 +3,7 @@
     "pages/login/login",
     "pages/map/map",
     "pages/setting/setting",
+    "pages/read/read",
     "pages/publish/text/text",
     "pages/publish/meet/meet",
     "pages/publish/checkin/checkin"
