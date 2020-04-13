@@ -21,60 +21,9 @@ Page({
   onLoad: function (options) {
     let _this = this;
     if(app.globalData.userInfo){
-      _this.setData({userInfo:app.globalData.userInfo,
-          hasUserInfo:true})
-      wx.cloud.callFunction({
-        name: "getUser",
-        data: {
-          openId: app.globalData.openid
-        },
-        success(res){
-          console.log("请求getUser云函数成功", res)
-          if (res.result.data.length === 1)
-            {
-              console.log("获得UserData", res)
-              _this.setData({userData: res.result.data[0]})
-            }
-          else if (res.result.data.length === 0)
-            {
-              console.log("无该User记录，新建数据库条目", res)
-              wx.cloud.callFunction(
-                {
-                  name: "addUser",
-                  data: {
-                    openId: app.globalData.openid,
-                    userInformation: app.globalData.userInfo,
-                    nickName: app.globalData.userInfo.nickName
-                  },
-                  success(res){
-                    console.log("请求addUser云函数成功", res)
-                    wx.cloud.callFunction({
-                      name: "getUser",
-                      data: {
-                        openId: app.globalData.openid
-                      },
-                      success(res){
-                        console.log("添加用户后请求getUser云函数成功", res)
-                        _this.setData({userData: res.result.data[0]})
-                      },
-                      fail(res){
-                        console.log("添加用户后请求addUser云函数失败", res)
-                      }
-                    })
-                  },
-                  fail(res){
-                    console.log("请求addUser云函数失败", res)
-                  }
-                }
-              )
-            }
-          else {
-            console.log("多于1个User条目", res)
-          }
-        },
-        fail(res){
-          console.log("请求getUser云函数失败", res)
-        }
+      _this.setData({
+        userInfo:app.globalData.userInfo, hasUserInfo:true,
+        userData: app.globalData.userData
       })
     }else{
       this.setData({hasUserInfo:false})
@@ -140,13 +89,11 @@ Page({
       }
     })
   },
-
+  
   toPosts:function(){
     wx.navigateTo({
       url: '/pages/userpage/posts/posts',
-    })
-    this.saySth("开发中> <")
-    // this.data.userData.posts
+    })   
   },
 
   toCollections:function(){

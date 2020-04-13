@@ -36,6 +36,7 @@ Page({
         }
       })
     }
+
   },
   getUserInfo: function (e) {
     app.globalData.userInfo = e.detail.userInfo;
@@ -51,7 +52,7 @@ Page({
     console.log(info);
     if (info.detail.userInfo) {
       console.log("点击了同意授权");
-      var that = this
+      let _this = this;
       // wx.login({
       //   success: function (res) {
       //     if (res.code) {
@@ -70,14 +71,67 @@ Page({
         success: res => {
           console.log('[云函数] [login] user openid: ', res.result.openid)
           app.globalData.openid = res.result.openid
+          app.globalData.userInfo = info.detail.userInfo;
+          console.log(app.globalData);
+          wx.cloud.callFunction({
+            name: "getUser",
+            data: {
+              openId: app.globalData.openid
+            },
+            success(res){
+              console.log("请求getUser云函数成功", res)
+              if (res.result.data.length === 1)
+                {
+                  console.log("获得UserData", res)
+                  app.globalData.userData = res.result.data[0]
+                }
+              else if (res.result.data.length === 0)
+                {
+                  console.log("无该User记录，新建数据库条目", res)
+                  wx.cloud.callFunction(
+                    {
+                      name: "addUser",
+                      data: {
+                        openId: app.globalData.openid,
+                        userInformation: app.globalData.userInfo,
+                        nickName: app.globalData.userInfo.nickName
+                      },
+                      success(res){
+                        console.log("请求addUser云函数成功", res)
+                        wx.cloud.callFunction({
+                          name: "getUser",
+                          data: {
+                            openId: app.globalData.openid
+                          },
+                          success(res){
+                            console.log("添加用户后请求getUser云函数成功", res)
+                            app.globalData.userData = res.result.data[0]
+                          },
+                          fail(res){
+                            console.log("添加用户后请求getUser云函数失败", res)
+                          }
+                        })
+                      },
+                      fail(res){
+                        console.log("请求addUser云函数失败", res)
+                      }
+                    }
+                  )
+                }
+              else {
+                console.log("多于1个User条目", res)
+              }
+            },
+            fail(res){
+              console.log("请求getUser云函数失败", res)
+            }
+          })
         },
         fail: err => {
           console.error('[云函数] [login] 调用失败', err)
         }
       })
 
-      app.globalData.userInfo = info.detail.userInfo;
-      console.log(app.globalData);
       wx.redirectTo({
         url: "/pages/map/map"
       })
