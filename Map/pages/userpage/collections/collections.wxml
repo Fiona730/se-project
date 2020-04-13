@@ -1,9 +1,15 @@
-<!--pages/userpage/posts/posts.wxml-->
+<!--pages/userpage/collections/collections.wxml-->
 
 <scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
 
   <block wx:for="{{pposts}}">
     <view class="feed-item" bindtap="tapPost" data-idx="{{index}}">
+      <view class="feed-user">
+        <view class="avatar">
+        <image src="/resources/nouser_akarin.jpg"></image>
+        </view>
+        <text>{{item.user_name}}</text>
+      </view>
       <view class="feed-content"> 
         <view class="title">
           <text>{{item.title}}</text>

@@ -1,4 +1,4 @@
-/* pages/userpage/posts/posts.wxss */
+/* pages/userpage/collections/collections.wxss */
 .post-container{
   height: 100%;
   width: 100%;
@@ -8,9 +8,9 @@
 
 .feed-item{
   width: 670rpx;
-  height: 170rpx;
+  height: 235rpx;
   border-radius: 15rpx;
-  padding: 28rpx 30rpx;
+  padding: 20rpx 30rpx;
   margin: 13rpx;
   background: #ffffff;
   border-top: 1px solid #eee;
@@ -21,26 +21,46 @@
   width: 690rpx;
   left: 0;
   height: 50rpx;
+  margin-bottom: 10rpx;
 }
+
+.feed-item .feed-user .avatar{
+  position: relative;
+  display: inline-block;
+  border-color: #5b5b5b;
+}
+
+.feed-item .feed-user .avatar image{
+  display: inline-block;
+  width: 45rpx;
+  height: 45rpx;
+  border-radius: 45rpx;
+  
+  top: 10rpx;
+  vertical-align: middle;
+}
+
 .feed-item .feed-user text{
   display: inline-block;
-  he     ssdddight: 40rpx;
+  height: 40rpx;
   line-height: 40rpx;
   vertical-align: middle;
   margin: 0 0 0 18rpx;
-  color: #a0acac;
+  color: #ffc0cb;
   font-size: 26rpx;
 }
+
 .feed-item .item-more{
   display: inline-block;
   width: 40rpx;
   height: 45rpx;
 }
+
 .feed-item .feed-content{
   padding: 2rpx 0 0 0;
 }
 .feed-item .feed-content .title{
-  font-size: 32rpx;
+  font-size: 30rpx;
   font-weight: 600;
   line-height: 35rpx;
 }

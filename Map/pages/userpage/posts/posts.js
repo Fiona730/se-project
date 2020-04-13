@@ -29,15 +29,11 @@ Page({
   tapPost:function(e){
     // 进入相应帖子的查看界面
     let idx = e.currentTarget.dataset.idx;
-    this.saySth(`你点击了帖子${idx}`);
+    // this.saySth(`你点击了帖子${idx}`);
   },
 
   saySth: function (sth) {
-    wx.showToast({
-      title: sth,
-      duration: 1500,
-      mask: true,
-    })
+    
   },
 
   getPostsFromUser:function(){
@@ -57,7 +53,7 @@ Page({
     })
     let user_posts = app.globalData.userData.posts;
     let len = user_posts.length;
-    let pposts_value = [];
+    let pposts_value = _this.data.pposts;
     for(let i=0; i<len; i++){
       wx.cloud.callFunction({
         name: "getHolebyId",
@@ -70,9 +66,10 @@ Page({
             title:res.result.data.title,
             content: res.result.data.content,
             num_likes: res.result.data.num_likes,
-            num_replies: res.result.data.replies,
-            createTime: res.result.data.createTime,
+            num_replies: res.result.data.num_reply,
+            createTime: res.result.data.createTime.substring(0,10),
           })
+          _this.setData({pposts: pposts_value})
         },
         fail(res){
           console.log("请求getHolebyId云函数失败", res)
@@ -118,5 +115,17 @@ Page({
   onUnload: function () {
 
   },
+
+  onReachBottom: function(){
+    // 不一次加载全部帖子：lazyLoading
+    // Todo：加载下一批帖子
+    // 好像很复杂 之后再说把= =
+    wx.showToast({
+      title: 'Loading More...',
+      icon: 'loading',
+      duration: 1500,
+      // mask:true,
+    })
+  }
 
 })
