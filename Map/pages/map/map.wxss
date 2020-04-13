@@ -25,10 +25,11 @@
   top: 0;
   left: 0;
   padding: 30rpx 20rpx;
+  background: rgba(145, 139, 139, 0.164);
   z-index: 10;
   overflow: hidden;
 }
-.top .userinfo  {
+.top .userimg  {
   width: 80rpx;
   height: 80rpx;
   text-align: center;
@@ -120,7 +121,22 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
+.tablist .tab .existtab {
+  width: 30rpx;
+  height: 30rpx;
+  text-align: center;
+  border-radius: 50%;
+  background: #1bf8267a;
+  float: left;
+}
+.tablist .tab .notexisttab {
+  width: 30rpx;
+  height: 30rpx;
+  text-align: center;
+  border-radius: 50%;
+  background: #fa23237a;
+  float: left;
+}
 
 .location {
   width: 100rpx;
