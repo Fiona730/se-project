@@ -2,7 +2,8 @@
 <view class="set-container">
   <view class="user flex-wrp" bindtap="tapUserPage">
     <view class="avatar flex-item">
-      <image wx:if="{{hasUserInfo}}" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <image wx:if="{{hasUserInfo && !userInfo.avatarUrl}}" class="userinfo-avatar" src="/resources/nouser.png" background-size="cover"></image>
+      <image wx:elif="{{hasUserInfo}}" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <image wx:else class="userinfo-avatar" src="/resources/nouser_akarin.jpg" background-size="cover"></image>
     </view>
     <view class="user-info flex-item">
