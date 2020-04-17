@@ -67,7 +67,7 @@ Page({
     });
     setTimeout(function () { wx.navigateBack();}, 1000);
   },
-  doUpload: function(){
+  chooseImage: function(){
     let _this = this;
     wx.chooseImage({
       count: 1,
@@ -88,7 +88,18 @@ Page({
         wx.hideLoading();
       }
     })
-    
+  },
+  editImage:function(){
+    this.setData({
+      editable: !this.data.editable
+    })
+  },
+  deleteImg:function(e){
+    console.log(e.currentTarget.dataset.index);
+    this.setData({
+      editable: !this.data.editable,
+      imgPath: ''
+    })
   },
 
   onLoad: function (options) {

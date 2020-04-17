@@ -1,39 +1,34 @@
-<view class='container'>
-  <view class='mask'></view>
-  <view class="query">
-  
-  <view class="viewTitle">
-      <text class="view-Name">主题</text>
-      <view class="lineView"></view>
-  </view>
-  <view class="box1">
-      <input class="input" maxlength="10" placeholder="最大输入长度10" bindinput="titleInput" />
-  </view>
-
-  <view class="viewTitle">
-      <text class="view-Name">内容</text>
-      <view class="lineView"></view>
-  </view>
-
-  <view class="box2">
-      <input class="input" placeholder="请输入内容" bindinput="contentInput"/>
-  </view>
-  
-  <view class="locationBox">
-      {{position.latitude}},{{position.longitude}}
-  </view>
-
-  <view class="container">
-    <view class="button2" bindtap="doUpload">
-      <text>上传图片</text>
-    </view>
-    <button bindtap="bindButtonPublish">发布</button>
-      <image class="show-image" src="{{imgPath}}" mode="aspectFit"></image>
-  </view>
-
-  <view class="button1">
-      <button bindtap="bindButtonPublish">发布</button>
-  </view>
-
-  </view>
+<view class="container">
+	<view class="container-body container-gray">
+			<view class="group-header">我的位置：{{position.latitude}},{{position.longitude}}</view>
+      <!-- <view class="group-header">我的位置：</view> -->
+			<view class="group-body">
+				<view class="input-list">
+					<view class="input-item">
+						<text class="input-item-label">主题</text>
+						<view class="input-item-content">
+							<input type="text" auto-focus placeholder="1~10字，想说点什么……？" bindinput="titleInput" maxlength="10"></input>
+						</view>
+					</view>
+				</view>
+			</view>
+		<view class="group">
+			<view class="group-body">
+				<textarea placeholder="整点儿内容" maxlength="1000" bindinput="contentInput"></textarea>
+			</view>
+			<view class="group-header">上传图片</view>
+			<view class="group-body">
+				<view class="img-upload">
+					<view class="img-add" bindtap="chooseImage" wx:if="{{imgPath === ''}}"></view>
+					<view class="img-item" bindlongtap="editImage">
+						<icon type="clear" size="20" color="red" style="display:{{editable ? 'block':'none'}}" bindtap="deleteImg"/>
+						<image src="{{imgPath}}" mode="aspectFill"></image>
+					</view>
+				</view>
+			</view>
+		</view>
+		<view class="btn-submit">
+			<button class="btn-block btn-orange" bindtap="bindButtonPublish">发表</button>
+		</view>
+	</view>
 </view>

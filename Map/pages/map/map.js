@@ -258,6 +258,7 @@ Page({
   addmail: function (){
     wx.navigateTo({
       url: '../publish/text/text',
+      // url: '../publish/question/question',
     })
   },
   //集合点
