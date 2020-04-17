@@ -27,6 +27,7 @@
     <view class="button2" bindtap="doUpload">
       <text>上传图片</text>
     </view>
+    <button bindtap="bindButtonPublish">发布</button>
       <image class="show-image" src="{{imgPath}}" mode="aspectFit"></image>
   </view>
 

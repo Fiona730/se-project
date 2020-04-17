@@ -2,26 +2,29 @@
 const app = getApp()
 
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
     hasUserInfo: false,
     userInfo : {},
+    userData : {},
     isDev: true,
     msgNum: 0,
     switch1Chked : false,
-    switch2Chked : false,
+    switch2Chked : false
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    let _this = this;
     if(app.globalData.userInfo){
-      this.setData({userInfo:app.globalData.userInfo,
-          hasUserInfo:true})
+      _this.setData({
+        userInfo:app.globalData.userInfo, hasUserInfo:true,
+        userData: app.globalData.userData
+      })
     }else{
       this.setData({hasUserInfo:false})
       //是否强制登录？
@@ -41,6 +44,7 @@ Page({
     // 用户点击用户页面入口
     if(this.data.hasUserInfo){
       this.saySth('开发中> <')
+      // Todo: jump to user's homepage
     }
     else{
       // 没登录...!
@@ -60,18 +64,44 @@ Page({
 
   toMessages: function(){
     this.saySth("开发中> <")
+    // this.data.userData.messages
   },
 
   toFriends:function(){
-    this.saySth("开发中> <")
+    // this.saySth("开发中> <")
+    // this.data.userData.friends
+    // example cloud function usage for adding friends
+    let _this = this;
+    wx.cloud.callFunction({
+      name: "addFriend",
+      data: {
+        userId: _this.data.userData._id,
+        newFriend: {
+          nickName: "Sherry",
+          openId: "Sherry's _id",
+        }
+      },
+      success(res) {
+        console.log("添加好友成功", res)
+      },
+      fail(res) {
+        console.log("添加好友失败", res)
+      }
+    })
   },
-
+  
   toPosts:function(){
-    this.saySth("开发中> <")
+    wx.navigateTo({
+      url: '/pages/userpage/posts/posts',
+    })   
   },
 
   toCollections:function(){
+    // wx.navigateTo({
+    //   url: '/pages/userpage/collections/collections',
+    // })
     this.saySth("开发中> <")
+    // this.data.userData.collections
   },
 
   /**

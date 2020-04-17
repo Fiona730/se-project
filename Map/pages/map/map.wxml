@@ -12,24 +12,31 @@
     bindregionchange="regionchange" 
     style="width: 100%; height: 100vh;">
     <cover-view class="top">
-      <cover-view wx:if="{{hasUserInfo}}" class="userinfo" bindtap="userchange">
-        <cover-image class="userinfo-avatar" src="{{userInfo.avatarUrl}}"></cover-image>
+      <cover-view wx:if="{{hasUserInfo && !userInfo.avatarUrl}}" class="userimg" bindtap="userchange">
+        <cover-image class="userimg-avatar" src="/resources/nouser.png"></cover-image>
+      </cover-view>
+      <cover-view wx:elif="{{hasUserInfo}}" class="userimg" bindtap="userchange">
+        <cover-image class="userimg-avatar" src="{{userInfo.avatarUrl}}"></cover-image>
       </cover-view>
       <cover-view wx:else class="nouser" bindtap="nouser">
-        <cover-image class="userinfo-avatar" src="/resources/nouser.png"></cover-image>
+        <cover-image class="userimg-avatar" src="/resources/nouser_akarin.jpg"></cover-image>
       </cover-view>
-       <cover-view class="search-box">
+      <cover-view class="search-box">
         <cover-view class='wordholder' bindtap='tapInput'>
         <cover-view class='text'>{{inputInfo}}</cover-view>
         <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindblur='blurInput'></input>
         </cover-view>
         <cover-view class="shu"></cover-view>
-        <cover-view class="tab" bindtap="choosetab">选择tab</cover-view>
+        <cover-view class="tab" bindtap="choosetab">选择类型</cover-view>
       </cover-view>
     </cover-view>
     <cover-view wx:if="{{hastablist}}" class="tablist">
-      <cover-view wx:for="{{tablist}}" class="tab">
-      {{item.value}}
+      <cover-view wx:for="{{tablist}}" wx:key="key" class="tab" id= "{{item.id}}" bindtap="addtab">
+        <cover-view wx:if="{{item.add}}" class="existtab">
+        </cover-view>
+        <cover-view wx:else class="notexisttab">
+        </cover-view>
+        {{item.value}}
       </cover-view>
     </cover-view>
     <cover-view wx:if="{{!location}}" class="location" bindtap="tapclick">

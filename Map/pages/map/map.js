@@ -8,22 +8,16 @@ Page({
     hasUserInfo: false,
     UserInfo: {},
     //帖子集合
-    Posts:{
-      haslist: false,
-      list: []
-    },
+    haslist: false,
+    list: [],
     markers: [],
     //tab菜单
-    hastablist: false,
+
     tablist: [
-      { id: 0, value: "PKU" },
-      { id: 1, value: "燕南"},
-      { id: 2, value: "学五" },
-      { id: 3, value: "一教" },
-      { id: 4, value: "理教" },
-      { id: 5, value: "学一" },
-      { id: 6, value: "二教" },
-      { id: 7, value: "三教" }],
+      { id: 0, add: true, value: "集合" },
+      { id: 1, add: true, value: "签到"},
+      { id: 2, add: true, value: "说说" },],
+    tabnum: 0,
     inputInfo: '请输入关键字',
     isPopping: false,
     animadd: {},
@@ -32,21 +26,21 @@ Page({
   },
   getmess: function () {
     var that = this;
-    const mks = this.data.Posts.list.map((value, index) =>{
+    const mks = that.data.list.map((value,index) =>{
       return {
-        iconPath: value.iconPath,
-        id: value.id,
-        latitude: value.latitude,
-        longitude: value.longitude,
+        iconPath: '/resources/1.png',
+        id: value._id,
+        latitude: value.position.coordinates[1] + (Math.random()-0.5)*0.001,
+        longitude: value.position.coordinates[0] + (Math.random() - 0.5)*0.001,
         width: 50,
         height: 50,
         clickable: true
       }
     })
     that.setData({
-      markers: that.data.markers.concat(mks)
+      markers: mks
     })
-    console.log(this.data.markers)
+    console.log("markaers", this.data.markers)
   },
   getLocation: function () {
     var that = this;
@@ -55,36 +49,30 @@ Page({
         that.setData({
           longitude: res.longitude,
           latitude: res.latitude,
-          /*
-          //添加当前位置
-          markers: [{
-            id: 0,
-            iconpath: "/resources/1.png",
-            longitude: res.longitude,
-            latitude: res.latitude,
-            clickable: false
-          }]*/
         })
         //后端交互获取帖子信息
-        //显示帖子
-        that.getmess();
+        wx.cloud.callFunction({
+          name: 'getHoles',
+          data: {},
+          success: res => {    
+            that.setData({
+              haslist: true,
+              list: res.result.data
+            })
+            console.log('[云函数] [getHoles] Holes: ', that.data.list)
+            //显示帖子
+            that.getmess();
+          },
+          fail: err => {
+            console.error('[云函数] [login] 调用失败', err)
+          }
+        })
       }
     })
   },
 
   onLoad: function () {
-    // if (app.globalData.userInfo) {
-    //   console.log("用户信息存在")
-    //   this.setData({
-    //     userInfo: app.globalData.userInfo,
-    //     hasUserInfo: true
-    //   })
-    // }
-    // else{
-    //   this.setData({hasUserInfo: false})
-      // 强制跳转到登录界面？
-      // wx.navigateTo({url: '/pages/login/login',})
-    //}
+
   },
   onShow: function () {
     if (app.globalData.userInfo) {
@@ -142,8 +130,12 @@ Page({
     wx.navigateTo({ url: '/pages/setting/setting', })
   },
   //点击帖子
-  markertap: function () {
-
+  markertap: function (event) {
+    console.log('marker', event)
+    var id = event.markerId;
+    wx.navigateTo({
+      url: '/pages/read/read?id=' + id,
+    });
   },
   //弹出tab列表
   choosetab: function () {
@@ -152,6 +144,17 @@ Page({
       //向后端请求tab列表并赋值
 
     })
+  },
+  //切换tab选择格式
+  addtab: function (e) {
+    var that = this;
+    console.log('tab', e.target.id)
+    var str = "tablist[" + e.target.id + "].add"
+    that.setData({
+      [str]: !that.data.tablist[e.target.id].add
+    })
+    //更新hole
+    that.getLocation()
   },
 
   //将焦点给到 input（在真机上不能获取input焦点）

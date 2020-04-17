@@ -10,7 +10,7 @@ App({
     // 获取系统信息
     wx.getSystemInfo({
       success: function(res){
-        console.log("系统信息")
+        console.log("信息")
         console.log(res)
         that.globalData.iw = res.windowWidth
         that.globalData.ih = res.windowHeight

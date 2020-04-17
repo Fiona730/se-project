@@ -1,3 +1,4 @@
+const app = getApp()
 Page({
   data: {
     focus: false,
@@ -18,14 +19,47 @@ Page({
     })
   },
   bindButtonPublish: function () {
-    // console.log("主题：" + this.data.titleValue + " 内容：" + this.data.contentValue);
-    console.log({
-      tag: 'text', 
-      title: this.data.titleValue, 
-      content: this.data.contentValue,
-      img: this.data.imgPath,
-      position: this.data.position
-    });
+    wx.cloud.callFunction({
+      name: "addHole",
+      data: {
+        holeTitle: this.data.titleValue,
+        holeContent: this.data.contentValue,
+        holeType: "帖子",
+        num_likes: 0,
+        num_replies: [],
+        imgPath: this.data.imgPath,
+        position: this.data.position,
+        userId: app.globalData.userData._id,
+        userName: app.globalData.userInfo.nickName
+      },
+      success(res) {
+        console.log("添加树洞成功", res)
+        // add hole id to user's record
+        wx.cloud.callFunction({
+          name: "addPostToUser",
+          data: {
+            userId: app.globalData.userData._id,
+            postId: res.result._id
+          },
+          success(res) {
+            console.log("添加用户树洞关联信息成功", res)
+          },
+          fail(res) {
+            console.log("添加用户树洞关联信息失败", res)
+          }
+        })
+      },
+      fail(res) {
+        console.log("添加树洞失败", res)
+      }
+    })
+    // console.log({
+    //   tag: 'text', 
+    //   title: this.data.titleValue, 
+    //   content: this.data.contentValue,
+    //   img: this.data.imgPath,
+    //   position: this.data.position
+    // });
     wx.showToast({
       title: '发布成功',
       icon: 'success',
