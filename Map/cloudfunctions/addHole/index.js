@@ -17,6 +17,7 @@ exports.main = async (event, context) => {
       hot:1,
       num_likes: 0,
       num_reply:0,
+      whether_anonymous: event.whether_anonymous,
       userName: event.userName,
       userId: event.userId
     }
