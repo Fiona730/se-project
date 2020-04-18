@@ -102,7 +102,7 @@
   line-height: 80rpx;
   font-size: 35rpx;
   color: #ffffff;
-  background: rgb(23, 202, 32);
+  background: rgb(13, 173, 21);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
