@@ -1,0 +1,4 @@
+/* pages/detial/detial.wxss */
+page{
+  padding-bottom: 100rpx;
+}

@@ -26,8 +26,10 @@
         <cover-view class='text'>{{inputInfo}}</cover-view>
         <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindblur='blurInput'></input>
         </cover-view>
-        <cover-view class="shu"></cover-view>
-        <cover-view class="tab" bindtap="choosetab">选择类型</cover-view>
+      </cover-view>
+      <cover-view class="choose-box">
+        <cover-view class="bottom" bindtap="searchtab">搜索</cover-view>
+        <cover-view class="tab" bindtap="choosetab"> </cover-view>    
       </cover-view>
     </cover-view>
     <cover-view wx:if="{{hastablist}}" class="tablist">
