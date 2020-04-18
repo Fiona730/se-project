@@ -6,9 +6,5 @@ const _ = db.command
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  return await db.collection('Holes').doc(event.holeId).update({
-    data: {
-      content: event.holeContect
-    }
-  }).then(res => { console.log(res) })
+  return await db.collection('Holes').doc(event.holeId).get()
 }

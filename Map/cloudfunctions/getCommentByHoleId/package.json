@@ -1,5 +1,5 @@
 {
-  "name": "openapi",
+  "name": "getCommentByHoleId",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",

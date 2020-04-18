@@ -1,4 +1,3 @@
-
 {
   "pages": [ 
     "pages/login/login",
@@ -6,10 +5,10 @@
     "pages/setting/setting",
     "pages/userpage/posts/posts",
     "pages/userpage/collections/collections",
-    "pages/read/read",
     "pages/publish/text/text",
     "pages/publish/meet/meet",
-    "pages/publish/checkin/checkin"
+    "pages/publish/checkin/checkin",
+    "pages/show/text/text"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -12,29 +12,35 @@ Page({
     list: [],
     markers: [],
     //tab菜单
-
     tablist: [
       { id: 0, add: true, value: "集合" },
       { id: 1, add: true, value: "签到"},
-      { id: 2, add: true, value: "说说" },],
+      { id: 2, add: true, value: "帖子" },],
+    tabname: { "集合": 0, "签到": 1, "帖子":2},
     tabnum: 0,
+    hasinput: false,
     inputInfo: '请输入关键字',
     isPopping: false,
     animadd: {},
     animloc: {},
     animmail: {},
   },
+  //显示符合类型的Holes
   getmess: function () {
     var that = this;
     const mks = that.data.list.map((value,index) =>{
-      return {
-        iconPath: '/resources/1.png',
-        id: value._id,
-        latitude: value.position.coordinates[1] + (Math.random()-0.5)*0.001,
-        longitude: value.position.coordinates[0] + (Math.random() - 0.5)*0.001,
-        width: 50,
-        height: 50,
-        clickable: true
+      console.log("tabname", that.data.tabname[value.type])
+      if (that.data.tablist[that.data.tabname[value.type]].add){
+        return {
+          iconPath: '/resources/1.png',
+          id: value._id,
+          type: value.type,
+          latitude: value.position.coordinates[1] + (Math.random()-0.5)*0.0003,
+          longitude: value.position.coordinates[0] + (Math.random() - 0.5)*0.0003,
+          width: 35,
+          height: 35,
+          clickable: true
+        }
       }
     })
     that.setData({
@@ -42,6 +48,7 @@ Page({
     })
     console.log("markaers", this.data.markers)
   },
+  //获取地理位置并显示Holes
   getLocation: function () {
     var that = this;
     wx.getLocation({
@@ -134,7 +141,7 @@ Page({
     console.log('marker', event)
     var id = event.markerId;
     wx.navigateTo({
-      url: '/pages/read/read?id=' + id,
+      url: '/pages/show/text/text?id=' + id,
     });
   },
   //弹出tab列表
@@ -170,14 +177,28 @@ Page({
   blurInput(e) {
     var that = this;
     that.setData({
+      hasinput: true,
       inputInfo: e.detail.value
     });
     if (that.data.inputInfo==''){
       that.setData({
+        hasinput: false,
         inputInfo: "请输入关键字"
       });
     }
   },
+  //根据输入框搜索
+  searchtab: function () {
+    var that = this;
+    if (that.data.hasinput){
+      //根据关键字查询
+    }
+    else{
+      //更新hole
+      that.getLocation()
+    }
+  },
+
   //点击弹出
   add: function () {
     if (this.data.isPopping) {
