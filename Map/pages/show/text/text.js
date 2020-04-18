@@ -143,7 +143,7 @@ Page({
           holeId: that.data.PageID,
           userId: app.globalData.userData._id,
           userName: app.globalData.userInfo.nickName,
-          userUrl: app.globalData.userInfo.userUrl,
+          userUrl: app.globalData.userInfo.avatarUrl,
           commentContent: that.data.InputValue
         },
         success(res) {
