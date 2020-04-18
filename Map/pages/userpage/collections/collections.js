@@ -13,16 +13,22 @@ Page({
     for (let i = 0; i < 10; i++) {
       pposts.push({
         title: `Title${i}`,
-        content: `Content${i}`,
+        content: `Content${i}`.repeat(15),
         article: `Article${i}`,
-        user_name: `User${i}`,
-        user_avatar:  undefined,
-        num_likes: Math.floor((i * 77 + 9) / 3) % 53 + 2,
-        num_replies: Math.floor((i * 81 + 5) / 3) % 47 + 6,
+        userName: `User${i}`,
+        type: '帖子',
+        avatarURL: "/resources/nouser_akarin.jpg",
+        hot: 0,
+        num_likes: 0,
+        num_replies: 0,
         createTime: undefined,
       })
     }
     this.setData({ "pposts": pposts });
+  },
+
+  getCollectionsFromUser: function(){
+
   },
 
   tapPost: function (e) {
@@ -40,6 +46,7 @@ Page({
    */
   onLoad: function (options) {
     this.generatePseudoTests();
+    this.getCollectionsFromUser();
   },
 
   /**

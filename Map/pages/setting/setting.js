@@ -97,9 +97,9 @@ Page({
   },
 
   toCollections:function(){
-    // wx.navigateTo({
-    //   url: '/pages/userpage/collections/collections',
-    // })
+    wx.navigateTo({
+      url: '/pages/userpage/collections/collections',
+    })
     this.saySth("开发中> <")
     // this.data.userData.collections
   },

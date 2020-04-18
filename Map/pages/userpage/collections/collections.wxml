@@ -6,9 +6,9 @@
     <view class="feed-item" bindtap="tapPost" data-idx="{{index}}">
       <view class="feed-user">
         <view class="avatar">
-        <image src="/resources/nouser_akarin.jpg"></image>
+        <image src="{{item.avatarURL}}"></image>
         </view>
-        <text>{{item.user_name}}</text>
+        <text>{{item.userName}}</text>
       </view>
       <view class="feed-content"> 
         <view class="banner">
