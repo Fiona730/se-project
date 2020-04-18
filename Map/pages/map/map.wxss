@@ -44,7 +44,7 @@
   float: left;
 }
 .top .search-box {
-  width: 610rpx;
+  width: 420rpx;
   height: 80rpx;
   line-height: 80rpx;
   border-radius: 40rpx;
@@ -55,7 +55,7 @@
   z-index: 10;
 }
 .top .search-box .wordholder{
-  width: 380rpx;
+  width: 420rpx;
   height: 80rpx;
   line-height: 80rpx;
   font-size: 30rpx;
@@ -65,13 +65,13 @@
   float: left;
 }
 .top .search-box .wordholder .text{
-  width: 380rpx;
+  width: 420rpx;
   height: 80px;
   line-height: 80px;
   z-index: 20;
 }
 .top .search-box .wordholder .input{
-  width: 380rpx;
+  width: 420rpx;
   height: 80px;
   line-height: 80px;
   /* margin-top为text的高度，保持视觉上一致 */
@@ -84,11 +84,25 @@
   background:#ccc;
   float: left;
 }
-.top .search-box .tab {
-  width: 199rpx;
+
+.top .choose-box {
+  width: 160rpx;
+  height: 80rpx;
   line-height: 80rpx;
-  font-size: 30rpx;
-  color: #8b8b8b;
+  border-radius: 40rpx;
+  background: rgb(255, 255, 255);
+  margin-left: 20rpx;
+  float: left;
+  overflow: hidden;
+  z-index: 10;
+}
+
+.top .choose-box .bottom {
+  width: 130rpx;
+  line-height: 80rpx;
+  font-size: 35rpx;
+  color: #ffffff;
+  background: rgb(23, 202, 32);
   text-align: center;
   white-space: nowrap;
   overflow: hidden;
@@ -96,8 +110,15 @@
   float: left;
 }
 
+.top .choose-box .tab {
+  width: 30rpx;
+  height: 80rpx;
+  float: left;
+  background-color: rgb(201, 10, 10);
+}
+
 .tablist {
-  width: 199rpx;
+  width: 160rpx;
   height: 300rpx;
   line-height: 80rpx;
   border-radius: 40rpx;

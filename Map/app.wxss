@@ -1,4 +1,7 @@
 /**app.wxss**/
+@import "colorui/main.wxss";
+@import "colorui/icon.wxss";
+
 .container {
   height: 100%;
   display: flex;
@@ -40,7 +43,7 @@ page {
   flex-direction: column;
   justify-content: flex-start;
 }
-
+/* 
 .userinfo, .uploader, .tunnel {
   margin-top: 40rpx;
   height: 140rpx;
@@ -77,7 +80,7 @@ page {
 
 .userinfo-nickname::after {
   border: none;
-}
+} */
 
 .uploader, .tunnel {
   height: auto;
