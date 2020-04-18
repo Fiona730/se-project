@@ -62,7 +62,19 @@ Page({
         },
         success(res){
           console.log("请求getHolebyId云函数成功", res)
-          posts_value.push({
+          // posts_value.push({
+          //   type:res.result.data.type,
+          //   title:res.result.data.title,
+          //   content: res.result.data.content,
+          //   hot: res.result.data.hot,
+          //   num_likes: res.result.data.num_likes,
+          //   num_replies: res.result.data.num_reply,
+          //   createTime: res.result.data.createTime.substring(5,10),
+          // })
+          // _this.setData({posts: posts_value})
+
+
+          let cur_post = {
             type:res.result.data.type,
             title:res.result.data.title,
             content: res.result.data.content,
@@ -70,15 +82,18 @@ Page({
             num_likes: res.result.data.num_likes,
             num_replies: res.result.data.num_reply,
             createTime: res.result.data.createTime.substring(5,10),
+          }
+          // 每个请求成功时, 都直接对this.data.posts的对应下标使用setData
+          // 可以防止因为网络波动导致的乱序~
+          _this.setData({
+            [`posts[${i}]`]:cur_post,
           })
-          _this.setData({posts: posts_value})
         },
         fail(res){
           console.log("请求getHolebyId云函数失败", res)
         },
       })
     }
-    _this.setData({posts: posts_value})
   },
 
   /**
