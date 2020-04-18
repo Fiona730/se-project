@@ -6,5 +6,7 @@ const _ = db.command
 
 // 云函数入口函数
 exports.main = async (event, context) => {
-  return await db.collection('Holes').doc(event.holeId).get()
+  return await db.collection('Users').where({
+    _id: event.userId
+  }).get()
 }

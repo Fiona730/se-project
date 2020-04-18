@@ -29,12 +29,12 @@ Page({
     console.log("holeId", index)
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
-        name: "getHolebyId",
+        name: "getHoleByHoleId",
         data: {
           holeId: index
         },
         success(res) {
-          console.log("请求getHolebyId云函数成功", res)
+          console.log("请求getHoleByHoleId云函数成功", res)
           that.setData({
             PageID: index,
             ImgPath: res.result.data.img,
@@ -60,17 +60,17 @@ Page({
     const db = wx.cloud.database()
     console.log("发帖人", db, that.data.PostUserId)
     return new Promise((resolve, reject) => {
-      db.collection('Users').where({
-        _id:that.data.PostUserId
-      }).get({
-        success: res => {
-          console.log("发帖人信息", res.data[0])
+      wx.cloud.callFunction({
+        name: "getUserByUserId",
+        data: { userId: that.data.PostUserId },
+        success(res) {
+          console.log("请求getUserByUserId云函数成功", res)
           that.setData({
-            PostUserUrl: res.data[0].userinfo.avatarUrl,
-            PostUserName: res.data[0].userinfo.nickName
+            PostUserUrl: res.result.data[0].userinfo.avatarUrl,
+            PostUserName: res.result.data[0].userinfo.nickName
           })
           resolve(res)
-        }
+        },
       })
     })
   },
@@ -78,30 +78,54 @@ Page({
   //查询数据库获得回复信息
   async CommentData() {
     var that = this
-    const db = wx.cloud.database()
     return new Promise((resolve, reject) => {
-      db.collection('Comments').where({
-        holeId: that.data.PageID
-      }).get({
-        success: res => {
-          console.log("回复信息", res.data)
+      wx.cloud.callFunction({
+        name: "getCommentByHoleId",
+        data: { holeId: that.data.PageID },
+        success(res) {
+          console.log("请求getCommentByHoleId云函数成功", res)
           that.setData({
-            Comments: res.data
+            Comments: res.result.data
           })
           var len = that.data.Comments.length
           var time = ''
           for(let i = 0; i < len; i++) 
           {
-            time = util.formatTime(that.data.Comments[i].createTime)
+            time = that.data.Comments[i].createTime
+            // time = util.formatTime(that.data.Comments[i].createTime)
             that.setData({
-              ["Comments[" + i + "].createTime"]: time
+              ["Comments[" + i + "].createTime"]: time.substring(0, 10) + " " + time.substring(11, 16)
             })
+            console.log("回复日期", that.data.Comments[i].createTime)
           }
-          console.log("回复日期", that.data.Comments[0].createTime)
           resolve(res)
         },
       })
     })
+    // const db = wx.cloud.database()
+    // return new Promise((resolve, reject) => {
+    //   db.collection('Comments').where({
+    //     holeId: that.data.PageID
+    //   }).get({
+    //     success: res => {
+    //       console.log("回复信息", res.data)
+    //       that.setData({
+    //         Comments: res.data
+    //       })
+    //       var len = that.data.Comments.length
+    //       var time = ''
+    //       for(let i = 0; i < len; i++) 
+    //       {
+    //         time = util.formatTime(that.data.Comments[i].createTime)
+    //         that.setData({
+    //           ["Comments[" + i + "].createTime"]: time
+    //         })
+    //       }
+    //       console.log("回复日期", that.data.Comments[0].createTime)
+    //       resolve(res)
+    //     },
+    //   })
+    // })
   },
 
   //async
