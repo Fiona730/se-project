@@ -7,8 +7,8 @@
 }
 
 .feed-item{
-  width: 670rpx;
-  height: 170rpx;
+  width: 96.5%;
+  height: 210rpx;
   border-radius: 15rpx;
   padding: 28rpx 30rpx;
   margin: 13rpx;

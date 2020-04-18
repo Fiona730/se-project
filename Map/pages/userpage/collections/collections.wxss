@@ -7,8 +7,8 @@
 }
 
 .feed-item{
-  width: 670rpx;
-  height: 235rpx;
+  width: 96.5%;
+  height: 260rpx;
   border-radius: 15rpx;
   padding: 15rpx 30rpx;
   margin: 13rpx;
@@ -108,6 +108,7 @@
 .feed-item .feed-content .actions{
   display: inline-block;
   vertical-align: text-bottom;
+  margin: 15rpx 0 0 0; 
   color: #00aaff;
   font-size: 26rpx;
 }
