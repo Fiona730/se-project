@@ -16,6 +16,7 @@ Page({
         content: `Content${i}`,
         article: `Article${i}`,
         user_name: `User${i}`,
+        user_avatar:  undefined,
         num_likes: Math.floor((i * 77 + 9) / 3) % 53 + 2,
         num_replies: Math.floor((i * 81 + 5) / 3) % 47 + 6,
         createTime: undefined,
