@@ -37,8 +37,8 @@ Page({
           type: value.type,
           latitude: value.position.coordinates[1] + (Math.random()-0.5)*0.0003,
           longitude: value.position.coordinates[0] + (Math.random() - 0.5)*0.0003,
-          width: 50,
-          height: 50,
+          width: 35,
+          height: 35,
           clickable: true
         }
       }
