@@ -1,6 +1,5 @@
 // pages/userpage/posts/posts.js
 const app = getApp()
-var eventChannel
 
 Page({
 
@@ -53,7 +52,6 @@ Page({
     })
     let user_posts = app.globalData.userData.posts;
     let len = user_posts.length;
-    let posts_value = _this.data.posts;
     for(let i=0; i<len; i++){
       wx.cloud.callFunction({
         name: "getHolebyId",
@@ -62,17 +60,6 @@ Page({
         },
         success(res){
           console.log("请求getHolebyId云函数成功", res)
-          // posts_value.push({
-          //   type:res.result.data.type,
-          //   title:res.result.data.title,
-          //   content: res.result.data.content,
-          //   hot: res.result.data.hot,
-          //   num_likes: res.result.data.num_likes,
-          //   num_replies: res.result.data.num_reply,
-          //   createTime: res.result.data.createTime.substring(5,10),
-          // })
-          // _this.setData({posts: posts_value})
-
 
           let cur_post = {
             type:res.result.data.type,
@@ -101,9 +88,9 @@ Page({
    */
   onLoad: function (options) {
     // this.generatePseudoTests();
-    console.log("posts_value_1", this.data.posts)
+    // console.log("posts_value_1", this.data.posts)
     this.getPostsFromUser()
-    console.log("posts_value_2", this.data.posts)
+    // console.log("posts_value_2", this.data.posts)
   },
 
   /**
