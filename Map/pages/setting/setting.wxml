@@ -19,6 +19,9 @@
     </view>
     <view class="my">
       <view class="my-item" bindtap="toMessages">
+        <view class="icon">
+          <image src="/pages/setting/res/msg.png"></image>
+        </view>
         <view class="myitem-name">
           <text>我的消息</text>
         </view>
@@ -27,13 +30,27 @@
         </view>
       </view>
       <view class="my-item" bindtap="toPosts">
+        <view class="icon">
+          <image src="/pages/setting/res/posts.png"></image>
+        </view>
         <view class="myitem-name">
           <text>我发布的</text>
         </view>
       </view>
       <view class="my-item" bindtap="toCollections">
+        <view class="icon">
+          <image src="/pages/setting/res/star.png"></image>
+        </view>
         <view class="myitem-name">
           <text>我的收藏</text>
+        </view>
+      </view>
+      <view class="my-item" bindtap="toFriends">
+        <view class="icon">
+          <image src="/pages/setting/res/friends.png"></image>
+        </view>
+        <view class="myitem-name">
+          <text>我的好友</text>
         </view>
       </view>
     </view>

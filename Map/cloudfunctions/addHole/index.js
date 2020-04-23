@@ -18,7 +18,8 @@ exports.main = async (event, context) => {
       num_likes: 0,
       num_reply:0,
       userName: event.userName,
-      userId: event.userId
+      userId: event.userId,
+      userImage: event.userImage,
     }
   })
 }
