@@ -8,7 +8,10 @@
         <view class="avatar">
         <image src="{{item.avatarURL}}"></image>
         </view>
-        <text>{{item.userName}}</text>
+        <view class="source">
+          <view class="username">{{item.userName}}</view>
+          <view class="datetime">{{item.createTime}}</view>
+        </view>
       </view>
       <view class="feed-content"> 
         <view class="banner">
@@ -23,7 +26,7 @@
           <text>{{item.content}}</text>
         </view>
         <view class="actions">
-          <text>{{item.hot}}° · {{item.num_likes}} Likes · {{item.num_replies}} Replies · {{item.createTime}} </text>
+          <text>{{item.hot}}° · {{item.num_likes}} Likes · {{item.num_replies}} Replies</text>
         </view>
       </view>
     </view>

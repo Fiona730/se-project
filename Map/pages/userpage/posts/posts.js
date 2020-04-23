@@ -73,7 +73,6 @@ Page({
           // })
           // _this.setData({posts: posts_value})
 
-
           let cur_post = {
             type:res.result.data.type,
             title:res.result.data.title,

@@ -21,7 +21,7 @@ Page({
         hot: 0,
         num_likes: 0,
         num_replies: 0,
-        createTime: undefined,
+        createTime: "2000-00-00",
       })
     }
     this.setData({ "pposts": pposts });

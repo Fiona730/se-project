@@ -7,11 +7,11 @@
 }
 
 .feed-item{
-  width: 96.5%;
-  height: 260rpx;
-  border-radius: 15rpx;
+  width: 95%;
+  height: 340rpx;
+  border-radius: 12rpx;
   padding: 15rpx 30rpx;
-  margin: 13rpx;
+  margin: 20rpx;
   background: #ffffff;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
@@ -20,8 +20,10 @@
 .feed-item .feed-user{
   width: 690rpx;
   left: 0;
-  height: 50rpx;
+  height: 100rpx;
   margin-bottom: 10rpx;
+  display: flex;
+  flex-direction: row;
 }
 
 .feed-item .feed-user .avatar{
@@ -32,30 +34,41 @@
 
 .feed-item .feed-user .avatar image{
   display: inline-block;
-  width: 45rpx;
-  height: 45rpx;
-  border-radius: 45rpx;
-  
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 60rpx;
   top: 10rpx;
   vertical-align: middle;
 }
 
-.feed-item .feed-user text{
-  display: inline-block;
+.feed-item .feed-user .source{
+  height: 100rpx;
+  /* display: flex; */
+  padding: 20rpx 0;
+  /* flex-direction: column; */
+  /* align-items: center; */
+}
+
+.feed-item .feed-user .source .username{
+  
   height: 40rpx;
-  line-height: 40rpx;
-  vertical-align: middle;
+  
   margin: 0 0 0 18rpx;
   color: #ffc0cb;
-  font-size: 28rpx;
+  font-size: 30rpx;
   font-weight: 500;
 }
 
-.feed-item .item-more{
-  display: inline-block;
-  width: 40rpx;
-  height: 45rpx;
+.feed-item .feed-user .source .datetime{
+  
+  height: 30rpx;
+  margin: 0 0 0 18rpx;
+  color: #adadad;
+  font-size: 26rpx;
 }
+
+
+/* --------------- common widgets ^ ^ ------------------ */
 
 .feed-item .feed-content{
   padding: 2rpx 0 0 0;
@@ -70,7 +83,7 @@
 }
 
 .feed-item .feed-content .banner .title{
-  font-size: 30rpx;
+  font-size: 32rpx;
   font-weight: 500;
   line-height: 35rpx;
 }
@@ -80,7 +93,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 36rpx;
+  height: 39rpx;
   border-radius: 9rpx;
   /* background: #ffc0cb; */
   background: #008cff;
@@ -96,12 +109,11 @@
 
 .feed-item .feed-content .content{
   padding: 10rpx 0 0 0;
-  height: 95rpx;
+  height: 115rpx;
   width: 100%;
   word-break: break-all;
   display: block;
   font-size: 28rpx;
-  line-height: 28rpx;
   color: #5b5b5b;
 }
 

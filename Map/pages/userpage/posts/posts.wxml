@@ -12,6 +12,9 @@
           <view class="title">
             <text>{{item.title}}</text>
           </view>
+          <image class="more" src="/pages/userpage/res/more.png">
+            <!-- <image src="/pages/userpage/res/more.png"></image> -->
+          </image>
         </view>
         <view class="content">
           <text>{{item.content}}</text>
