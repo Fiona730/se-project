@@ -20,10 +20,7 @@ Page({
     //回复信息
     InputBottom: 0,
     InputValue: '',
-    Comments: [],
-    //交互信息
-    Collect: false,
-    Like: false
+    Comments: []
   },
 
   //查询数据库获得帖子本身信息
@@ -48,11 +45,6 @@ Page({
             Title: res.result.data.title,
             Content: res.result.data.content,
           })
-          let user_collections = app.globalData.userData.collections
-          if (user_collections.indexOf(that.data.PageID) >= 0)
-          {
-            that.setData({ Collect: true })
-          }
           resolve(res)
         },
         fail(res) {
@@ -120,10 +112,9 @@ Page({
   },
 
   onLoad: function (e) {
-    var that = this
     console.log('e', e)
     var index = e.id
-    that.GetData(index)
+    this.GetData(index)
   },
   //回复
   InputFocus(e) {
@@ -166,79 +157,6 @@ Page({
         }
       })
     }
-  },
-
-  //添加收藏
-  AddCollect() {
-    let that = this
-    let user_collections = app.globalData.userData.collections
-    console.log("收藏", user_collections)
-    if (user_collections.indexOf(that.data.PageID)<0)
-    {
-      wx.cloud.callFunction({
-        name: "addCollection",
-        data: {
-          holeId: that.data.PageID,
-          userId: app.globalData.userData._id,
-        },
-        success(res) {
-          console.log("添加收藏成功", res)
-          that.setData({ Collect: true})
-          wx.cloud.callFunction({
-            name: "getUser",
-            data: {
-              openId: app.globalData.openid
-            },
-            success(res) {
-              console.log("请求getUser云函数成功", res)
-              app.globalData.userData = res.result.data[0]
-            },
-            fail(res) {
-              console.log("请求getUser云函数失败", res)
-            }
-          })
-        },
-        fail(res) {
-          console.log("添加收藏失败", res)
-        }
-      })
-    }
-    else
-    {
-      wx.cloud.callFunction({
-        name: "deleCollection",
-        data: {
-          holeId: that.data.PageID,
-          userId: app.globalData.userData._id,
-        },
-        success(res) {
-          console.log("取消收藏成功", res)
-          that.setData({ Collect: false })
-          wx.cloud.callFunction({
-            name: "getUser",
-            data: {
-              openId: app.globalData.openid
-            },
-            success(res) {
-              console.log("请求getUser云函数成功", res)
-              app.globalData.userData = res.result.data[0]
-            },
-            fail(res) {
-              console.log("请求getUser云函数失败", res)
-            }
-          })
-        },
-        fail(res) {
-          console.log("取消收藏失败", res)
-        }
-      })
-    }
-  },
-
-  //添加点赞
-  AddLike() {
-    let that = this
-    that.setData({ Like: !that.data.Like })
   }
 
 })

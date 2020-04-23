@@ -1,16 +1,16 @@
 /* pages/userpage/collections/collections.wxss */
 .post-container{
-  /* height: 100%; */
+  height: 100%;
   width: 100%;
   overflow-x:hidden;
-  /* background: #F0F4F3; */
+  background: #F0F4F3;
 }
 
 .feed-item{
-  width: 96.5%;
-  height: 260rpx;
+  width: 670rpx;
+  height: 235rpx;
   border-radius: 15rpx;
-  padding: 15rpx 30rpx;
+  padding: 20rpx 30rpx;
   margin: 13rpx;
   background: #ffffff;
   border-top: 1px solid #eee;
@@ -47,8 +47,7 @@
   vertical-align: middle;
   margin: 0 0 0 18rpx;
   color: #ffc0cb;
-  font-size: 28rpx;
-  font-weight: 500;
+  font-size: 26rpx;
 }
 
 .feed-item .item-more{
@@ -60,45 +59,14 @@
 .feed-item .feed-content{
   padding: 2rpx 0 0 0;
 }
-
-.feed-item .feed-content .banner{
-  display: flex;
-  /* justify-content: space-between; */
-  flex-direction: row;
-  align-items: center;
-  margin: 0 0 5rpx 0;
-}
-
-.feed-item .feed-content .banner .title{
+.feed-item .feed-content .title{
   font-size: 30rpx;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 35rpx;
 }
-
-.feed-item .feed-content .banner .post-type{
-  width: 65rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 36rpx;
-  border-radius: 9rpx;
-  /* background: #ffc0cb; */
-  background: #008cff;
-  margin: 0 15rpx 0 0;
-  opacity: 0.8;
-}
-
-.feed-item .feed-content .banner .post-type text{
-  font-size: 28rpx;
-  font-weight: 500;
-  color: #ffffff;
-}
-
 .feed-item .feed-content .content{
   padding: 10rpx 0 0 0;
-  height: 95rpx;
-  width: 100%;
-  word-break: break-all;
+  height: 100rpx;
   display: block;
   font-size: 28rpx;
   line-height: 28rpx;
@@ -108,7 +76,6 @@
 .feed-item .feed-content .actions{
   display: inline-block;
   vertical-align: text-bottom;
-  margin: 15rpx 0 0 0; 
   color: #00aaff;
   font-size: 26rpx;
 }

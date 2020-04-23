@@ -14,9 +14,7 @@
 }
 
 .user {
-  display: flex;
   width: 100%;
-  align-items: center;
   background: #ffffff;
   padding: 25rpx 0;
   margin: 15rpx 0 0 0;
@@ -40,8 +38,7 @@
 }
 .user .user-info .userinfo-nickname{
   padding: 0 0 10rpx 0;
-  font-weight: 500;
-  font-size: 36rpx;
+  font-size: 35rpx;
   color: #ffc0cb;
 }
 .user .user-info .edit{
@@ -69,31 +66,16 @@
   height: 105rpx;
   background: #ffffff;
   border-bottom: 1px solid #eee;
-  padding: 0rpx 20rpx;
-}
-
-.my .my-item .icon{
-  /* width: 70rpx;
-  height: 70rpx; */
-  /* position: relative; */
-  margin: 0 0 0 20rpx;
-  display: inline-block;
-  /* border-radius: 60rpx; */
-}
-
-.my .my-item image{
-  width: 50rpx;
-  height: 50rpx;
-  vertical-align: middle;
+  padding: 0rpx 0rpx;
 }
 
 .my .my-item .myitem-name{
   flex: 5;
-  /* text-align: left; */
+  text-align: left;
   font-size: 32rpx;
   color: #6d6d6d;
   line-height: 50rpx;
-  padding: 0rpx 20rpx;
+  padding: 0rpx 30rpx;
 }
 
 .quit{
@@ -130,7 +112,7 @@
 }
 
 .remind-num{
-	border-radius: 15rpx;
+	border-radius: 30%;
 
   display: flex;
   justify-content: center;

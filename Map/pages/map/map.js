@@ -11,9 +11,6 @@ Page({
     haslist: false,
     list: [],
     markers: [],
-    //符合搜索条件帖子
-    hassearch: false,
-    searchlist:[],
     //tab菜单
     tablist: [
       { id: 0, add: true, value: "集合" },
@@ -193,38 +190,13 @@ Page({
   //根据输入框搜索
   searchtab: function () {
     var that = this;
-    console.log('search', that.data.inputInfo)
     if (that.data.hasinput){
       //根据关键字查询
-      var len = that.data.list.length
-      var search = []
-      for(var i = 0 ; i<len ; i++)
-      {
-        if (that.data.list[i].title.indexOf(that.data.inputInfo) >= 0 || that.data.list[i].userName.indexOf(that.data.inputInfo) >= 0)
-        {
-          search.push(that.data.list[i])
-        }
-      }
-      that.setData({
-        searchlist: search,
-        hassearch: true
-      })
     }
     else{
-      that.setData({
-        hassearch: false
-      })
       //更新hole
       that.getLocation()
     }
-  },
-
-  //选择搜索到的帖子
-  ChooseSearch(event){
-    console.log('e', event)
-    wx.navigateTo({
-      url: '/pages/show/text/text?id=' + event.target.id,
-    });
   },
 
   //点击弹出

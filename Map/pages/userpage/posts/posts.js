@@ -1,5 +1,6 @@
 // pages/userpage/posts/posts.js
 const app = getApp()
+var eventChannel
 
 Page({
 
@@ -7,32 +8,28 @@ Page({
    * 页面的初始数据
    */
   data: {
-    posts:[],
+    pposts:[],
   },
 
-  // generatePseudoTests:function(){
-  //   let posts=this.data.posts;
-  //   for(let i=0;i<10;i++){
-  //     posts.push({
-  //       title:`Title${i}`,
-  //       content: `Content${i}`,
-  //       // article:`Article${i}`,
-  //       num_likes: Math.floor((i*77 + 9) / 3)%53 + 2,
-  //       num_replies: Math.floor((i *81 + 5) / 3)%47 + 6,
-  //       createTime: undefined,
-  //     })
-  //   }
-  //   this.setData({"posts":posts});
-  // },
+  generatePseudoTests:function(){
+    let pposts=this.data.pposts;
+    for(let i=0;i<10;i++){
+      pposts.push({
+        title:`Title${i}`,
+        content: `Content${i}`,
+        // article:`Article${i}`,
+        num_likes: Math.floor((i*77 + 9) / 3)%53 + 2,
+        num_replies: Math.floor((i *81 + 5) / 3)%47 + 6,
+        createTime: undefined,
+      })
+    }
+    this.setData({"pposts":pposts});
+  },
 
   tapPost:function(e){
     // 进入相应帖子的查看界面
     let idx = e.currentTarget.dataset.idx;
     // this.saySth(`你点击了帖子${idx}`);
-    console.log("进入帖子", e)
-    wx.navigateTo({
-      url: '/pages/show/text/text?id=' + e.currentTarget.id,
-    });
   },
 
   saySth: function (sth) {
@@ -56,6 +53,7 @@ Page({
     })
     let user_posts = app.globalData.userData.posts;
     let len = user_posts.length;
+    let pposts_value = _this.data.pposts;
     for(let i=0; i<len; i++){
       wx.cloud.callFunction({
         name: "getHolebyId",
@@ -64,28 +62,21 @@ Page({
         },
         success(res){
           console.log("请求getHolebyId云函数成功", res)
-
-          let cur_post = {
-            _id: res.result.data._id,
-            type:res.result.data.type,
+          pposts_value.push({
             title:res.result.data.title,
             content: res.result.data.content,
-            hot: res.result.data.hot,
             num_likes: res.result.data.num_likes,
             num_replies: res.result.data.num_reply,
-            createTime: res.result.data.createTime.substring(5,10),
-          }
-          // 每个请求成功时, 都直接对this.data.posts的对应下标使用setData
-          // 可以防止因为网络波动导致的乱序~
-          _this.setData({
-            [`posts[${i}]`]:cur_post,
+            createTime: res.result.data.createTime.substring(0,10),
           })
+          _this.setData({pposts: pposts_value})
         },
         fail(res){
           console.log("请求getHolebyId云函数失败", res)
         },
       })
     }
+    _this.setData({pposts: pposts_value})
   },
 
   /**
@@ -93,9 +84,9 @@ Page({
    */
   onLoad: function (options) {
     // this.generatePseudoTests();
-    // console.log("posts_value_1", this.data.posts)
+    console.log("pposts_value_1", this.data.pposts)
     this.getPostsFromUser()
-    // console.log("posts_value_2", this.data.posts)
+    console.log("pposts_value_2", this.data.pposts)
   },
 
   /**

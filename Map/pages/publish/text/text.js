@@ -30,8 +30,7 @@ Page({
         imgPath: this.data.imgPath,
         position: this.data.position,
         userId: app.globalData.userData._id,
-        userName: app.globalData.userInfo.nickName,
-        userImage: app.globalData.userInfo.avatarUrl,
+        userName: app.globalData.userInfo.nickName
       },
       success(res) {
         console.log("添加树洞成功", res)
