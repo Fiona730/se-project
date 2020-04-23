@@ -1,6 +1,5 @@
 // pages/userpage/posts/posts.js
 const app = getApp()
-var eventChannel
 
 Page({
 
@@ -30,6 +29,10 @@ Page({
     // 进入相应帖子的查看界面
     let idx = e.currentTarget.dataset.idx;
     // this.saySth(`你点击了帖子${idx}`);
+    console.log("进入帖子", e)
+    wx.navigateTo({
+      url: '/pages/show/text/text?id=' + e.currentTarget.id,
+    });
   },
 
   saySth: function (sth) {
@@ -100,9 +103,9 @@ Page({
    */
   onLoad: function (options) {
     // this.generatePseudoTests();
-    console.log("posts_value_1", this.data.posts)
+    // console.log("posts_value_1", this.data.posts)
     this.getPostsFromUser()
-    console.log("posts_value_2", this.data.posts)
+    // console.log("posts_value_2", this.data.posts)
   },
 
   /**

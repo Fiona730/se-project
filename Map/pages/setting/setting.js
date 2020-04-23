@@ -100,7 +100,7 @@ Page({
     wx.navigateTo({
       url: '/pages/userpage/collections/collections',
     })
-    this.saySth("开发中> <")
+    // this.saySth("开发中> <")
     // this.data.userData.collections
   },
 

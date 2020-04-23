@@ -2,8 +2,8 @@
 
 <scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
 
-  <block wx:for="{{pposts}}">
-    <view class="feed-item" bindtap="tapPost" data-idx="{{index}}">
+  <block wx:for="{{pposts}}" wx:key="key" >
+    <view class="feed-item" id="{{item._id}}" bindtap="tapPost" data-idx="{{index}}">
       <view class="feed-user">
         <view class="avatar">
         <image src="{{item.avatarURL}}"></image>

@@ -2,8 +2,8 @@
 
 <scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
 
-  <block wx:for="{{posts}}">
-    <view class="feed-item" bindtap="tapPost" data-idx="{{index}}">
+  <block wx:for="{{posts}}" wx:key="key" id="{{item._id}}">
+    <view class="feed-item" id="{{item._id}}" bindtap="tapPost" data-idx="{{index}}">
       <view class="feed-content"> 
         <view class="banner">
           <view class="post-type">
