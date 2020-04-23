@@ -56,7 +56,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40rpx;
+  height: 45rpx;
   border-radius: 9rpx;
   background: #ffc0cb;
   /* background: #008cff; */
@@ -66,6 +66,11 @@
 
 .feed-item .feed-content .banner .more{
   display: inline-block;
+  height: 45rpx;
+  width: 45rpx;
+}
+
+.feed-item .feed-content .banner .more image{
   height: 40rpx;
   width: 40rpx;
   align-items: center;  
@@ -78,7 +83,7 @@
 
 .feed-item .feed-content .content{
   padding: 10rpx 0 0 0;
-  height: 135rpx;
+  height: 130rpx;
   width: 250rpx;
   display: block;
   font-size: 28rpx;
@@ -92,3 +97,9 @@
   font-size: 26rpx;
 }
 
+/* ------------------ CU widgets css modified ^ ^ --------------- */
+.cu-item .content .option-item{
+  color: #949494;
+  text-align: center;
+  justify-content: center;
+}

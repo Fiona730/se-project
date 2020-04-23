@@ -8,22 +8,8 @@ Page({
    */
   data: {
     posts:[],
+    showOptions:false,
   },
-
-  // generatePseudoTests:function(){
-  //   let posts=this.data.posts;
-  //   for(let i=0;i<10;i++){
-  //     posts.push({
-  //       title:`Title${i}`,
-  //       content: `Content${i}`,
-  //       // article:`Article${i}`,
-  //       num_likes: Math.floor((i*77 + 9) / 3)%53 + 2,
-  //       num_replies: Math.floor((i *81 + 5) / 3)%47 + 6,
-  //       createTime: undefined,
-  //     })
-  //   }
-  //   this.setData({"posts":posts});
-  // },
 
   tapPost:function(e){
     // 进入相应帖子的查看界面
@@ -35,8 +21,28 @@ Page({
     });
   },
 
-  saySth: function (sth) {
+  deletePost:function(){
+    // 删除当前选中的帖子...
+    console.log(this.selectedPost)
+    console.log(this.data.posts[this.selectedPost]);
+    let postID = this.data.posts[this.selectedPost]._id;
     
+
+    this.hideOptions();
+  },
+
+  selectedPost: undefined,
+  showOptions:function(e){
+    // 点击了相应帖子的“更多”选项
+    let idx = e.currentTarget.dataset.idx;
+    this.setData({showOptions:true});
+    this.selectedPost=idx; //记住当前选中的帖子
+    console.log(this.selectedPost);
+  },
+
+  hideOptions:function(){
+    this.setData({showOptions:false});
+    this.selectedPost = undefined;
   },
 
   getPostsFromUser:function(){
@@ -103,9 +109,8 @@ Page({
    */
   onLoad: function (options) {
     // this.generatePseudoTests();
-    // console.log("posts_value_1", this.data.posts)
     this.getPostsFromUser()
-    // console.log("posts_value_2", this.data.posts)
+    
   },
 
   /**
