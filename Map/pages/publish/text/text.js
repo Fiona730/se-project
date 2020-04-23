@@ -32,6 +32,7 @@ Page({
         userId: app.globalData.userData._id,
         userName: app.globalData.userInfo.nickName,
         whether_anonymous: False,
+        userImage: app.globalData.userInfo.avatarUrl,
       },
       success(res) {
         console.log("添加树洞成功", res)

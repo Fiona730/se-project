@@ -1,14 +1,14 @@
 /* pages/userpage/posts/posts.wxss */
 .post-container{
-  height: 100%;
+  /* height: 100%; */
   width: 100%;
   overflow-x:hidden;
-  background: #F0F4F3;
+  /* background: #F0F4F3; */
 }
 
 .feed-item{
-  width: 670rpx;
-  height: 170rpx;
+  width: 96.5%;
+  height: 210rpx;
   border-radius: 15rpx;
   padding: 28rpx 30rpx;
   margin: 13rpx;
@@ -24,7 +24,7 @@
 }
 .feed-item .feed-user text{
   display: inline-block;
-  he     ssdddight: 40rpx;
+  height: 40rpx;
   line-height: 40rpx;
   vertical-align: middle;
   margin: 0 0 0 18rpx;
@@ -39,14 +39,43 @@
 .feed-item .feed-content{
   padding: 2rpx 0 0 0;
 }
-.feed-item .feed-content .title{
+
+.feed-item .feed-content .banner{
+  display: flex;
+  /* justify-content: space-between; */
+  flex-direction: row;
+  align-items: center;
+  margin: 0 0 5rpx 0;
+}
+
+.feed-item .feed-content .banner .title{
   font-size: 32rpx;
   font-weight: 600;
   line-height: 35rpx;
 }
+
+.feed-item .feed-content .banner .post-type{
+  width: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40rpx;
+  border-radius: 9rpx;
+  background: #ffc0cb;
+  /* background: #008cff; */
+  margin: 0 15rpx 0 0;
+  opacity: 0.95;
+}
+
+.feed-item .feed-content .banner .post-type text{
+  font-weight: 500;
+  color: #ffffff;
+}
+
 .feed-item .feed-content .content{
   padding: 10rpx 0 0 0;
-  height: 100rpx;
+  height: 95rpx;
+  width: 250rpx;
   display: block;
   font-size: 28rpx;
   line-height: 28rpx;

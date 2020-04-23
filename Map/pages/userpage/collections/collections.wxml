@@ -2,23 +2,25 @@
 
 <scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
 
-  <block wx:for="{{pposts}}">
-    <view class="feed-item" bindtap="tapPost" data-idx="{{index}}">
+  <block wx:for="{{pposts}}" wx:key="key" >
+    <view class="feed-item" id="{{item._id}}" bindtap="tapPost" data-idx="{{index}}">
       <view class="feed-user">
-        <view class="avatar">
-        <image src="/resources/nouser_akarin.jpg"></image>
-        </view>
-        <text>{{item.user_name}}</text>
+        <text>{{item.userName}}</text>
       </view>
       <view class="feed-content"> 
-        <view class="title">
-          <text>{{item.title}}</text>
+        <view class="banner">
+          <view class="post-type">
+            <text>{{item.type}}</text>
+          </view>
+          <view class="title">
+            <text>{{item.title}}</text>
+          </view>
         </view>
         <view class="content">
           <text>{{item.content}}</text>
         </view>
         <view class="actions">
-          <text>{{item.num_likes}} Likes · {{item.num_replies}} Replies · Sent {{item.createTime}} </text>
+          <text>{{item.hot}}° · {{item.num_likes}} Likes · {{item.num_replies}} Replies · {{item.createTime}} </text>
         </view>
       </view>
     </view>
