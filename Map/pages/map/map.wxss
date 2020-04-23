@@ -25,7 +25,7 @@
   top: 0;
   left: 0;
   padding: 30rpx 20rpx;
-  background: rgba(145, 139, 139, 0.164);
+  background: rgba(145, 139, 139, 0);
   z-index: 10;
   overflow: hidden;
 }
@@ -48,30 +48,21 @@
   height: 80rpx;
   line-height: 80rpx;
   border-radius: 40rpx;
-  background: rgb(255, 255, 255);
   margin-left: 20rpx;
   float: left;
   overflow: hidden;
-  z-index: 10;
-}
-.top .search-box .wordholder{
-  width: 420rpx;
-  height: 80rpx;
-  line-height: 80rpx;
   font-size: 30rpx;
-  color: #8b8b8b;
+  background: rgb(255, 255, 255);
   padding: 20rpx 20rpx;
   box-sizing: border-box;
-  float: left;
 }
-.top .search-box .wordholder .text{
-  width: 420rpx;
+
+.top .search-box .text{
   height: 80px;
   line-height: 80px;
-  z-index: 20;
+  color: rgba(0, 0, 0, 0.329);
 }
-.top .search-box .wordholder .input{
-  width: 420rpx;
+.top .search-box .input{
   height: 80px;
   line-height: 80px;
   /* margin-top为text的高度，保持视觉上一致 */
@@ -81,7 +72,7 @@
 .top .search-box .shu {
   width: 1rpx;
   height: 80rpx;
-  background:#ccc;
+  background:rgb(105, 103, 103);
   float: left;
 }
 
@@ -117,14 +108,41 @@
   background-color: rgb(201, 10, 10);
 }
 
-.tablist {
-  width: 160rpx;
+.searchlist {
+  width: 380rpx;
   height: 300rpx;
   line-height: 80rpx;
   border-radius: 40rpx;
   position: absolute;
   top: 120rpx;
-  right: 20rpx;
+  right: 220rpx;
+  background:rgb(255, 255, 255);
+  padding: 30rpx 20rpx;
+  z-index: 20;
+  overflow: hidden;
+  flex-wrap: wrap;
+  overflow-y: scroll;
+}
+.searchlist .search {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  font-size: 40rpx;
+  color: #271212;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tablist {
+  width: 120rpx;
+  height: 300rpx;
+  line-height: 80rpx;
+  border-radius: 40rpx;
+  position: absolute;
+  top: 120rpx;
+  right: 40rpx;
   background:rgb(255, 255, 255);
   padding: 30rpx 20rpx;
   z-index: 20;
@@ -143,19 +161,19 @@
   text-overflow: ellipsis;
 }
 .tablist .tab .existtab {
-  width: 30rpx;
-  height: 30rpx;
+  width: 25rpx;
+  height: 25rpx;
   text-align: center;
   border-radius: 50%;
-  background: #1bf8267a;
+  background: rgb(13, 173, 21);
   float: left;
 }
 .tablist .tab .notexisttab {
-  width: 30rpx;
-  height: 30rpx;
+  width: 25rpx;
+  height: 25rpx;
   text-align: center;
   border-radius: 50%;
-  background: #fa23237a;
+  background: rgb(201, 10, 10);
   float: left;
 }
 

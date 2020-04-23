@@ -24,13 +24,13 @@
         </image>  
       </view>
     </view>
-    <view class="text-gray text-sm text-right padding">
-      <text class="cuIcon-attentionfill margin-lr-xs"></text> 10
-      <text class="cuIcon-appreciatefill margin-lr-xs"></text> 20
-      <text class="cuIcon-messagefill margin-lr-xs"></text> {{Comments.length}} 
+    <view class="text-gray text-xl text-right padding">
+      <text class="cuIcon-attentionfill margin-lr" style = "{{Collect? 'color: rgb(13, 173, 21)' :''}}" bindtap="AddCollect"></text> 
+      <text class="cuIcon-appreciatefill margin-lr" style = "{{Like? 'color: rgb(201, 10, 10)' :''}}" bindtap="AddLike"></text> 
+      <text class="cuIcon-messagefill margin-lr"> {{Comments.length}} </text> 
     </view>
     <view class="cu-list menu-avatar comment solids-top">
-      <view wx:for="{{Comments}}" class="cu-item">
+      <view wx:for="{{Comments}}" wx:key="key" class="cu-item">
         <view wx:if = "{{item.userUrl}}" class="cu-avatar round" style="background-image:url({{item.userUrl}});"></view>
         <view wx:else class="cu-avatar round" style="background-image:url(/resources/nouser.png); ="></view>
         <view class="content">
