@@ -9,7 +9,6 @@
     "pages/read/read",
     "pages/publish/text/text",
     "pages/publish/meet/meet",
-    "pages/publish/checkin/checkin",
     "pages/publish/help/help",
     "pages/publish/vote/vote"
   ],
