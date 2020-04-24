@@ -9,6 +9,7 @@ Page({
     cValue: '',
     dValue: '',
     imgPath: '',
+    isAnonymous: false,
     position: null
   },
   titleInput: function (e) {
@@ -35,6 +36,13 @@ Page({
     this.setData({
       dValue: e.detail.value
     })
+  },
+  checkboxChange: function (e) {
+    console.log(e.detail.value);
+    let newValue = !this.data.isAnonymous;
+    this.setData({
+      isAnonymous: newValue
+    });
   },
   bindButtonPublish: function () {
     // wx.cloud.callFunction({

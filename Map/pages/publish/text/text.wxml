@@ -27,6 +27,13 @@
 				</view>
 			</view>
 		</view>
+    <view class="group">
+      <checkbox-group bindchange="checkboxChange">
+        <label class="checkbox" >
+          <checkbox checked="{{false}}"/>匿名发布
+        </label>
+      </checkbox-group>
+    </view>
 		<view class="btn-submit">
 			<button class="btn-block btn-orange" bindtap="bindButtonPublish">发表</button>
 		</view>
