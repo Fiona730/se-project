@@ -1,20 +1,19 @@
 <view class="container">
 	<view class="container-body container-gray">
-			<view class="group-header">我的位置：{{position.latitude}},{{position.longitude}}</view>
-      <!-- <view class="group-header">我的位置：</view> -->
+			<view class="group-header">你的位置：{{position.latitude}},{{position.longitude}}</view>
 			<view class="group-body">
 				<view class="input-list">
 					<view class="input-item">
-						<text class="input-item-label">主题</text>
+						<text class="input-item-label">位置描述</text>
 						<view class="input-item-content">
-							<input type="text" auto-focus placeholder="想说点什么……？" bindinput="titleInput"></input>
+							<input type="text" auto-focus placeholder="准确的描述可以帮助别人更快找到你" bindinput="titleInput"></input>
 						</view>
 					</view>
 				</view>
 			</view>
 		<view class="group">
 			<view class="group-body">
-				<textarea placeholder="整点儿内容" bindinput="contentInput"></textarea>
+				<textarea placeholder="遇到什么问题了？" bindinput="contentInput"></textarea>
 			</view>
 			<view class="group-header">上传图片</view>
 			<view class="group-body">
@@ -27,13 +26,6 @@
 				</view>
 			</view>
 		</view>
-    <view class="group">
-      <checkbox-group bindchange="checkboxChange">
-        <label class="checkbox" >
-          <checkbox checked="{{false}}"/>匿名发布
-        </label>
-      </checkbox-group>
-    </view>
 		<view class="btn-submit">
 			<button class="btn-block btn-orange" bindtap="bindButtonPublish">发表</button>
 		</view>
