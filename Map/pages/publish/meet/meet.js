@@ -51,7 +51,7 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     let _this = this;
-    let loc;
+
     wx.chooseLocation({
       success: function(res) {
         _this.setData({

@@ -270,7 +270,8 @@ Page({
   //签到
   addchk: function () {
     wx.navigateTo({
-      url: '../publish/checkin/checkin',
+      // url: '../publish/checkin/checkin',
+      url: '../publish/help/help'
     })
   }
 })
