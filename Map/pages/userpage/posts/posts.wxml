@@ -33,15 +33,23 @@
 <view class="cu-modal {{showOptions==true?'show':''}}" bindtap="hideOptions">
   <view class="cu-dialog" catchtap>
     <view class="cu-list menu text-left solid-top">
+
       <view class="cu-item">
-        
         <view class="content">
           <view class="option-item" catchtap="deletePost">
             <text>删除帖子</text>
           </view>
         </view>
-
       </view>
+
+      <view class="cu-item">
+        <view class="content">
+          <view class="option-item" catchtap="showPost">
+            <text>普通地查看帖子</text>
+          </view>
+        </view>
+      </view>
+
     </view>
   </view>
 </view>

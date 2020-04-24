@@ -18,7 +18,7 @@
   box-shadow: 0 2px 5px #eeeeee;
 }
 .feed-item .feed-user{
-  width: 690rpx;
+  width: 650rpx;
   left: 0;
   height: 100rpx;
   margin-bottom: 10rpx;
@@ -45,6 +45,7 @@
   height: 100rpx;
   /* display: flex; */
   padding: 20rpx 0;
+  flex-grow: 5;
   /* flex-direction: column; */
   /* align-items: center; */
 }
@@ -67,6 +68,18 @@
   font-size: 26rpx;
 }
 
+.feed-item .feed-user .more{
+  margin: 15rpx 0 0 0;
+  display: inline-block;
+  height: 45rpx;
+  width: 45rpx;
+}
+
+.feed-item .feed-user .more image{
+  height: 40rpx;
+  width: 40rpx;
+  align-items: center;  
+}
 
 /* --------------- common widgets ^ ^ ------------------ */
 
@@ -89,11 +102,11 @@
 }
 
 .feed-item .feed-content .banner .post-type{
-  width: 65rpx;
+  width: 70rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 39rpx;
+  height: 42rpx;
   border-radius: 9rpx;
   /* background: #ffc0cb; */
   background: #008cff;

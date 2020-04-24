@@ -17,32 +17,38 @@ Page({
     // this.saySth(`你点击了帖子${idx}`);
     console.log("进入帖子", e)
     wx.navigateTo({
-      url: '/pages/show/text/text?id=' + e.currentTarget.id,
+      url: '/pages/show/text/text?id=' + this.data.posts[idx]._id,
     });
   },
 
   deletePost:function(){
     // 删除当前选中的帖子...
     console.log(this.selectedPost)
-    console.log(this.data.posts[this.selectedPost]);
     let postID = this.data.posts[this.selectedPost]._id;
     
 
     this.hideOptions();
   },
 
+  showPost:function(){
+    this.tapPost(this.selectedItemEvent);
+    this.hideOptions();
+  }, // 从帖子选单进入查看帖子 就包装一下
+
   selectedPost: undefined,
+  selectedItemEvent: undefined,
   showOptions:function(e){
     // 点击了相应帖子的“更多”选项
     let idx = e.currentTarget.dataset.idx;
     this.setData({showOptions:true});
     this.selectedPost=idx; //记住当前选中的帖子
-    console.log(this.selectedPost);
+    this.selectedItemEvent=e;
   },
 
   hideOptions:function(){
     this.setData({showOptions:false});
     this.selectedPost = undefined;
+    this.selectedItemEvent = undefined;
   },
 
   getPostsFromUser:function(){
@@ -90,6 +96,7 @@ Page({
             num_likes: res.result.data.num_likes,
             num_replies: res.result.data.num_reply,
             createTime: res.result.data.createTime.substring(5,10),
+            _id: res.result.data._id,
           }
           // 每个请求成功时, 都直接对this.data.posts的对应下标使用setData
           // 可以防止因为网络波动导致的乱序~
