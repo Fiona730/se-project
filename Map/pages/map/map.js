@@ -271,7 +271,7 @@ Page({
   addchk: function () {
     wx.navigateTo({
       // url: '../publish/checkin/checkin',
-      url: '../publish/help/help'
+      url: '../publish/vote/vote'
     })
   }
 })

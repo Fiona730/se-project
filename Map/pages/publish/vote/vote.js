@@ -1,66 +1,150 @@
-// pages/publish/vote/vote.js
+const app = getApp()
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-
+    focus: false,
+    inputValue: '',
+    titleValue: '',
+    aValue: '',
+    bValue: '',
+    cValue: '',
+    dValue: '',
+    imgPath: '',
+    position: null
+  },
+  titleInput: function (e) {
+    this.setData({
+      titleValue: e.detail.value
+    })
+  },
+  aInput: function (e) {
+    this.setData({
+      aValue: e.detail.value
+    })
+  },
+  bInput: function (e) {
+    this.setData({
+      bValue: e.detail.value
+    })
+  },
+  cInput: function (e) {
+    this.setData({
+      cValue: e.detail.value
+    })
+  },
+  dInput: function (e) {
+    this.setData({
+      dValue: e.detail.value
+    })
+  },
+  bindButtonPublish: function () {
+    // wx.cloud.callFunction({
+    //   name: "addHole",
+    //   data: {
+    //     holeTitle: this.data.titleValue,
+    //     holeContent: this.data.contentValue,
+    //     holeType: "帖子",
+    //     num_likes: 0,
+    //     num_replies: [],
+    //     imgPath: this.data.imgPath,
+    //     position: this.data.position,
+    //     userId: app.globalData.userData._id,
+    //     userName: app.globalData.userInfo.nickName
+    //   },
+    //   success(res) {
+    //     console.log("添加树洞成功", res)
+    //     // add hole id to user's record
+    //     wx.cloud.callFunction({
+    //       name: "addPostToUser",
+    //       data: {
+    //         userId: app.globalData.userData._id,
+    //         postId: res.result._id
+    //       },
+    //       success(res) {
+    //         console.log("添加用户树洞关联信息成功", res)
+    //       },
+    //       fail(res) {
+    //         console.log("添加用户树洞关联信息失败", res)
+    //       }
+    //     })
+    //   },
+    //   fail(res) {
+    //     console.log("添加树洞失败", res)
+    //   }
+    // })
+    console.log({
+      tag: 'vote', 
+      title: this.data.titleValue, 
+      content: [this.data.aValue, this.data.bValue, this.data.cValue, this.data.dValue],
+      img: this.data.imgPath,
+      position: this.data.position
+    });
+    wx.showToast({
+      title: '发布成功',
+      icon: 'success',
+      duration: 1000,
+    });
+    setTimeout(function () { wx.navigateBack(); }, 1000);
+  },
+  chooseImage: function () {
+    let _this = this;
+    wx.chooseImage({
+      count: 1,
+      sizeType: ['compressed'],
+      sourceType: ['album', 'camera'],
+      success: function (res) {
+        wx.showLoading({
+          title: '上传中',
+        })
+        _this.setData({
+          imgPath: res.tempFilePaths[0]
+        })
+      },
+      fail: e => {
+        console.error(e);
+      },
+      complete: () => {
+        wx.hideLoading();
+      }
+    })
+  },
+  editImage: function () {
+    this.setData({
+      editable: !this.data.editable
+    })
+  },
+  deleteImg: function (e) {
+    console.log(e.currentTarget.dataset.index);
+    this.setData({
+      editable: !this.data.editable,
+      imgPath: ''
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
   onLoad: function (options) {
-
+    // 页面初始化 options为页面跳转所带来的参数
+    let _this = this;
+    wx.getLocation({
+      success: function (res) {
+        _this.setData({
+          position: res
+        });
+      },
+      fail: function (e) {
+        console.error(e);
+        wx.navigateBack()
+      }
+    })
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
   onReady: function () {
-
+    // 页面渲染完成
   },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
   onShow: function () {
-
+    // 页面显示
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
   onHide: function () {
-
+    // 页面隐藏
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
   onUnload: function () {
-
-  },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-
+    // 页面关闭
   }
 })
