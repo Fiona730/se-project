@@ -2,8 +2,7 @@
 <view class="set-container">
   <view class="user flex-wrp" bindtap="tapUserPage">
     <view class="avatar flex-item">
-      <image wx:if="{{hasUserInfo && !userInfo.avatarUrl}}" class="userinfo-avatar" src="/resources/nouser.png" background-size="cover"></image>
-      <image wx:elif="{{hasUserInfo}}" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
+      <image wx:if="{{hasUserInfo}}" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" background-size="cover"></image>
       <image wx:else class="userinfo-avatar" src="/resources/nouser_akarin.jpg" background-size="cover"></image>
     </view>
     <view class="user-info flex-item">
@@ -20,6 +19,9 @@
     </view>
     <view class="my">
       <view class="my-item" bindtap="toMessages">
+        <view class="icon">
+          <image src="/pages/setting/res/msg.png"></image>
+        </view>
         <view class="myitem-name">
           <text>我的消息</text>
         </view>
@@ -28,13 +30,27 @@
         </view>
       </view>
       <view class="my-item" bindtap="toPosts">
+        <view class="icon">
+          <image src="/pages/setting/res/posts.png"></image>
+        </view>
         <view class="myitem-name">
           <text>我发布的</text>
         </view>
       </view>
       <view class="my-item" bindtap="toCollections">
+        <view class="icon">
+          <image src="/pages/setting/res/star.png"></image>
+        </view>
         <view class="myitem-name">
           <text>我的收藏</text>
+        </view>
+      </view>
+      <view class="my-item" bindtap="toFriends">
+        <view class="icon">
+          <image src="/pages/setting/res/friends.png"></image>
+        </view>
+        <view class="myitem-name">
+          <text>我的好友</text>
         </view>
       </view>
     </view>
@@ -68,9 +84,7 @@
     </block>
 
     <view class="quit flex-item">
-      <button class="quit-btn flex-item" bindtap="tapLogout">
-        <text class="quit-text">退出登录</text>
-      </button>
+      <button class="cu-btn bg-red margin-tb-sm lg" bindtap="tapLogout">退出登录</button>
     </view>
 
   </block>

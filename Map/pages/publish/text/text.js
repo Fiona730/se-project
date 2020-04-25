@@ -27,6 +27,7 @@ Page({
     });
   },
   bindButtonPublish: function () {
+
     // wx.cloud.callFunction({
     //   name: "addHole",
     //   data: {
@@ -69,6 +70,7 @@ Page({
       position: this.data.position,
       isAnonymous: this.data.isAnonymous
     });
+
     wx.showToast({
       title: '发布成功',
       icon: 'success',

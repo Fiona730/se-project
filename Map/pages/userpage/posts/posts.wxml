@@ -2,20 +2,54 @@
 
 <scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
 
-  <block wx:for="{{pposts}}">
-    <view class="feed-item" bindtap="tapPost" data-idx="{{index}}">
-      <view class="feed-content"> 
-        <view class="title">
-          <text>{{item.title}}</text>
+  <block wx:for="{{posts}}" wx:key="key" id="{{item._id}}">
+    <view class="feed-item" id="{{item._id}}" bindtap="tapPost" data-idx="{{index}}">
+      <view class="feed-content">
+        <view class="banner">
+          <view class="post-type">
+            <text>{{item.type}}</text>
+          </view>
+          <view class="title">
+            <text>{{item.title}}</text>
+          </view>
+          <view class="more" catchtap="showOptions" data-idx="{{index}}">
+            <image src="/pages/userpage/res/more.png"></image>
+          </view>
         </view>
+
+
         <view class="content">
           <text>{{item.content}}</text>
         </view>
         <view class="actions">
-          <text>{{item.num_likes}} Likes · {{item.num_replies}} Replies · Sent {{item.createTime}} </text>
+          <text>{{item.hot}}° · {{item.num_likes}} Likes · {{item.num_replies}} Replies · {{item.createTime}} </text>
         </view>
       </view>
     </view>
   </block>
 
 </scroll-view>
+
+<view class="cu-modal {{showOptions==true?'show':''}}" bindtap="hideOptions">
+  <view class="cu-dialog" catchtap>
+    <view class="cu-list menu text-left solid-top">
+
+      <view class="cu-item">
+        <view class="content">
+          <view class="option-item" catchtap="deletePost">
+            <text>删除帖子</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item">
+        <view class="content">
+          <view class="option-item" catchtap="showPost">
+            <text>普通地查看帖子</text>
+          </view>
+        </view>
+      </view>
+
+    </view>
+  </view>
+</view>
