@@ -18,8 +18,9 @@ Page({
     tablist: [
       { id: 0, add: true, value: "集合" },
       { id: 1, add: true, value: "签到"},
-      { id: 2, add: true, value: "帖子" },],
-    tabname: { "集合": 0, "签到": 1, "帖子":2},
+      { id: 2, add: true, value: "帖子" },
+      { id: 3, add: true, value: "投票" }],
+    tabname: { "集合": 0, "签到": 1, "帖子":2, "投票": 3},
     tabnum: 0,
     hasinput: false,
     inputInfo: '请输入关键字',
@@ -307,6 +308,7 @@ Page({
   addmail: function (){
     wx.navigateTo({
       url: '../publish/text/text',
+      // url: '../publish/question/question',
     })
   },
   //集合点
@@ -318,7 +320,8 @@ Page({
   //签到
   addchk: function () {
     wx.navigateTo({
-      url: '../publish/checkin/checkin',
+      // url: '../publish/checkin/checkin',
+      url: '../publish/vote/vote'
     })
   }
 })

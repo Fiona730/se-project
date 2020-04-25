@@ -6,7 +6,6 @@ Page({
     titleValue: '',
     contentValue: '',
     imgPath: '',
-    isAnonymous: false,
     position: null
   },
   titleInput: function (e) {
@@ -19,67 +18,56 @@ Page({
       contentValue: e.detail.value
     })
   },
-  checkboxChange: function(e) {
-    console.log(e.detail.value);
-    let newValue = !this.data.isAnonymous;
-    this.setData({
-      isAnonymous: newValue
-    });
-  },
   bindButtonPublish: function () {
-    wx.cloud.callFunction({
-      name: "addHole",
-      data: {
-        holeTitle: this.data.titleValue,
-        holeContent: this.data.contentValue,
-        holeType: "帖子",
-        num_likes: 0,
-        num_replies: 0,
-        imgPath: this.data.imgPath,
-        position: this.data.position,
-        userId: app.globalData.userData._id,
-        userName: app.globalData.userInfo.nickName,
-        userImage: app.globalData.userInfo.avatarUrl,
-        isAnonymous: this.data.isAnonymous
-      },
-      success(res) {
-        console.log("添加树洞成功", res)
-        // add hole id to user's record
-        wx.cloud.callFunction({
-          name: "addPostToUser",
-          data: {
-            userId: app.globalData.userData._id,
-            postId: res.result._id
-          },
-          success(res) {
-            console.log("添加用户树洞关联信息成功", res)
-          },
-          fail(res) {
-            console.log("添加用户树洞关联信息失败", res)
-          }
-        })
-      },
-      fail(res) {
-        console.log("添加树洞失败", res)
-      }
-    })
+    // wx.cloud.callFunction({
+    //   name: "addHole",
+    //   data: {
+    //     holeTitle: this.data.titleValue,
+    //     holeContent: this.data.contentValue,
+    //     holeType: "帖子",
+    //     num_likes: 0,
+    //     num_replies: [],
+    //     imgPath: this.data.imgPath,
+    //     position: this.data.position,
+    //     userId: app.globalData.userData._id,
+    //     userName: app.globalData.userInfo.nickName
+    //   },
+    //   success(res) {
+    //     console.log("添加树洞成功", res)
+    //     // add hole id to user's record
+    //     wx.cloud.callFunction({
+    //       name: "addPostToUser",
+    //       data: {
+    //         userId: app.globalData.userData._id,
+    //         postId: res.result._id
+    //       },
+    //       success(res) {
+    //         console.log("添加用户树洞关联信息成功", res)
+    //       },
+    //       fail(res) {
+    //         console.log("添加用户树洞关联信息失败", res)
+    //       }
+    //     })
+    //   },
+    //   fail(res) {
+    //     console.log("添加树洞失败", res)
+    //   }
+    // })
     console.log({
-      tag: 'text', 
+      tag: 'help', 
       title: this.data.titleValue, 
       content: this.data.contentValue,
       img: this.data.imgPath,
-      position: this.data.position,
-      isAnonymous: this.data.isAnonymous
+      position: this.data.position
     });
-
     wx.showToast({
       title: '发布成功',
       icon: 'success',
       duration: 1000,
     });
-    setTimeout(function () { wx.navigateBack();}, 1000);
+    setTimeout(function () { wx.navigateBack(); }, 1000);
   },
-  chooseImage: function(){
+  chooseImage: function () {
     let _this = this;
     wx.chooseImage({
       count: 1,
@@ -101,12 +89,12 @@ Page({
       }
     })
   },
-  editImage:function(){
+  editImage: function () {
     this.setData({
       editable: !this.data.editable
     })
   },
-  deleteImg:function(e){
+  deleteImg: function (e) {
     console.log(e.currentTarget.dataset.index);
     this.setData({
       editable: !this.data.editable,
@@ -118,12 +106,12 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     let _this = this;
     wx.getLocation({
-      success: function(res) {
+      success: function (res) {
         _this.setData({
           position: res
         });
       },
-      fail: function(e){
+      fail: function (e) {
         console.error(e);
         wx.navigateBack()
       }

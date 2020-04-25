@@ -23,10 +23,41 @@ Page({
         hot: 0,
         num_likes: 0,
         num_replies: 0,
-        createTime: undefined,
+        createTime: "2000-00-00",
       })
     }
     this.setData({ "pposts": pposts });
+  },
+
+  removeCollection: function(){
+    // 取消当前帖子的收藏... T T
+    console.log(this.selectedPost)
+    console.log(this.data.posts[this.selectedPost]);
+    let postID = this.data.posts[this.selectedPost]._id;
+
+
+    this.hideOptions();
+  },
+
+  showPost: function () {
+    this.tapPost(this.selectedItemEvent);
+    this.hideOptions();
+  }, // 从帖子选单进入查看帖子 就包装一下
+
+  selectedPost: undefined,
+  selectedItemEvent: undefined,
+  showOptions: function (e) {
+    // 点击了相应帖子的“更多”选项
+    let idx = e.currentTarget.dataset.idx;
+    this.setData({ showOptions: true });
+    this.selectedPost = idx; //记住当前选中的帖子
+    this.selectedItemEvent = e;
+  },
+
+  hideOptions: function () {
+    this.setData({ showOptions: false });
+    this.selectedPost = undefined;
+    this.selectedItemEvent = undefined;
   },
 
   getCollectionsFromUser: function(){
@@ -101,7 +132,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    //this.generatePseudoTests();
+    // this.generatePseudoTests();
     this.getCollectionsFromUser();
   },
 
