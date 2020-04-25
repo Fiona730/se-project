@@ -307,6 +307,7 @@ Page({
   addmail: function (){
     wx.navigateTo({
       url: '../publish/text/text',
+      // url: '../publish/question/question',
     })
   },
   //集合点
@@ -318,7 +319,8 @@ Page({
   //签到
   addchk: function () {
     wx.navigateTo({
-      url: '../publish/checkin/checkin',
+      // url: '../publish/checkin/checkin',
+      url: '../publish/vote/vote'
     })
   }
 })

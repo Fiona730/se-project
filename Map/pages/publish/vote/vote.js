@@ -4,7 +4,10 @@ Page({
     focus: false,
     inputValue: '',
     titleValue: '',
-    contentValue: '',
+    aValue: '',
+    bValue: '',
+    cValue: '',
+    dValue: '',
     imgPath: '',
     isAnonymous: false,
     position: null
@@ -14,12 +17,27 @@ Page({
       titleValue: e.detail.value
     })
   },
-  contentInput: function (e) {
+  aInput: function (e) {
     this.setData({
-      contentValue: e.detail.value
+      aValue: e.detail.value
     })
   },
-  checkboxChange: function(e) {
+  bInput: function (e) {
+    this.setData({
+      bValue: e.detail.value
+    })
+  },
+  cInput: function (e) {
+    this.setData({
+      cValue: e.detail.value
+    })
+  },
+  dInput: function (e) {
+    this.setData({
+      dValue: e.detail.value
+    })
+  },
+  checkboxChange: function (e) {
     console.log(e.detail.value);
     let newValue = !this.data.isAnonymous;
     this.setData({
@@ -27,7 +45,6 @@ Page({
     });
   },
   bindButtonPublish: function () {
-
     // wx.cloud.callFunction({
     //   name: "addHole",
     //   data: {
@@ -63,22 +80,20 @@ Page({
     //   }
     // })
     console.log({
-      tag: 'text', 
+      tag: 'vote', 
       title: this.data.titleValue, 
-      content: this.data.contentValue,
+      content: [this.data.aValue, this.data.bValue, this.data.cValue, this.data.dValue],
       img: this.data.imgPath,
-      position: this.data.position,
-      isAnonymous: this.data.isAnonymous
+      position: this.data.position
     });
-
     wx.showToast({
       title: '发布成功',
       icon: 'success',
       duration: 1000,
     });
-    setTimeout(function () { wx.navigateBack();}, 1000);
+    setTimeout(function () { wx.navigateBack(); }, 1000);
   },
-  chooseImage: function(){
+  chooseImage: function () {
     let _this = this;
     wx.chooseImage({
       count: 1,
@@ -100,12 +115,12 @@ Page({
       }
     })
   },
-  editImage:function(){
+  editImage: function () {
     this.setData({
       editable: !this.data.editable
     })
   },
-  deleteImg:function(e){
+  deleteImg: function (e) {
     console.log(e.currentTarget.dataset.index);
     this.setData({
       editable: !this.data.editable,
@@ -117,12 +132,12 @@ Page({
     // 页面初始化 options为页面跳转所带来的参数
     let _this = this;
     wx.getLocation({
-      success: function(res) {
+      success: function (res) {
         _this.setData({
           position: res
         });
       },
-      fail: function(e){
+      fail: function (e) {
         console.error(e);
         wx.navigateBack()
       }

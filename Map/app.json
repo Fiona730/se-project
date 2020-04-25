@@ -7,8 +7,9 @@
     "pages/userpage/collections/collections",
     "pages/publish/text/text",
     "pages/publish/meet/meet",
-    "pages/publish/checkin/checkin",
-    "pages/show/text/text"
+    "pages/publish/help/help",
+    "pages/publish/vote/vote"
+
   ],
   "window": {
     "backgroundTextStyle": "light",
