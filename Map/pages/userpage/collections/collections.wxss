@@ -137,3 +137,12 @@
   color: #00aaff;
   font-size: 26rpx;
 }
+
+/* ------------------ CU widgets css modified ^ ^ --------------- */
+.cu-item .content .option-item{
+  color: #949494;
+  text-align: center;
+  justify-content: center;
+  font-size: 33rpx;
+  font-weight: 500;
+}

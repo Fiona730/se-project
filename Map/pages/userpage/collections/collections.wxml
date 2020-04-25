@@ -2,7 +2,7 @@
 
 <scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
 
-  <block wx:for="{{pposts}}" wx:key="key">
+  <block wx:for="{{posts}}" wx:key="key">
     <view class="feed-item" id="{{item._id}}" bindtap="tapPost" data-idx="{{index}}">
       <view class="feed-user">
         <view class="avatar">
@@ -43,17 +43,17 @@
 <view class="cu-modal {{showOptions==true?'show':''}}" bindtap="hideOptions">
   <view class="cu-dialog" catchtap>
     <view class="cu-list menu text-left solid-top">
-      <view class="cu-item">
+      <view class="cu-item" catchtap="removeCollection">
         <view class="content">
-          <view class="option-item" catchtap="removeCollection">
+          <view class="option-item" >
             <text>取消收藏</text>
           </view>
         </view>
       </view>
 
-      <view class="cu-item">
+      <view class="cu-item"  catchtap="showPost">
         <view class="content">
-          <view class="option-item" catchtap="showPost">
+          <view class="option-item">
             <text>普通地查看帖子</text>
           </view>
         </view>

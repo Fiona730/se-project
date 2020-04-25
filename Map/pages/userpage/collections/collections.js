@@ -7,13 +7,13 @@ Page({
    * 页面的初始数据
    */
   data: {
-    pposts: [],
+    posts: [],
   },
 
   generatePseudoTests: function () {
-    let pposts = this.data.pposts;
+    let posts = this.data.posts;
     for (let i = 0; i < 10; i++) {
-      pposts.push({
+      posts.push({
         title: `Title${i}`,
         content: `Content${i}`.repeat(15),
         // article: `Article${i}`,
@@ -25,18 +25,61 @@ Page({
         num_replies: 0,
         createTime: "2000-00-00",
       })
-    }
-    this.setData({ "pposts": pposts });
+    };
+    this.setData({ "posts": posts });
   },
 
   removeCollection: function(){
     // 取消当前帖子的收藏... T T
-    console.log(this.selectedPost)
+    console.log(this.selectedPost);
     console.log(this.data.posts[this.selectedPost]);
     let postID = this.data.posts[this.selectedPost]._id;
+    let that=this;
 
+    wx.cloud.callFunction({
+      name: "deleCollection",
+      data: {
+        holeId: postID,
+        userId: app.globalData.userData._id,
+      },
+      success(res) {
+        console.log("取消收藏成功", res);
+
+        // 在本地删除已取消的收藏 @async
+        for(let i=0;i<that.data.posts.length;i++)
+          if(that.data.posts[i]._id==postID){
+            that.data.posts.splice(i, 1);
+            break;
+          }
+        that.setData({posts:that.data.posts});
+
+        wx.showToast({
+          title: '已取消收藏',
+          icon: 'success',
+          duration: 1000,
+        })
+        
+        wx.cloud.callFunction({
+          name: "getUser",
+          data: {
+            openId: app.globalData.openid
+          },
+          success(res) {
+            console.log("请求getUser云函数成功", res)
+            app.globalData.userData = res.result.data[0]
+          },
+          fail(res) {
+            console.log("请求getUser云函数失败", res)
+          }
+        })
+      },
+      fail(res) {
+        console.log("取消收藏失败", res)
+      }
+    });
 
     this.hideOptions();
+    // this.getCollectionsFromUser();
   },
 
   showPost: function () {
@@ -97,6 +140,7 @@ Page({
             createTime: res.result.data.createTime.substring(5,10),
             avatarURL: res.result.data.userImage,
             userName: res.result.data.userName,
+            _id: res.result.data._id,
           }
           if (cur_post.avatarURL == undefined)
             cur_post.avatarURL = "/resources/nouser_akarin.jpg"
@@ -104,7 +148,7 @@ Page({
           // 每个请求成功时, 都直接对this.data.posts的对应下标使用setData
           // 可以防止因为网络波动导致的乱序~
           _this.setData({
-            [`pposts[${i}]`]:cur_post,
+            [`posts[${i}]`]:cur_post,
           })
         },
         fail(res){
@@ -125,7 +169,11 @@ Page({
   },
 
   saySth: function (sth) {
-
+    wx.showToast({
+      title: sth,
+      icon: 'success',
+      duration: 1000,
+    })
   },
 
   /**

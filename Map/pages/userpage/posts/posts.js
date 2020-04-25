@@ -77,16 +77,6 @@ Page({
         },
         success(res){
           console.log("请求getHolebyId云函数成功", res)
-          // posts_value.push({
-          //   type:res.result.data.type,
-          //   title:res.result.data.title,
-          //   content: res.result.data.content,
-          //   hot: res.result.data.hot,
-          //   num_likes: res.result.data.num_likes,
-          //   num_replies: res.result.data.num_reply,
-          //   createTime: res.result.data.createTime.substring(5,10),
-          // })
-          // _this.setData({posts: posts_value})
 
           let cur_post = {
             type:res.result.data.type,
