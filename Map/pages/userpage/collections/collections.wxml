@@ -3,7 +3,7 @@
 <scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
 
   <block wx:for="{{posts}}" wx:key="key">
-    <view class="feed-item" id="{{item._id}}" bindtap="tapPost" data-idx="{{index}}">
+    <view class="feed-item" hover-class="hover-common" id="{{item._id}}" bindtap="tapPost" bindlongtap="longtapPost" data-idx="{{index}}">
       <view class="feed-user">
         <view class="avatar">
           <image src="{{item.avatarURL}}"></image>
@@ -61,3 +61,9 @@
     </view>
   </view>
 </view>
+
+<block wx:if="{{num_posts==0}}">
+<view class="empty-hint">
+<text>收藏夹是空的...</text>
+</view>
+</block>

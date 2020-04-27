@@ -1,5 +1,6 @@
 // pages/userpage/posts/posts.js
 const app = getApp()
+let longtap = false;
 
 Page({
 
@@ -8,10 +9,16 @@ Page({
    */
   data: {
     posts:[],
-    showOptions:false,
+    num_posts: undefined,
   },
 
   tapPost:function(e){
+    if(longtap==true){
+      // trick to handle longtap
+      longtap=false;
+      return;
+    }
+
     // 进入相应帖子的查看界面
     let idx = e.currentTarget.dataset.idx;
     // this.saySth(`你点击了帖子${idx}`);
@@ -19,6 +26,11 @@ Page({
     wx.navigateTo({
       url: '/pages/show/text/text?id=' + this.data.posts[idx]._id,
     });
+  },
+
+  longtapPost:function(e){
+    longtap=true;
+    this.showOptions(e);
   },
 
   deletePost:function(){
@@ -67,6 +79,7 @@ Page({
       }
     })
     let user_posts = app.globalData.userData.posts;
+    _this.setData({num_posts: len});
     let len = user_posts.length;
     let posts_value = _this.data.posts;
     for(let i=0; i<len; i++){

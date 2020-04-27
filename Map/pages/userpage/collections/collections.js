@@ -1,5 +1,6 @@
 // pages/userpage/posts/posts.js
 const app = getApp()
+let longtap=false;
 
 Page({
 
@@ -8,26 +9,27 @@ Page({
    */
   data: {
     posts: [],
+    num_posts: undefined,
   },
 
-  generatePseudoTests: function () {
-    let posts = this.data.posts;
-    for (let i = 0; i < 10; i++) {
-      posts.push({
-        title: `Title${i}`,
-        content: `Content${i}`.repeat(15),
-        // article: `Article${i}`,
-        userName: `User${i}`,
-        type: '帖子',
-        avatarURL: "/resources/nouser_akarin.jpg",
-        hot: 0,
-        num_likes: 0,
-        num_replies: 0,
-        createTime: "2000-00-00",
-      })
-    };
-    this.setData({ "posts": posts });
-  },
+  // generatePseudoTests: function () {
+  //   let posts = this.data.posts;
+  //   for (let i = 0; i < 10; i++) {
+  //     posts.push({
+  //       title: `Title${i}`,
+  //       content: `Content${i}`.repeat(15),
+  //       // article: `Article${i}`,
+  //       userName: `User${i}`,
+  //       type: '帖子',
+  //       avatarURL: "/resources/nouser_akarin.jpg",
+  //       hot: 0,
+  //       num_likes: 0,
+  //       num_replies: 0,
+  //       createTime: "2000-00-00",
+  //     })
+  //   };
+  //   this.setData({ "posts": posts });
+  // },
 
   removeCollection: function(){
     // 取消当前帖子的收藏... T T
@@ -52,6 +54,7 @@ Page({
             break;
           }
         that.setData({posts:that.data.posts});
+        that.setData({ num_posts: that.data.posts.length });
 
         wx.showToast({
           title: '已取消收藏',
@@ -87,6 +90,11 @@ Page({
     this.hideOptions();
   }, // 从帖子选单进入查看帖子 就包装一下
 
+  longtapPost: function (e) {
+    longtap = true;
+    this.showOptions(e);
+  },
+
   selectedPost: undefined,
   selectedItemEvent: undefined,
   showOptions: function (e) {
@@ -120,6 +128,7 @@ Page({
     })
     let user_collections = app.globalData.userData.collections;
     let len = user_collections.length;
+    _this.setData({num_posts: len});
     for(let i=0; i<len; i++){
       wx.cloud.callFunction({
         name: "getHolebyId",
@@ -160,6 +169,10 @@ Page({
 
   tapPost: function (e) {
     // 进入相应帖子的查看界面
+    if(longtap==true){
+      longtap=false;
+      return;
+    }
     let idx = e.currentTarget.dataset.idx;
     console.log("e", e)
     // this.saySth(`你点击了帖子${idx}`);

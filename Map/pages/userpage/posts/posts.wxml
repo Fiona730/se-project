@@ -3,7 +3,7 @@
 <scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
 
   <block wx:for="{{posts}}" wx:key="key" id="{{item._id}}">
-    <view class="feed-item" id="{{item._id}}" bindtap="tapPost" data-idx="{{index}}">
+    <view class="feed-item" hover-class="hover-common" id="{{item._id}}" bindtap="tapPost" bindlongtap="longtapPost" data-idx="{{index}}">
       <view class="feed-content">
         <view class="banner">
           <view class="post-type">
@@ -34,7 +34,7 @@
   <view class="cu-dialog" catchtap>
     <view class="cu-list menu text-left solid-top">
 
-      <view class="cu-item">
+      <view class="cu-item" hover-class="hover-common">
         <view class="content">
           <view class="option-item" catchtap="deletePost">
             <text>删除帖子</text>
@@ -42,7 +42,7 @@
         </view>
       </view>
 
-      <view class="cu-item">
+      <view class="cu-item" hover-class="hover-common">
         <view class="content">
           <view class="option-item" catchtap="showPost">
             <text>普通地查看帖子</text>
@@ -53,3 +53,10 @@
     </view>
   </view>
 </view>
+
+
+<block wx:if="{{num_posts==0}}">
+<view class="empty-hint">
+<text>还没有发过贴哦</text>
+</view>
+</block>

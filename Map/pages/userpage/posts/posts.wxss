@@ -9,7 +9,7 @@
 .feed-item{
   width: 96.5%;
   height: 250rpx;
-  border-radius: 15rpx;
+  border-radius: 10rpx;
   padding: 28rpx 30rpx;
   margin: 13rpx;
   background: #ffffff;
@@ -97,6 +97,8 @@
   font-size: 26rpx;
 }
 
+
+
 /* ------------------ CU widgets css modified ^ ^ --------------- */
 .cu-item .content .option-item{
   color: #949494;
@@ -104,4 +106,22 @@
   justify-content: center;
   font-size: 33rpx;
   font-weight: 500;
+}
+
+.hover-common{
+  opacity: 0.90;
+  background: #f7f7f7;
+}
+
+/* ------------------- cute things -------------------- */
+.empty-hint{
+  height: 600rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 45rpx; 
+  font-weight: 600;
+  color: #949494;
+  opacity: 0.7;
 }
