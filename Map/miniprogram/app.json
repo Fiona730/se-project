@@ -1,0 +1,23 @@
+{
+  "pages": [
+    "pages/databaseTest/databaseTest",
+    "pages/index/index",
+    "pages/storageTest/storageTest",
+    "pages/publish/text/text",
+    "pages/publish/meet/meet",
+    "pages/publish/checkin/checkin"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "permission":{
+    "scope.userLocation": {
+      "desc": "你的位置信息是消息的必要组成部分"
+    }
+  },
+  "sitemapLocation": "sitemap.json",
+  "style": "v2"
+}

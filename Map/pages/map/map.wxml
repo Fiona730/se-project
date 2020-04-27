@@ -31,9 +31,9 @@
       </cover-view>
     </cover-view>
     <cover-view wx:if="{{hassearch}}" class="searchlist">
-      <cover-view wx:for="{{searchlist}}" wx:key="key" class="search" id= "{{item._id}}" bindtap="ChooseSearch">
-        <cover-view id= "{{item._id}}"> {{item.title}} </cover-view>
-        <cover-view id= "{{item._id}}" style="text-align: right; font-size: 30rpx; color: rgb(94, 171, 235);"> {{item.userName}} </cover-view>
+      <cover-view wx:for="{{searchlist}}" wx:key="key" class="search" id= "{{item._id}}" type= "{{item.type}}" bindtap="ChooseSearch">
+        <cover-view id= "{{item._id}}" type= "{{item.type}}"> {{item.title}} </cover-view>
+        <cover-view id= "{{item._id}}" type= "{{item.type}}" style="text-align: right; font-size: 30rpx; color: rgb(94, 171, 235);"> {{item.userName}} </cover-view>
       </cover-view>
     </cover-view>
     <cover-view wx:if="{{hastablist}}" class="tablist">
@@ -49,13 +49,16 @@
       <cover-image class="marker" src="/resources/location.png"></cover-image>
     </cover-view>
     <cover-view class="addbottom" bindtap="addloc" animation="{{animloc}}">
-      <cover-image class="marker" src="/resources/1.png"></cover-image>
+      <cover-image class="marker" src="/resources/0.png"></cover-image>
     </cover-view>
     <cover-view class="addbottom" bindtap="addmail" animation="{{animmail}}">
-      <cover-image class="marker" src="/resources/mail.png"></cover-image>
+      <cover-image class="marker" src="/resources/2.png"></cover-image>
     </cover-view>
     <cover-view class="addbottom" bindtap="addchk" animation="{{animchk}}">
-      <cover-image class="marker" src="/resources/checkin.png"></cover-image>
+      <cover-image class="marker" src="/resources/3.png"></cover-image>
+    </cover-view>
+    <cover-view class="addbottom" bindtap="addhlp" animation="{{animhlp}}">
+      <cover-image class="marker" src="/resources/1.png"></cover-image>
     </cover-view>
     <cover-view class="add" bindtap="add" animation="{{animadd}}">
       <cover-image class="marker" src="/resources/add.png"></cover-image>

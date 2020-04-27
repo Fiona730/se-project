@@ -1,0 +1,143 @@
+/* pages/publish/vote/vote.wxss */.container {
+	flex: 1;
+  display: flex;
+  flex-direction: column;
+ 	box-sizing: border-box;
+  padding: 0 0 0 0;
+  align-items: stretch;
+}
+.container-body{
+	flex: 1;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.container-gray{
+	background: #f9f9f9;
+}
+input{
+	height: 60rpx;
+	line-height: 60rpx;
+ 	font-family: inherit;
+}
+.input-list{
+	padding: 0 20rpx;
+	margin: 20rpx 0;
+	background: #fff;
+	border-top: 1rpx solid #ddd;
+	border-bottom: 1rpx solid #ddd;
+}
+.input-list .input-item{
+	padding: 20rpx;
+	line-height: 2;
+	display: flex;
+	font-size: 30rpx;
+	border-top: 1rpx solid #e8e8e8;
+}
+.input-list .input-item:first-child{
+	border-top: 0;
+}
+.input-item-label{
+	display: block;
+	width: 5em;
+	color: #666;
+}
+.input-item-content{
+	color: #333;
+	flex:1;
+}
+.input-item.input-item-full{
+	display: block;
+}
+.input-item.input-item-full .input-item-label{
+	width: 100%;
+}
+.input-item.input-item-full .input-item-content{
+	width: 100%;
+}
+.input-item.input-item-full textarea{
+	height: 150rpx;
+	border: 1rpx solid #e8e8e8;
+	padding: 10rpx;
+}
+.input-item.input-item-full .img-upload{
+	padding: 0;
+}
+.input-item.input-item-adaption .input-item-label{
+	width: auto;
+	margin-right: 20rpx;
+}
+button{
+	font-size: 32rpx;
+	line-height: 72rpx;
+}
+textarea{
+	width: 100%;
+	padding: 20rpx;
+	box-sizing: border-box;
+  height: 500rpx;
+}
+
+.btn-submit{
+	padding: 30rpx;
+}
+.btn-block{
+	width: 100%;
+	line-height: 50rpx;
+}
+.btn-orange{
+	background: #66ccff;
+	color: #fff;
+}
+.btn-gray{
+	background: #e8e8e8;
+	color: #333;
+}
+.group{
+	display: block;
+	width: 100%;
+}
+.group-header{
+	line-height: 70rpx;
+	display: flex;
+	padding: 0 20rpx;
+	background: #f9f9f9;
+}
+.group-body{
+	background: #fff;
+	border-top: 1rpx solid #ddd;
+	border-bottom: 1rpx solid #ddd;
+}
+.group-body .input-list{
+	margin: 0;
+	border: none;
+}
+.img-upload{
+	padding: 20rpx;
+	font-size: 0;
+	overflow: hidden;
+}
+.img-upload .img-item,
+.img-upload .img-add{
+	width: 100rpx;
+	height: 100rpx;
+	float: left;
+	margin: 10rpx;
+	border: 1rpx solid transparent;
+}
+.img-upload .img-add{
+	border: 1rpx dashed #ddd;
+	background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAABACAYAAACqaXHeAAABcUlEQVR4Xu1a0U3DQAy1kwEIGxD5BigTwAasUDaASWADGKEjMEIG8MligpYBcocigahQRZDSyInu9b995+fni99LmQr/cOH1EwiAAgpnACNQuABwCbqNgJk1fd+/EFFT1/Vj27adhxrdCFDVHTPffRV9EJHLogiIMe6H7n8XLSIuzXABHYqOMebjjoMAKAAj4DKOLqC4A3AJ4imAxyD2ACxC2ASxCsMLHDEAMwQzBDPk4ktcQGGG1mSGzOw2pfRERBuP0HICZldV1f1Y2jw6Ar/DywkH8vhqJyLXfwH/h4ADEV14nP4MmO8icjWJAFXdMvPzCkn4yDlvQwi7SQScoQsnfwJ2GHYYdhh2GHYYdviHAeQByAOQB4yu5XMsZS6gyAPWlAfMITsoAArA63G8HkcegDwAeUDZeYCqvjHzTbH/FTazTUppSGybnPNDCOF1rqVrkamwR7GnMN3MEAhYCANQwEIa4XYMKMCN+oUAF6+AT/Qb2EFxicEnAAAAAElFTkSuQmCC') no-repeat 50% 50% / 70% auto;
+}
+.img-upload .img-item image{
+	width: 100rpx;
+	height: 100rpx;
+}
+.img-upload .img-item{
+	position: relative;
+}
+.img-upload .img-item icon{
+	position: absolute;
+	right: -12rpx;
+	top: -12rpx;
+}

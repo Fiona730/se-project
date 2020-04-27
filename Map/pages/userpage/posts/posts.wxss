@@ -8,7 +8,7 @@
 
 .feed-item{
   width: 96.5%;
-  height: 210rpx;
+  height: 250rpx;
   border-radius: 15rpx;
   padding: 28rpx 30rpx;
   margin: 13rpx;
@@ -31,11 +31,7 @@
   color: #a0acac;
   font-size: 26rpx;
 }
-.feed-item .item-more{
-  display: inline-block;
-  width: 40rpx;
-  height: 45rpx;
-}
+
 .feed-item .feed-content{
   padding: 2rpx 0 0 0;
 }
@@ -49,22 +45,35 @@
 }
 
 .feed-item .feed-content .banner .title{
+  flex-grow: 5;
   font-size: 32rpx;
   font-weight: 600;
   line-height: 35rpx;
 }
 
 .feed-item .feed-content .banner .post-type{
-  width: 72rpx;
+  width: 70rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 40rpx;
+  height: 42rpx;
   border-radius: 9rpx;
   background: #ffc0cb;
   /* background: #008cff; */
   margin: 0 15rpx 0 0;
   opacity: 0.95;
+}
+
+.feed-item .feed-content .banner .more{
+  display: inline-block;
+  height: 45rpx;
+  width: 45rpx;
+}
+
+.feed-item .feed-content .banner .more image{
+  height: 40rpx;
+  width: 40rpx;
+  align-items: center;  
 }
 
 .feed-item .feed-content .banner .post-type text{
@@ -74,11 +83,10 @@
 
 .feed-item .feed-content .content{
   padding: 10rpx 0 0 0;
-  height: 95rpx;
+  height: 130rpx;
   width: 250rpx;
   display: block;
   font-size: 28rpx;
-  line-height: 28rpx;
   color: #5b5b5b;
 }
 
@@ -87,4 +95,13 @@
   vertical-align: text-bottom;
   color: #00aaff;
   font-size: 26rpx;
+}
+
+/* ------------------ CU widgets css modified ^ ^ --------------- */
+.cu-item .content .option-item{
+  color: #949494;
+  text-align: center;
+  justify-content: center;
+  font-size: 33rpx;
+  font-weight: 500;
 }

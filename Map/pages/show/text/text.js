@@ -9,6 +9,7 @@ Page({
     PostUserId: '', 
     PostUserUrl: '',
     PostUserName: '',
+    MyPost: '',
     //帖子信息
     PageID: '',
     Type: '',
@@ -17,13 +18,17 @@ Page({
     Title: '',
     Content: '',
     ImgPath: '',
+    Anonymous: false,
+    //投票选项
+    Vote: false,
+    HasVote: false,
     //回复信息
     InputBottom: 0,
     InputValue: '',
     Comments: [],
     //交互信息
     Collect: false,
-    Like: false
+    Like: false,
   },
 
   //查询数据库获得帖子本身信息
@@ -32,12 +37,12 @@ Page({
     console.log("holeId", index)
     return new Promise((resolve, reject) => {
       wx.cloud.callFunction({
-        name: "getHolebyId",
+        name: "getHoleByHoleId",
         data: {
           holeId: index
         },
         success(res) {
-          console.log("请求getHolebyId云函数成功", res)
+          console.log("请求getHoleByHoleId云函数成功", res)
           that.setData({
             PageID: index,
             ImgPath: res.result.data.img,
@@ -47,11 +52,16 @@ Page({
             Time: res.result.data.createTime.substring(11, 16),
             Title: res.result.data.title,
             Content: res.result.data.content,
+            Anonymous: res.result.data.isAnonymous,
           })
           let user_collections = app.globalData.userData.collections
           if (user_collections.indexOf(that.data.PageID) >= 0)
           {
             that.setData({ Collect: true })
+          }
+          //投票信息
+          if (that.data.Type == '投票' && that.data.Content.voter.indexOf(app.globalData.userData._id)>=0) {
+            that.setData({ HasVote: true })
           }
           resolve(res)
         },
@@ -68,17 +78,18 @@ Page({
     const db = wx.cloud.database()
     console.log("发帖人", db, that.data.PostUserId)
     return new Promise((resolve, reject) => {
-      db.collection('Users').where({
-        _id:that.data.PostUserId
-      }).get({
-        success: res => {
-          console.log("发帖人信息", res.data[0])
+      wx.cloud.callFunction({
+        name: "getUserByUserId",
+        data: { userId: that.data.PostUserId },
+        success(res) {
+          console.log("请求getUserByUserId云函数成功", res)
           that.setData({
-            PostUserUrl: res.data[0].userinfo.avatarUrl,
-            PostUserName: res.data[0].userinfo.nickName
+            PostUserUrl: res.result.data[0].userinfo.avatarUrl,
+            PostUserName: res.result.data[0].userinfo.nickName,
+            MyPost: that.data.PostUserId == app.globalData.userData._id,
           })
           resolve(res)
-        }
+        },
       })
     })
   },
@@ -86,30 +97,54 @@ Page({
   //查询数据库获得回复信息
   async CommentData() {
     var that = this
-    const db = wx.cloud.database()
     return new Promise((resolve, reject) => {
-      db.collection('Comments').where({
-        holeId: that.data.PageID
-      }).get({
-        success: res => {
-          console.log("回复信息", res.data)
+      wx.cloud.callFunction({
+        name: "getCommentByHoleId",
+        data: { holeId: that.data.PageID },
+        success(res) {
+          console.log("请求getCommentByHoleId云函数成功", res)
           that.setData({
-            Comments: res.data
+            Comments: res.result.data
           })
           var len = that.data.Comments.length
           var time = ''
           for(let i = 0; i < len; i++) 
           {
-            time = util.formatTime(that.data.Comments[i].createTime)
+            time = that.data.Comments[i].createTime
+            // time = util.formatTime(that.data.Comments[i].createTime)
             that.setData({
-              ["Comments[" + i + "].createTime"]: time
+              ["Comments[" + i + "].createTime"]: time.substring(0, 10) + " " + time.substring(11, 16)
             })
+            console.log("回复日期", that.data.Comments[i].createTime)
           }
-          console.log("回复日期", that.data.Comments[0].createTime)
           resolve(res)
         },
       })
     })
+    // const db = wx.cloud.database()
+    // return new Promise((resolve, reject) => {
+    //   db.collection('Comments').where({
+    //     holeId: that.data.PageID
+    //   }).get({
+    //     success: res => {
+    //       console.log("回复信息", res.data)
+    //       that.setData({
+    //         Comments: res.data
+    //       })
+    //       var len = that.data.Comments.length
+    //       var time = ''
+    //       for(let i = 0; i < len; i++) 
+    //       {
+    //         time = util.formatTime(that.data.Comments[i].createTime)
+    //         that.setData({
+    //           ["Comments[" + i + "].createTime"]: time
+    //         })
+    //       }
+    //       console.log("回复日期", that.data.Comments[0].createTime)
+    //       resolve(res)
+    //     },
+    //   })
+    // })
   },
 
   //async
@@ -239,6 +274,66 @@ Page({
   AddLike() {
     let that = this
     that.setData({ Like: !that.data.Like })
-  }
+  },
 
+  //求助类特化
+  Help(e){
+    let that=this
+    console.log(e.detail)
+    that.setData({
+      ['Content.help']: e.detail.value
+    })
+    wx.cloud.callFunction({
+      name: "updateHole",
+      data: {
+        holeId: that.data.PageID,
+        holeContect: that.data.Content,
+      },
+      success(res) {
+        console.log("updateHole成功", res)
+        that.GetData(that.data.PageID)
+      },
+      fail(res) {
+        console.log("updateHole失败", res)
+      }
+    })
+  },
+
+  //投票类特化
+  ChsVote(e) {
+    console.log('radio发生change事件', e.detail)
+    console.log(this.data.Content)
+    this.setData({
+      Vote: e.detail.value
+    })
+  },
+
+  PubVote(){
+    let that = this
+    console.log('发布投票', that.data.Content.vote )
+    let voters = that.data.Content.voter
+    let votes = that.data.Content.vote
+    console.log('投票者', that.data.Content.voter)
+    voters.push(app.globalData.userData._id)
+    votes[that.data.Vote].num += 1
+    that.setData({
+      ['Content.vote']: votes,
+      ['Content.voter']: voters
+    })
+    wx.cloud.callFunction({
+      name: "updateHole",
+      data: {
+        holeId: that.data.PageID,
+        holeContect: that.data.Content,
+      },
+      success(res) {
+        console.log("updateHole成功", res)
+        that.GetData(that.data.PageID)
+      },
+      fail(res) {
+        console.log("updateHole失败", res)
+      }
+    })
+  }
+  
 })

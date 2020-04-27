@@ -1,0 +1,26 @@
+ <view class="container">
+ 
+  <!-- 用户 openid -->
+  <view class="userinfo">
+    <button 
+      open-type="getUserInfo" 
+      bindgetuserinfo="onGetUserInfo"
+      class="userinfo-avatar"
+      style="background-image: url({{avatarUrl}})"
+      size="default"
+    ></button>
+  </view>
+
+<!-- 添加和查询数据 -->
+<input placeholder="请输入树洞内容" bindinput="addContent"></input>
+<button bindtap="addData">添加数据</button>
+<button bindtap="getData">查询数据</button>
+<!-- 删除数据 -->
+<input placeholder="删除树洞的id" bindinput="delContent"></input>
+<button bindtap="delData">删除数据</button>
+<!-- 更新数据 -->
+<input placeholder="更新树洞的id" bindinput="updId"></input>
+<input placeholder="更新树洞的内容" bindinput="updContent"></input>
+<button bindtap="updData">更新数据</button>
+
+</view>

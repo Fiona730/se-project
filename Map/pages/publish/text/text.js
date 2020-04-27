@@ -6,6 +6,7 @@ Page({
     titleValue: '',
     contentValue: '',
     imgPath: '',
+    isAnonymous: false,
     position: null
   },
   titleInput: function (e) {
@@ -18,20 +19,28 @@ Page({
       contentValue: e.detail.value
     })
   },
+  checkboxChange: function(e) {
+    console.log(e.detail.value);
+    let newValue = !this.data.isAnonymous;
+    this.setData({
+      isAnonymous: newValue
+    });
+  },
   bindButtonPublish: function () {
     wx.cloud.callFunction({
       name: "addHole",
       data: {
         holeTitle: this.data.titleValue,
-        holeContent: this.data.contentValue,
+        holeContent: {content: this.data.contentValue},
         holeType: "帖子",
         num_likes: 0,
-        num_replies: [],
+        num_replies: 0,
         imgPath: this.data.imgPath,
         position: this.data.position,
         userId: app.globalData.userData._id,
         userName: app.globalData.userInfo.nickName,
         userImage: app.globalData.userInfo.avatarUrl,
+        isAnonymous: this.data.isAnonymous
       },
       success(res) {
         console.log("添加树洞成功", res)
@@ -54,13 +63,15 @@ Page({
         console.log("添加树洞失败", res)
       }
     })
-    // console.log({
-    //   tag: 'text', 
-    //   title: this.data.titleValue, 
-    //   content: this.data.contentValue,
-    //   img: this.data.imgPath,
-    //   position: this.data.position
-    // });
+    console.log({
+      tag: 'text', 
+      title: this.data.titleValue, 
+      content: this.data.contentValue,
+      img: this.data.imgPath,
+      position: this.data.position,
+      isAnonymous: this.data.isAnonymous
+    });
+
     wx.showToast({
       title: '发布成功',
       icon: 'success',
@@ -68,7 +79,7 @@ Page({
     });
     setTimeout(function () { wx.navigateBack();}, 1000);
   },
-  doUpload: function(){
+  chooseImage: function(){
     let _this = this;
     wx.chooseImage({
       count: 1,
@@ -78,38 +89,9 @@ Page({
         wx.showLoading({
           title: '上传中',
         })
-        // const filePath = res.tempFilePaths[0];
         _this.setData({
           imgPath: res.tempFilePaths[0]
         })
-        // 上传图片
-        // const cloudPath = 'my-image' + filePath.match(/\.[^.]+?$/)[0]
-        // wx.cloud.uploadFile({
-        //   cloudPath,
-        //   filePath,
-        //   success: res => {
-        //     console.log('[上传文件] 成功：', res)
-
-        //     app.globalData.fileID = res.fileID
-        //     app.globalData.cloudPath = cloudPath
-        //     app.globalData.imagePath = filePath
-
-        //     wx.navigateTo({
-        //       url: '../storageConsole/storageConsole'
-        //     })
-        //   },
-        //   fail: e => {
-        //     console.error('[上传文件] 失败：', e)
-        //     wx.showToast({
-        //       icon: 'none',
-        //       title: '上传失败',
-        //     })
-        //   },
-        //   complete: () => {
-        //     wx.hideLoading()
-        //   }
-        // })
-
       },
       fail: e => {
         console.error(e);
@@ -118,42 +100,19 @@ Page({
         wx.hideLoading();
       }
     })
-    
   },
-  // bindButtonTap: function () {
-  //   this.setData({
-  //     focus: true
-  //   })
-  // },
-  // bindKeyInput: function (e) {
-  //   this.setData({
-  //     inputValue: e.detail.value
-  //   })
-  // },
-  // bindReplaceInput: function (e) {
-  //   var value = e.detail.value
-  //   var pos = e.detail.cursor
-  //   if (pos != -1) {
-  //     // 光标在中间
-  //     var left = e.detail.value.slice(0, pos)
-  //     // 计算光标的位置
-  //     pos = left.replace(/11/g, '2').length
-  //   }
-
-  //   // 直接返回对象，可以对输入进行过滤处理，同时可以控制光标的位置
-  //   return {
-  //     value: value.replace(/11/g, '2'),
-  //     cursor: pos
-  //   }
-  //   // 或者直接返回字符串,光标在最后边
-  //   // return value.replace(/11/g,'2'),
-  // },
-  // bindHideKeyboard: function (e) {
-  //   if (e.detail.value === "123") {
-  //     //收起键盘
-  //     wx.hideKeyboard()
-  //   }
-  // },
+  editImage:function(){
+    this.setData({
+      editable: !this.data.editable
+    })
+  },
+  deleteImg:function(e){
+    console.log(e.currentTarget.dataset.index);
+    this.setData({
+      editable: !this.data.editable,
+      imgPath: ''
+    })
+  },
 
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
