@@ -65,9 +65,9 @@ Page({
   toMessages: function(){
     
     // this.data.userData.messages
-    wx.navigateTo({
-      url: '/pages/userpage/messages/messages',
-    });
+    // wx.navigateTo({
+    //   url: '/pages/userpage/messages/messages',
+    // });
     this.saySth("开发中> <");
   },
 
