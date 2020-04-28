@@ -5,6 +5,7 @@ Page({
     "longitude": "",
     "latitude": "",
     "location": true,
+    "scale": 9,
     hasUserInfo: false,
     UserInfo: {},
     //帖子集合
@@ -132,7 +133,7 @@ Page({
  */
   onReady: function () {
     // 使用 wx.createMapContext 获取 map 上下文
-    this.mapCtx = wx.createMapContext('map')
+    this.mapCtx = wx.createMapContext('map');
   },
   //回到当前定位位置
   tapclick() {
@@ -141,7 +142,10 @@ Page({
     that.setData({
       location: true
     })
-    this.mapCtx.moveToLocation()
+    this.mapCtx.moveToLocation();
+    that.setData({
+      scale: 14
+    })
   },
   //当移动地图时触发
   regionchange: function (e) {
@@ -364,5 +368,27 @@ Page({
       // url: '../publish/checkin/checkin',
       url: '../publish/help/help'
     })
-  }
+  },
+  heatmap: function() {
+    var that = this;
+    that.mapCtx.getRegion({
+      success(res) {
+        console.log(res);
+        var str1 = res.southwest.longitude;
+        var str2 = res.southwest.latitude;
+        var str3 = res.northeast.longitude;
+        var str4 = res.northeast.latitude;
+        var str5 = that.data.longitude;
+        var str6 = that.data.latitude;
+        console.log("FUCK", str3-str1);
+        console.log("FUCK", str1);
+        console.log("FUCK", str3);
+        console.log("FUCK", str5);
+        wx.navigateTo({
+          url: '../heatmap/heatmap?str1='+str1 +'&str2='+ str2 + '&str3=' + str3 + '&str4=' + str4 + '&str5=' + str5 + '&str6=' + str6
+        })
+      }
+    })
+    
+  },
 })

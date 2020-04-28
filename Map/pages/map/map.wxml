@@ -3,7 +3,7 @@
     id="map" 
     longitude="{{longitude}}" 
     latitude="{{latitude}}" 
-    scale="14" 
+    scale="{{scale}}" 
     controls="{{controls}}" bindcontroltap="controltap" 
     markers="{{markers}}" bindmarkertap="markertap"
     polyline="{{polyline}}" 
@@ -62,6 +62,9 @@
     </cover-view>
     <cover-view class="add" bindtap="add" animation="{{animadd}}">
       <cover-image class="marker" src="/resources/add.png"></cover-image>
+    </cover-view>
+    <cover-view class="heatmap" bindtap="heatmap">
+      <cover-image class="marker" src="/resources/heatmap.png"></cover-image>
     </cover-view>
   </map>
 </view>
