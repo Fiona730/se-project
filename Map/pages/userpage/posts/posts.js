@@ -130,6 +130,8 @@ Page({
             avatarURL: res.result.data.userImage,
             userName: res.result.data.userName,
             anonymous: res.result.data.isAnonymous,
+            image: res.result.data.img,
+            poster_id : res.result.data.userId,
           }
           // 每个请求成功时, 都直接对this.data.posts的对应下标使用setData
           // 可以防止因为网络波动导致的乱序~
@@ -218,6 +220,7 @@ Page({
   onLoad: function (options) {
     // this.generatePseudoTests();
     num_loaded=next_loaded=0;
+    this.setData({ user_id: app.globalData.userData._id})
     this.getPostsFromUser();
     
   },
