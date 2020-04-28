@@ -1,17 +1,18 @@
 /* pages/userpage/posts/posts.wxss */
 .post-container{
   /* height: 100%; */
+  height: unset;
   width: 100%;
   overflow-x:hidden;
   /* background: #F0F4F3; */
 }
 
 .feed-item{
-  width: 96.5%;
-  height: 250rpx;
+  width: 95%;
+  /* height: 250rpx; */
   border-radius: 10rpx;
-  padding: 28rpx 30rpx;
-  margin: 13rpx;
+  padding: 20rpx 30rpx 15rpx 30rpx;
+  margin: 20rpx;
   background: #ffffff;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
@@ -52,16 +53,16 @@
 }
 
 .feed-item .feed-content .banner .post-type{
-  width: 70rpx;
+  /* width: 70rpx; */
+  padding: 0 8rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 42rpx;
   border-radius: 9rpx;
-  background: #ffc0cb;
-  /* background: #008cff; */
+  background: #008cff;
   margin: 0 15rpx 0 0;
-  opacity: 0.95;
+  opacity: 0.8;
 }
 
 .feed-item .feed-content .banner .more{
@@ -83,19 +84,26 @@
 
 .feed-item .feed-content .content{
   padding: 10rpx 0 0 0;
-  height: 130rpx;
+  /* height: 130rpx; */
   width: 250rpx;
   display: block;
   font-size: 28rpx;
   color: #5b5b5b;
 }
 
+.feed-item .feed-content .empty{
+  height: 40rpx;
+  display: block;
+}
+
 .feed-item .feed-content .actions{
+  margin: 35rpx 0 0 0;
   display: inline-block;
   vertical-align: text-bottom;
   color: #00aaff;
   font-size: 26rpx;
 }
+
 
 
 

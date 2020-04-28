@@ -1,14 +1,32 @@
 <!--pages/userpage/posts/posts.wxml-->
 
-<scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
+<scroll-view scroll-y="true" class="post-container">
 
   <block wx:for="{{posts}}" wx:key="key" id="{{item._id}}">
     <view class="feed-item" hover-class="hover-common" id="{{item._id}}" bindtap="tapPost" bindlongtap="longtapPost" data-idx="{{index}}">
       <view class="feed-content">
         <view class="banner">
-          <view class="post-type">
+
+          <!-- 根据帖子类型变化的post-type tag -->
+
+          <view wx:if="{{item.type=='帖子'}}" class="post-type">
             <text>{{item.type}}</text>
           </view>
+          <view wx:if="{{item.type=='投票'}}" class="post-type" style="background:orange">
+            <text>{{item.type}}</text>
+          </view>
+          <block wx:if="{{item.type=='求助'}}">
+            <view class="post-type" style="background:red">
+              <text>{{item.type}}</text>
+            </view>
+            <view wx:if="{{item.content.help}}" class="post-type" style="background:green">
+              <text>已解决</text>
+            </view>
+          </block>
+          <view wx:if="{{item.anonymous==true}}" class="post-type" style="background:gray">
+            <text>匿名</text>
+          </view>
+
           <view class="title">
             <text>{{item.title}}</text>
           </view>
@@ -17,10 +35,16 @@
           </view>
         </view>
 
-
-        <view class="content">
-          <text>{{item.content}}</text>
+        <view wx:if="{{item.type=='投票'}}" class="text-sm">
+          <text class="text-grey">已有{{item.content.voter.length}}人参与投票!</text>
         </view>
+
+        <view wx:if="{{item.content.content!=undefined && item.content.content!=''}}" class="content">
+          <text>{{item.content.content}}</text>
+        </view>
+        <!-- 空白占位符 -->
+        <view wx:else class="empty"></view>
+
         <view class="actions">
           <text>{{item.hot}}° · {{item.num_likes}} Likes · {{item.num_replies}} Replies · {{item.createTime}} </text>
         </view>
@@ -34,17 +58,26 @@
   <view class="cu-dialog" catchtap>
     <view class="cu-list menu text-left solid-top">
 
-      <view class="cu-item" hover-class="hover-common">
+      <view class="cu-item" hover-class="hover-common" catchtap="deletePost">
         <view class="content">
-          <view class="option-item" catchtap="deletePost">
+          <view class="option-item">
             <text>删除帖子</text>
           </view>
         </view>
       </view>
 
-      <view class="cu-item" hover-class="hover-common">
+      <view wx:if="{{selected_post.type=='求助'}}" class="cu-item" hover-class="hover-common" catchtap="revQuestState">
         <view class="content">
-          <view class="option-item" catchtap="showPost">
+          <view class="option-item" >
+            <text wx:if="{{selected_post.content.help}}">标记为未解决</text>
+            <text wx:else>标记为已解决</text>
+          </view>
+        </view>
+      </view>
+
+      <view class="cu-item" hover-class="hover-common" catchtap="showPost">
+        <view class="content">
+          <view class="option-item">
             <text>普通地查看帖子</text>
           </view>
         </view>

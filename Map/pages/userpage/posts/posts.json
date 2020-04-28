@@ -1,4 +1,6 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "我发布的"
+  "navigationBarTitleText": "我发布的",
+  "onReachBottomDistance": 10
+  
 }

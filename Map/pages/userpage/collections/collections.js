@@ -1,6 +1,11 @@
-// pages/userpage/posts/posts.js
+
 const app = getApp()
 let longtap=false;
+// lazy loading things
+let user_collections = undefined;
+let num_loaded = 0;
+let next_loaded = 0;
+const batch_size = 8;
 
 Page({
 
@@ -10,6 +15,7 @@ Page({
   data: {
     posts: [],
     num_posts: undefined,
+    selected_post: undefined,
   },
 
   // generatePseudoTests: function () {
@@ -37,6 +43,7 @@ Page({
     console.log(this.data.posts[this.selectedPost]);
     let postID = this.data.posts[this.selectedPost]._id;
     let that=this;
+    wx.showLoading({ title: '正在请求', mask: true });
 
     wx.cloud.callFunction({
       name: "deleCollection",
@@ -78,6 +85,9 @@ Page({
       },
       fail(res) {
         console.log("取消收藏失败", res)
+      },
+      complete(res) {
+        wx.hideLoading();
       }
     });
 
@@ -101,6 +111,7 @@ Page({
     // 点击了相应帖子的“更多”选项
     let idx = e.currentTarget.dataset.idx;
     this.setData({ showOptions: true });
+    
     this.selectedPost = idx; //记住当前选中的帖子
     this.selectedItemEvent = e;
   },
@@ -109,6 +120,64 @@ Page({
     this.setData({ showOptions: false });
     this.selectedPost = undefined;
     this.selectedItemEvent = undefined;
+  },
+
+  loadBatch: function () {
+
+    let len = user_collections.length;
+    if (len == num_loaded) return;
+    let _this = this;
+    let new_batch = Math.min(batch_size, len - num_loaded);
+    next_loaded += new_batch;
+    wx.showLoading({ title: '加载中', mask: true });
+
+    console.log(num_loaded);
+    console.log(next_loaded);
+
+    for (let i = num_loaded; i < num_loaded + new_batch; i++) {
+      wx.cloud.callFunction({
+        name: "getHolebyId",
+        data: {
+          holeId: user_collections[i]
+        },
+        success(res) {
+          console.log("请求getHolebyId云函数成功", res)
+
+          let cur_post = {
+            _id: res.result.data._id,
+            type: res.result.data.type,
+            title: res.result.data.title,
+            content: res.result.data.content,
+            hot: res.result.data.hot,
+            num_likes: res.result.data.num_likes,
+            num_replies: res.result.data.num_reply,
+            createTime: res.result.data.createTime.substring(5, 10),
+            avatarURL: res.result.data.userImage,
+            userName: res.result.data.userName,
+            anonymous: res.result.data.isAnonymous,
+          }
+          // 每个请求成功时, 都直接对this.data.posts的对应下标使用setData
+          // 可以防止因为网络波动导致的乱序~
+          _this.setData({
+            [`posts[${i}]`]: cur_post,
+          })
+          num_loaded += 1;
+          console.log(num_loaded);
+          console.log(next_loaded);
+          if (num_loaded == next_loaded) {
+            wx.hideLoading();
+            wx.showToast({
+              title: '加载完成',
+              icon: 'success',
+              duration: 1000,
+            });
+          }
+        },
+        fail(res) {
+          console.log("请求getHolebyId云函数失败", res)
+        },
+      })
+    }
   },
 
   getCollectionsFromUser: function(){
@@ -126,45 +195,9 @@ Page({
         console.log("请求getUser云函数失败", res)
       }
     })
-    let user_collections = app.globalData.userData.collections;
-    let len = user_collections.length;
-    _this.setData({num_posts: len});
-    for(let i=0; i<len; i++){
-      wx.cloud.callFunction({
-        name: "getHolebyId",
-        data: {
-          holeId: user_collections[i]
-        },
-        success(res){
-          console.log("请求getHolebyId云函数成功", res)
-
-          let cur_post = {
-            _id: res.result.data._id,
-            type:res.result.data.type,
-            title:res.result.data.title,
-            content: res.result.data.content,
-            hot: res.result.data.hot,
-            num_likes: res.result.data.num_likes,
-            num_replies: res.result.data.num_reply,
-            createTime: res.result.data.createTime.substring(5,10),
-            avatarURL: res.result.data.userImage,
-            userName: res.result.data.userName,
-            _id: res.result.data._id,
-          }
-          if (cur_post.avatarURL == undefined)
-            cur_post.avatarURL = "/resources/nouser_akarin.jpg"
-          console.log('cur_post', cur_post)
-          // 每个请求成功时, 都直接对this.data.posts的对应下标使用setData
-          // 可以防止因为网络波动导致的乱序~
-          _this.setData({
-            [`posts[${i}]`]:cur_post,
-          })
-        },
-        fail(res){
-          console.log("请求getHolebyId云函数失败", res)
-        },
-      })
-    }
+    user_collections = app.globalData.userData.collections;
+    this.setData({ num_posts: user_collections.length});
+    this.loadBatch();
   },
 
   tapPost: function (e) {
@@ -194,47 +227,13 @@ Page({
    */
   onLoad: function (options) {
     // this.generatePseudoTests();
+    num_loaded = next_loaded = 0;
     this.getCollectionsFromUser();
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
   onReachBottom: function () {
-    // 不一次加载全部帖子：lazyLoading
-    // Todo：加载下一批帖子
-    // 好像很复杂 之后再说把= =
-    wx.showToast({
-      title: 'Loading More...',
-      icon: 'loading',
-      duration: 1500,
-      // mask:true,
-    })
+    // lady loading 测试版...!
+    this.loadBatch();
   }
 
 })

@@ -1,15 +1,17 @@
 <!--pages/userpage/collections/collections.wxml-->
 
-<scroll-view scroll-y="true" class="post-container" bindscrolltoupper="onPullUpper">
+<scroll-view scroll-y="true" class="post-container">
 
   <block wx:for="{{posts}}" wx:key="key">
     <view class="feed-item" hover-class="hover-common" id="{{item._id}}" bindtap="tapPost" bindlongtap="longtapPost" data-idx="{{index}}">
       <view class="feed-user">
         <view class="avatar">
-          <image src="{{item.avatarURL}}"></image>
+          <image wx:if="{{item.anonymous}}" src="/resources/nouser_akarin.jpg"></image>
+          <image wx:else src="{{item.avatarURL}}"></image>
         </view>
         <view class="source">
-          <view class="username">{{item.userName}}</view>
+          <view wx:if="{{item.anonymous}}" class="username" style="color:gray">匿名用户</view>
+          <view wx:else class="username">{{item.userName}}</view>
           <view class="datetime">{{item.createTime}}</view>
         </view>
 
@@ -21,16 +23,38 @@
 
       <view class="feed-content">
         <view class="banner">
-          <view class="post-type">
+
+          <!-- 根据帖子类型变化的post-type tag -->
+          <view wx:if="{{item.type=='帖子'}}" class="post-type">
             <text>{{item.type}}</text>
           </view>
+          <view wx:if="{{item.type=='投票'}}" class="post-type" style="background:orange">
+            <text>{{item.type}}</text>
+          </view>
+          <block wx:if="{{item.type=='求助'}}">
+            <view class="post-type" style="background:red">
+              <text>{{item.type}}</text>
+            </view>
+            <view wx:if="{{item.content.help}}" class="post-type" style="background:green">
+              <text>已解决</text>
+            </view>
+          </block>
+
           <view class="title">
             <text>{{item.title}}</text>
           </view>
         </view>
-        <view class="content">
-          <text>{{item.content}}</text>
+
+        <view wx:if="{{item.type=='投票'}}" class="text-sm">
+          <text class="text-grey">已有{{item.content.voter.length}}人参与投票!</text>
         </view>
+
+        <view wx:if="{{item.content.content!=undefined && item.content.content!=''}}" class="content">
+          <text>{{item.content.content}}</text>
+        </view>
+        <!-- 空白占位符 -->
+        <view wx:else class="empty"></view>
+
         <view class="actions">
           <text>{{item.hot}}° · {{item.num_likes}} Likes · {{item.num_replies}} Replies</text>
         </view>
@@ -43,6 +67,7 @@
 <view class="cu-modal {{showOptions==true?'show':''}}" bindtap="hideOptions">
   <view class="cu-dialog" catchtap>
     <view class="cu-list menu text-left solid-top">
+
       <view class="cu-item" catchtap="removeCollection">
         <view class="content">
           <view class="option-item" >
@@ -58,6 +83,7 @@
           </view>
         </view>
       </view>
+
     </view>
   </view>
 </view>
