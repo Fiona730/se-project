@@ -1,5 +1,5 @@
 {
-  "pages": [ 
+  "pages": [
     "pages/login/login",
     "pages/map/map",
     "pages/setting/setting",
@@ -8,8 +8,8 @@
     "pages/publish/text/text",
     "pages/publish/meet/meet",
     "pages/publish/help/help",
-    "pages/publish/vote/vote"
-
+    "pages/publish/vote/vote",
+    "pages/heatmap/heatmap"
   ],
   "window": {
     "backgroundTextStyle": "light",
