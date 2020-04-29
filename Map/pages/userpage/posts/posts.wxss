@@ -1,36 +1,93 @@
-/* pages/userpage/posts/posts.wxss */
+/* pages/userpage/collections/collections.wxss */
 .post-container{
   /* height: 100%; */
+  height: unset;
   width: 100%;
   overflow-x:hidden;
   /* background: #F0F4F3; */
 }
 
 .feed-item{
-  width: 96.5%;
-  height: 250rpx;
-  border-radius: 15rpx;
-  padding: 28rpx 30rpx;
-  margin: 13rpx;
+  width: 95%;
+  /* height: 340rpx; */
+  border-radius: 10rpx;
+  margin: 20rpx;
   background: #ffffff;
   border-top: 1px solid #eee;
   border-bottom: 1px solid #eee;
   box-shadow: 0 2px 5px #eeeeee;
 }
-.feed-item .feed-user{
-  width: 690rpx;
-  left: 0;
-  height: 50rpx;
+
+.feed-item .ex-image{
+  padding: 0rpx 30rpx 10rpx 30rpx;
+  
 }
-.feed-item .feed-user text{
+
+.feed-item .feed-user{
+  width: 650rpx;
+  left: 0;
+  height: 100rpx;
+  margin: 10rpx 0;
+  display: flex;
+  flex-direction: row;
+}
+
+.feed-item .feed-user .avatar{
+  position: relative;
   display: inline-block;
-  height: 40rpx;
-  line-height: 40rpx;
+  border-color: #5b5b5b;
+}
+
+.feed-item .feed-user .avatar image{
+  display: inline-block;
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 60rpx;
+  top: 10rpx;
   vertical-align: middle;
+}
+
+.feed-item .feed-user .source{
+  height: 100rpx;
+  /* display: flex; */
+  padding: 20rpx 0;
+  flex-grow: 5;
+  /* flex-direction: column; */
+  /* align-items: center; */
+}
+
+.feed-item .feed-user .source .username{
+  
+  height: 40rpx;
+  
   margin: 0 0 0 18rpx;
-  color: #a0acac;
+  color: #ffc0cb;
+  font-size: 30rpx;
+  font-weight: 500;
+}
+
+.feed-item .feed-user .source .datetime{
+  
+  height: 30rpx;
+  margin: 0 0 0 18rpx;
+  color: #adadad;
   font-size: 26rpx;
 }
+
+.feed-item .feed-user .more{
+  margin: 15rpx 0 0 0;
+  display: inline-block;
+  height: 45rpx;
+  width: 45rpx;
+}
+
+.feed-item .feed-user .more image{
+  height: 40rpx;
+  width: 40rpx;
+  align-items: center;  
+}
+
+/* --------------- common widgets ^ ^ ------------------ */
 
 .feed-item .feed-content{
   padding: 2rpx 0 0 0;
@@ -45,56 +102,55 @@
 }
 
 .feed-item .feed-content .banner .title{
-  flex-grow: 5;
   font-size: 32rpx;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 35rpx;
 }
 
 .feed-item .feed-content .banner .post-type{
-  width: 70rpx;
+  padding: 0 8rpx;
   display: flex;
   align-items: center;
   justify-content: center;
   height: 42rpx;
   border-radius: 9rpx;
-  background: #ffc0cb;
-  /* background: #008cff; */
+  background: #008cff;
   margin: 0 15rpx 0 0;
-  opacity: 0.95;
-}
-
-.feed-item .feed-content .banner .more{
-  display: inline-block;
-  height: 45rpx;
-  width: 45rpx;
-}
-
-.feed-item .feed-content .banner .more image{
-  height: 40rpx;
-  width: 40rpx;
-  align-items: center;  
+  opacity: 0.8;
 }
 
 .feed-item .feed-content .banner .post-type text{
+  font-size: 28rpx;
   font-weight: 500;
   color: #ffffff;
 }
 
 .feed-item .feed-content .content{
   padding: 10rpx 0 0 0;
-  height: 130rpx;
-  width: 250rpx;
+  /* height: 115rpx; */
+  width: 100%;
+  word-break: break-all;
   display: block;
   font-size: 28rpx;
   color: #5b5b5b;
 }
 
+.feed-item .feed-content .empty{
+  height: 40rpx;
+  display: block;
+}
+
 .feed-item .feed-content .actions{
   display: inline-block;
   vertical-align: text-bottom;
+  margin: 35rpx 0 0 0; 
   color: #00aaff;
   font-size: 26rpx;
+}
+
+.hover-common{
+  opacity: 0.90;
+  background: #f7f7f7;
 }
 
 /* ------------------ CU widgets css modified ^ ^ --------------- */
@@ -104,4 +160,18 @@
   justify-content: center;
   font-size: 33rpx;
   font-weight: 500;
+}
+
+
+/* ------------------- cute things -------------------- */
+.empty-hint{
+  height: 600rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 45rpx; 
+  font-weight: 600;
+  color: #949494;
+  opacity: 0.7;
 }

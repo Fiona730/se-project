@@ -29,7 +29,7 @@
           {{msgNum}}
         </view>
       </view>
-      <view class="my-item" bindtap="toPosts">
+      <view class="my-item" bindtap="toPosts" hover-class="hover-common">
         <view class="icon">
           <image src="/pages/setting/res/posts.png"></image>
         </view>
@@ -37,7 +37,7 @@
           <text>我发布的</text>
         </view>
       </view>
-      <view class="my-item" bindtap="toCollections">
+      <view class="my-item" bindtap="toCollections" hover-class="hover-common">
         <view class="icon">
           <image src="/pages/setting/res/star.png"></image>
         </view>

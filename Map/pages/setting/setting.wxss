@@ -149,3 +149,8 @@
 	z-index: 100;
 	background-color: #cfcfcf;
 }
+
+.hover-common{
+  opacity: 0.90;
+  background: #f7f7f7;
+}
