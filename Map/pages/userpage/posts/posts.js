@@ -53,7 +53,7 @@ Page({
   revQuestState:function(){
     // 变化求助类型帖子标记 reverse the state of quest type
     this.data.selected_post.content.help = !this.data.selected_post.content.help;
-    wx.showLoading({ title: '正在请求', mask: true });
+    wx.showLoading({ title: '正在请求' });
     let that=this;
     wx.cloud.callFunction({
       name: "updateHole",
@@ -112,7 +112,7 @@ Page({
     let _this=this;
     let new_batch = Math.min(batch_size, len-num_loaded);
     next_loaded+=new_batch;
-    wx.showLoading({title: '加载中',mask:true});
+    wx.showLoading({title: '加载中'});
 
     for (let i = num_loaded; i < num_loaded + new_batch; i++) {
 
