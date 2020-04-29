@@ -85,8 +85,10 @@ Page({
           console.log("请求getUserByUserId云函数成功", res)
           that.setData({
             PostUserUrl: res.result.data[0].userinfo.avatarUrl,
+
             PostUserName: res.result.data[0].userinfo.nickName,
             MyPost: that.data.PostUserId == app.globalData.userData._id,
+
           })
           resolve(res)
         },

@@ -12,7 +12,7 @@ Page({
     isDev: true,
     msgNum: 0,
     switch1Chked : false,
-    switch2Chked : false
+    switch2Chked : false,
   },
 
   /**
@@ -26,7 +26,7 @@ Page({
         userData: app.globalData.userData
       })
     }else{
-      this.setData({hasUserInfo:false})
+      this.setData({hasUserInfo:false});
       //是否强制登录？
     }
   },
@@ -36,35 +36,39 @@ Page({
     app.globalData.userInfo = null;
     wx.redirectTo({
       url: '/pages/setting/setting',
-    })
-    this.saySth("已退出")
+    });
+    this.saySth("已退出");
   },
 
   tapUserPage: function(){
     // 用户点击用户页面入口
     if(this.data.hasUserInfo){
-      this.saySth('开发中> <')
+      this.saySth('开发中> <');
       // Todo: jump to user's homepage
     }
     else{
       // 没登录...!
       wx.redirectTo({
         url: '/pages/login/login',
-      })
+      });
     }
   },
 
   saySth:function(sth){
     wx.showToast({
       title: sth,
-      duration: 1500,
-      mask: true,
-    })
+      icon: 'success',
+      duration: 1000,
+    });
   },
 
   toMessages: function(){
-    this.saySth("开发中> <")
+    
     // this.data.userData.messages
+    // wx.navigateTo({
+    //   url: '/pages/userpage/messages/messages',
+    // });
+    this.saySth("开发中> <");
   },
 
   toFriends:function(){

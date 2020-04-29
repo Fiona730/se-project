@@ -17,10 +17,12 @@ Page({
     //tab菜单
     tablist: [
       { id: 0, add: true, value: "集合" },
+
       { id: 1, add: true, value: "求助"},
       { id: 2, add: true, value: "帖子" },
       { id: 3, add: true, value: "投票" }],
     tabname: { "集合": 0, "求助": 1, "帖子":2, "投票": 3},
+
     tabnum: 0,
     hasinput: false,
     inputInfo: '请输入关键字',
@@ -356,6 +358,7 @@ Page({
     wx.navigateTo({
       // url: '../publish/checkin/checkin',
       url: '../publish/vote/vote'
+
     })
   },
   //求助  
@@ -363,6 +366,7 @@ Page({
     wx.navigateTo({
       // url: '../publish/checkin/checkin',
       url: '../publish/help/help'
+
     })
   }
 })

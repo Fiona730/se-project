@@ -19,6 +19,7 @@ Page({
     })
   },
   bindButtonPublish: function () {
+
     wx.cloud.callFunction({
       name: "addHole",
       data: {
@@ -55,6 +56,7 @@ Page({
         console.log("添加树洞失败", res)
       }
     })
+
     console.log({
       tag: 'help', 
       title: this.data.titleValue, 
