@@ -19,40 +19,44 @@ Page({
     })
   },
   bindButtonPublish: function () {
-    // wx.cloud.callFunction({
-    //   name: "addHole",
-    //   data: {
-    //     holeTitle: this.data.titleValue,
-    //     holeContent: this.data.contentValue,
-    //     holeType: "帖子",
-    //     num_likes: 0,
-    //     num_replies: [],
-    //     imgPath: this.data.imgPath,
-    //     position: this.data.position,
-    //     userId: app.globalData.userData._id,
-    //     userName: app.globalData.userInfo.nickName
-    //   },
-    //   success(res) {
-    //     console.log("添加树洞成功", res)
-    //     // add hole id to user's record
-    //     wx.cloud.callFunction({
-    //       name: "addPostToUser",
-    //       data: {
-    //         userId: app.globalData.userData._id,
-    //         postId: res.result._id
-    //       },
-    //       success(res) {
-    //         console.log("添加用户树洞关联信息成功", res)
-    //       },
-    //       fail(res) {
-    //         console.log("添加用户树洞关联信息失败", res)
-    //       }
-    //     })
-    //   },
-    //   fail(res) {
-    //     console.log("添加树洞失败", res)
-    //   }
-    // })
+
+    wx.cloud.callFunction({
+      name: "addHole",
+      data: {
+        holeTitle: this.data.titleValue,
+        holeContent: {content: this.data.contentValue, help:false},
+        holeType: "求助",
+        num_likes: 0,
+        num_replies: 0,
+        imgPath: this.data.imgPath,
+        position: this.data.position,
+        userId: app.globalData.userData._id,
+        userName: app.globalData.userInfo.nickName,
+        userImage: app.globalData.userInfo.avatarUrl,
+        isAnonymous: this.data.isAnonymous,
+      },
+      success(res) {
+        console.log("添加树洞成功", res)
+        // add hole id to user's record
+        wx.cloud.callFunction({
+          name: "addPostToUser",
+          data: {
+            userId: app.globalData.userData._id,
+            postId: res.result._id
+          },
+          success(res) {
+            console.log("添加用户树洞关联信息成功", res)
+          },
+          fail(res) {
+            console.log("添加用户树洞关联信息失败", res)
+          }
+        })
+      },
+      fail(res) {
+        console.log("添加树洞失败", res)
+      }
+    })
+
     console.log({
       tag: 'help', 
       title: this.data.titleValue, 

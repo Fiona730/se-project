@@ -14,7 +14,9 @@ Page({
    */
   data: {
     posts:[],
+
     num_posts: undefined,
+
   },
 
   tapPost:function(e){
@@ -33,9 +35,11 @@ Page({
     });
   },
 
+
   longtapPost:function(e){
     longtap=true;
     this.showOptions(e);
+
   },
 
   deletePost:function(){
@@ -103,6 +107,7 @@ Page({
   loadBatch: function(){
     console.log(num_loaded);
     let len = user_posts.length;
+
     if(len==num_loaded)return;
     let _this=this;
     let new_batch = Math.min(batch_size, len-num_loaded);
@@ -110,6 +115,7 @@ Page({
     wx.showLoading({title: '加载中',mask:true});
 
     for (let i = num_loaded; i < num_loaded + new_batch; i++) {
+
       wx.cloud.callFunction({
         name: "getHolebyId",
         data: {
@@ -117,21 +123,35 @@ Page({
         },
         success(res) {
           console.log("请求getHolebyId云函数成功", res)
+          // posts_value.push({
+          //   type:res.result.data.type,
+          //   title:res.result.data.title,
+          //   content: res.result.data.content,
+          //   hot: res.result.data.hot,
+          //   num_likes: res.result.data.num_likes,
+          //   num_replies: res.result.data.num_reply,
+          //   createTime: res.result.data.createTime.substring(5,10),
+          // })
+          // _this.setData({posts: posts_value})
 
           let cur_post = {
+
             _id: res.result.data._id,
             type: res.result.data.type,
             title: res.result.data.title,
+
             content: res.result.data.content,
             hot: res.result.data.hot,
             num_likes: res.result.data.num_likes,
             num_replies: res.result.data.num_reply,
+
             createTime: res.result.data.createTime.substring(5, 10),
             avatarURL: res.result.data.userImage,
             userName: res.result.data.userName,
             anonymous: res.result.data.isAnonymous,
             image: res.result.data.img,
             poster_id : res.result.data.userId,
+
           }
           // 每个请求成功时, 都直接对this.data.posts的对应下标使用setData
           // 可以防止因为网络波动导致的乱序~

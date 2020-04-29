@@ -45,6 +45,7 @@ Page({
     let that=this;
     wx.showLoading({ title: '正在请求', mask: true });
 
+
     wx.cloud.callFunction({
       name: "deleCollection",
       data: {
@@ -229,6 +230,7 @@ Page({
    */
   onLoad: function (options) {
     // this.generatePseudoTests();
+
     num_loaded = next_loaded = 0;
     this.getCollectionsFromUser();
     this.setData({ user_id: app.globalData.userData._id })

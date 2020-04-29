@@ -17,10 +17,12 @@ Page({
     //tab菜单
     tablist: [
       { id: 0, add: true, value: "集合" },
-      { id: 1, add: true, value: "签到"},
+
+      { id: 1, add: true, value: "求助"},
       { id: 2, add: true, value: "帖子" },
       { id: 3, add: true, value: "投票" }],
-    tabname: { "集合": 0, "签到": 1, "帖子":2, "投票": 3},
+    tabname: { "集合": 0, "求助": 1, "帖子":2, "投票": 3},
+
     tabnum: 0,
     hasinput: false,
     inputInfo: '请输入关键字',
@@ -28,22 +30,44 @@ Page({
     animadd: {},
     animloc: {},
     animmail: {},
+    animhlp: {},
   },
   //显示符合类型的Holes
   getmess: function () {
     var that = this;
+    var color = ''
     const mks = that.data.list.map((value,index) =>{
-      console.log("tabname", that.data.tabname[value.type])
+      console.log("mkrs", value)
       if (that.data.tablist[that.data.tabname[value.type]].add){
+        color = '#77b6e962'
+        if (value.type=='求助'){
+          if(value.content.help==false){
+            color = '#e9777762'
+          }
+          else{
+            color = '#8ee97762'
+          }
+        }
         return {
-          iconPath: '/resources/1.png',
+          iconPath: '/resources/' + that.data.tabname[value.type]+'.png',
           id: value._id,
           type: value.type,
-          latitude: value.position.coordinates[1] + (Math.random()-0.5)*0.0003,
-          longitude: value.position.coordinates[0] + (Math.random() - 0.5)*0.0003,
+          latitude: value.position.coordinates[1] + (Math.random()-0.5)*0.0006,
+          longitude: value.position.coordinates[0] + (Math.random() - 0.5)*0.0006,
           width: 35,
           height: 35,
-          clickable: true
+          clickable: true,
+          callout: {
+            content: value.title,
+            color: '#444141',  
+            borderRadius: 3, 
+            borderWidth: 1, 
+            borderColor: '#77b6e962', 
+            bgColor: color, 
+            padding: 5, 
+            textAlign: 'center' ,
+            display: 'ALWAYS'
+          }
         }
       }
     })
@@ -263,15 +287,21 @@ Page({
       duration: 400,
       timingFunction: 'ease-out'
     })
+    var animationhlp = wx.createAnimation({
+      duration: 400,
+      timingFunction: 'ease-out'
+    })
     animationadd.rotateZ(45).step();
     animationloc.translate(-80, 0).rotateZ(360).opacity(1).step();
     animationmail.translate(80, 0).rotateZ(360).opacity(1).step();
-    animationchk.translate(0, -80).rotateZ(360).opacity(1).step();
+    animationchk.translate(-40, -69.3).rotateZ(360).opacity(1).step();
+    animationhlp.translate(40, -69.3).rotateZ(360).opacity(1).step();
     this.setData({
       animadd: animationadd.export(),
       animloc: animationloc.export(),
       animmail: animationmail.export(),
       animchk: animationchk.export(),
+      animhlp: animationhlp.export(),
     })
   },
   //收回动画
@@ -293,15 +323,21 @@ Page({
       duration: 400,
       timingFunction: 'ease-out'
     })
+    var animationhlp = wx.createAnimation({
+      duration: 400,
+      timingFunction: 'ease-out'
+    })
     animationadd.rotateZ(0).step();
     animationloc.translate(0, 0).rotateZ(0).opacity(0).step();
     animationmail.translate(0, 0).rotateZ(0).opacity(0).step();
     animationchk.translate(0, 0).rotateZ(0).opacity(0).step();
+    animationhlp.translate(0, 0).rotateZ(0).opacity(0).step();
     this.setData({
       animadd: animationadd.export(),
       animloc: animationloc.export(),
       animmail: animationmail.export(),
       animchk: animationchk.export(),
+      animhlp: animationhlp.export(),
     })
   },
   //图文
@@ -317,11 +353,20 @@ Page({
       url: '../publish/meet/meet',
     })
   },
-  //签到
+  //投票
   addchk: function () {
     wx.navigateTo({
       // url: '../publish/checkin/checkin',
       url: '../publish/vote/vote'
+
+    })
+  },
+  //求助  
+  addhlp: function () {
+    wx.navigateTo({
+      // url: '../publish/checkin/checkin',
+      url: '../publish/help/help'
+
     })
   }
 })

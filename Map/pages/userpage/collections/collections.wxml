@@ -2,6 +2,7 @@
 
 <scroll-view scroll-y="true" class="post-container">
 
+
   <block wx:for="{{posts}}" wx:key="key">
     <view class="feed-item" hover-class="hover-common" id="{{item._id}}" bindtap="tapPost" bindlongtap="longtapPost" data-idx="{{index}}">
 
@@ -13,6 +14,7 @@
           <view class="avatar">
             <image wx:if="{{item.anonymous}}" src="/resources/nouser_akarin.jpg"></image>
             <image wx:else src="{{item.avatarURL}}"></image>
+
           </view>
           <view class="source">
             <view wx:if="{{item.anonymous}}" class="username" style="color:gray">匿名用户{{user_id==item.poster_id?'(自己)':''}}</view>
@@ -25,6 +27,7 @@
           </view>
 
         </view>
+
 
         <view class="feed-content">
           <view class="banner">
@@ -63,6 +66,7 @@
           <view class="actions">
             <text>{{item.hot}}° · {{item.num_likes}} Likes · {{item.num_replies}} Replies</text>
           </view>
+
         </view>
       </view>
 
@@ -70,6 +74,7 @@
   </block>
 
 </scroll-view>
+
 
 <!-- Above part in collection.wxml and posts.wxml is exactly same! -->
 
@@ -80,18 +85,22 @@
       <view class="cu-item" catchtap="removeCollection">
         <view class="content">
           <view class="option-item">
+
             <text>取消收藏</text>
           </view>
         </view>
       </view>
 
+
       <view class="cu-item" catchtap="showPost">
         <view class="content">
           <view class="option-item">
+
             <text>普通地查看帖子</text>
           </view>
         </view>
       </view>
+
 
     </view>
   </view>

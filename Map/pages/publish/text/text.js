@@ -31,7 +31,7 @@ Page({
       name: "addHole",
       data: {
         holeTitle: this.data.titleValue,
-        holeContent: this.data.contentValue,
+        holeContent: {content: this.data.contentValue},
         holeType: "帖子",
         num_likes: 0,
         num_replies: 0,

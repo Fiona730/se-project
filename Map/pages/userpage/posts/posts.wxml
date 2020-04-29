@@ -4,6 +4,7 @@
   <block wx:for="{{posts}}" wx:key="key">
     <view class="feed-item" hover-class="hover-common" id="{{item._id}}" bindtap="tapPost" bindlongtap="longtapPost" data-idx="{{index}}">
 
+
       <view wx:if="{{item.image}}" class="solid-bottom bg-img" style="background-image:url({{item.image}}); height:160rpx; border-top-left-radius: 10rpx; border-top-right-radius: 10rpx;">
       </view>
 
@@ -46,7 +47,11 @@
           <view class="title">
             <text>{{item.title}}</text>
           </view>
+          <view class="more" catchtap="showOptions" data-idx="{{index}}">
+            <image src="/pages/userpage/res/more.png"></image>
+          </view>
         </view>
+
 
         <view wx:if="{{item.type=='投票'}}" class="text-sm">
           <text class="text-grey">已有{{item.content.voter.length}}人参与投票!</text>
@@ -54,6 +59,7 @@
 
         <view wx:if="{{item.content.content!=undefined && item.content.content!=''}}" class="content">
           <text>{{item.content.content}}</text>
+
         </view>
         <!-- 空白占位符 -->
         <view wx:else class="empty"></view>
@@ -69,15 +75,19 @@
 
 </scroll-view>
 
+
 <!-- Above part in collection.wxml and posts.wxml is exactly same! -->
+
 
 <view class="cu-modal {{showOptions==true?'show':''}}" bindtap="hideOptions">
   <view class="cu-dialog" catchtap>
     <view class="cu-list menu text-left solid-top">
 
+
       <view class="cu-item" hover-class="hover-common" catchtap="deletePost">
         <view class="content">
           <view class="option-item">
+
             <text>删除帖子</text>
           </view>
         </view>
@@ -95,6 +105,7 @@
       <view class="cu-item" hover-class="hover-common" catchtap="showPost">
         <view class="content">
           <view class="option-item">
+
             <text>普通地查看帖子</text>
           </view>
         </view>
@@ -102,6 +113,7 @@
 
     </view>
   </view>
+
 </view>
 
 
@@ -110,3 +122,4 @@
     <text>还没有发过贴哦</text>
   </view>
 </block>
+

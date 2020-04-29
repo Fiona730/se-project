@@ -9,6 +9,7 @@ Page({
     PostUserId: '', 
     PostUserUrl: '',
     PostUserName: '',
+    MyPost: '',
     //帖子信息
     PageID: '',
     Type: '',
@@ -17,13 +18,17 @@ Page({
     Title: '',
     Content: '',
     ImgPath: '',
+    Anonymous: false,
+    //投票选项
+    Vote: false,
+    HasVote: false,
     //回复信息
     InputBottom: 0,
     InputValue: '',
     Comments: [],
     //交互信息
     Collect: false,
-    Like: false
+    Like: false,
   },
 
   //查询数据库获得帖子本身信息
@@ -47,11 +52,16 @@ Page({
             Time: res.result.data.createTime.substring(11, 16),
             Title: res.result.data.title,
             Content: res.result.data.content,
+            Anonymous: res.result.data.isAnonymous,
           })
           let user_collections = app.globalData.userData.collections
           if (user_collections.indexOf(that.data.PageID) >= 0)
           {
             that.setData({ Collect: true })
+          }
+          //投票信息
+          if (that.data.Type == '投票' && that.data.Content.voter.indexOf(app.globalData.userData._id)>=0) {
+            that.setData({ HasVote: true })
           }
           resolve(res)
         },
@@ -75,7 +85,10 @@ Page({
           console.log("请求getUserByUserId云函数成功", res)
           that.setData({
             PostUserUrl: res.result.data[0].userinfo.avatarUrl,
-            PostUserName: res.result.data[0].userinfo.nickName
+
+            PostUserName: res.result.data[0].userinfo.nickName,
+            MyPost: that.data.PostUserId == app.globalData.userData._id,
+
           })
           resolve(res)
         },
@@ -263,6 +276,66 @@ Page({
   AddLike() {
     let that = this
     that.setData({ Like: !that.data.Like })
-  }
+  },
 
+  //求助类特化
+  Help(e){
+    let that=this
+    console.log(e.detail)
+    that.setData({
+      ['Content.help']: e.detail.value
+    })
+    wx.cloud.callFunction({
+      name: "updateHole",
+      data: {
+        holeId: that.data.PageID,
+        holeContect: that.data.Content,
+      },
+      success(res) {
+        console.log("updateHole成功", res)
+        that.GetData(that.data.PageID)
+      },
+      fail(res) {
+        console.log("updateHole失败", res)
+      }
+    })
+  },
+
+  //投票类特化
+  ChsVote(e) {
+    console.log('radio发生change事件', e.detail)
+    console.log(this.data.Content)
+    this.setData({
+      Vote: e.detail.value
+    })
+  },
+
+  PubVote(){
+    let that = this
+    console.log('发布投票', that.data.Content.vote )
+    let voters = that.data.Content.voter
+    let votes = that.data.Content.vote
+    console.log('投票者', that.data.Content.voter)
+    voters.push(app.globalData.userData._id)
+    votes[that.data.Vote].num += 1
+    that.setData({
+      ['Content.vote']: votes,
+      ['Content.voter']: voters
+    })
+    wx.cloud.callFunction({
+      name: "updateHole",
+      data: {
+        holeId: that.data.PageID,
+        holeContect: that.data.Content,
+      },
+      success(res) {
+        console.log("updateHole成功", res)
+        that.GetData(that.data.PageID)
+      },
+      fail(res) {
+        console.log("updateHole失败", res)
+      }
+    })
+  }
+  
 })
