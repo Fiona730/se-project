@@ -1,4 +1,3 @@
-
 const app = getApp()
 let longtap=false;
 // lazy loading things
@@ -43,7 +42,7 @@ Page({
     console.log(this.data.posts[this.selectedPost]);
     let postID = this.data.posts[this.selectedPost]._id;
     let that=this;
-    wx.showLoading({ title: '正在请求', mask: true });
+    wx.showLoading({ title: '正在请求'});
 
 
     wx.cloud.callFunction({
@@ -130,7 +129,7 @@ Page({
     let _this = this;
     let new_batch = Math.min(batch_size, len - num_loaded);
     next_loaded += new_batch;
-    wx.showLoading({ title: '加载中', mask: true });
+    wx.showLoading({ title: '加载中'});
 
     console.log(num_loaded);
     console.log(next_loaded);
