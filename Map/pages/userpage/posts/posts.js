@@ -1,14 +1,11 @@
 // pages/userpage/posts/posts.js
 const app = getApp()
-<<<<<<< HEAD
 let longtap = false;
 // lazy loading things
 let user_posts= undefined;
 let num_loaded=0;
 let next_loaded=0;
 const batch_size = 10;
-=======
->>>>>>> 0ed5d705b90e89303bb232971a26928d1c9c8a85
 
 Page({
 
@@ -43,18 +40,43 @@ Page({
 
   deletePost:function(){
     // 删除当前选中的帖子...
-    console.log(this.selectedPost)
     let postID = this.data.posts[this.selectedPost]._id;
     let _this=this;
     wx.cloud.callFunction({
 	  name: "delePost",
 	  data: {
 	    holeId: postID,
-	    userId: this.data.user_id
+	    userId: _this.data.user_id
 	  },
 	  success(res) {
       console.log("删除树洞成功", res)
       user_posts = app.globalData.userData.posts;
+      wx.cloud.callFunction({
+        name: "getCollection",
+        data: {
+          holeId: postID
+        },
+        success(res){
+          console.log("获得树洞关联收藏成功", res)
+          console.log(res.result.data)
+          _this.deleteCollection(res.result.data[0].collectors);
+          wx.cloud.callFunction({
+            name: "deleHoleInCollection",
+            data: {
+              holeId: postID
+            },
+            success(res){
+              console.log("删除Collections中树洞成功", res)
+            },
+            fail(res){
+              console.log("删除Collections中树洞失败", res)
+            },
+          })
+        },
+        fail(res) {
+          console.log("获得树洞关联收藏失败", res)
+        }
+      })
       for(let i=0; i<_this.data.num_posts; i++){
         if(app.globalData.userData.posts[i] == postID){
           app.globalData.userData.posts.splice(i,1);
@@ -73,6 +95,26 @@ Page({
 	  }
   })
     this.hideOptions();
+  },
+
+  deleteCollection:function(collectors){
+    let len = collectors.length;
+    let _this=this;
+    for (let i = 0; i < len; i++){
+      wx.cloud.callFunction({
+        name: "deleCollectionInUser",
+        data: {
+          userId: _this.data.user_id,
+          holeId: collectors[i]
+        },
+        success(res) {
+          console.log("删除用户栏收藏成功", res)
+        },
+        fail(res) {
+          console.log("删除用户栏收藏失败", res)
+        }
+      })
+    }
   },
 
   revQuestState:function(){
@@ -132,7 +174,6 @@ Page({
   loadBatch: function(){
     console.log("num_loaded", num_loaded);
     let len = user_posts.length;
-<<<<<<< HEAD
     if(len==num_loaded)return;
     let _this=this;
     let new_batch = Math.min(batch_size, len-num_loaded);
@@ -140,9 +181,6 @@ Page({
     wx.showLoading({title: '加载中',mask:true});
 
     for (let i = num_loaded; i < num_loaded + new_batch; i++) {
-=======
-    for(let i=0; i<len; i++){
->>>>>>> 0ed5d705b90e89303bb232971a26928d1c9c8a85
       wx.cloud.callFunction({
         name: "getHolebyId",
         data: {
@@ -186,20 +224,6 @@ Page({
         },
       })
     }
-<<<<<<< HEAD
-=======
-  },
-
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    // this.generatePseudoTests();
-    // console.log("posts_value_1", this.data.posts)
-    this.getPostsFromUser()
-    // console.log("posts_value_2", this.data.posts)
-  },
->>>>>>> 0ed5d705b90e89303bb232971a26928d1c9c8a85
 
     
   },

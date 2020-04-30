@@ -40,10 +40,7 @@ Page({
         userId: app.globalData.userData._id,
         userName: app.globalData.userInfo.nickName,
         userImage: app.globalData.userInfo.avatarUrl,
-<<<<<<< HEAD
         isAnonymous: this.data.isAnonymous
-=======
->>>>>>> 0ed5d705b90e89303bb232971a26928d1c9c8a85
       },
       success(res) {
         console.log("添加树洞成功", res)
@@ -61,11 +58,24 @@ Page({
             console.log("添加用户树洞关联信息失败", res)
           }
         })
+        wx.cloud.callFunction({
+          name: "addPostToCollection",
+          data: {
+            postId: res.result._id
+          },
+          success(res) {
+            console.log("添加树洞到收藏数据库成功", res)
+          },
+          fail(res) {
+            console.log("添加树洞到收藏数据库失败", res)
+          }
+        })
       },
       fail(res) {
         console.log("添加树洞失败", res)
       }
     })
+
     console.log({
       tag: 'text', 
       title: this.data.titleValue, 

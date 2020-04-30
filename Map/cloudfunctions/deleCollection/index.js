@@ -11,7 +11,13 @@ exports.main = async (event, context) => {
       hot:_.inc(-1)
     }
   })
-
+  db.collection('Collections').where({
+    postid: event.holeId,
+  }).update({
+    data: {
+      collectors:_.pull(event.userId)
+    }
+  })
   return await db.collection('Users').doc(event.userId).update({
     data: {
       collections: _.pull(event.holeId)
