@@ -1,4 +1,3 @@
-
 const app = getApp()
 let longtap=false;
 // lazy loading things
