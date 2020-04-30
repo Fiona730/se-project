@@ -40,7 +40,10 @@ Page({
         userId: app.globalData.userData._id,
         userName: app.globalData.userInfo.nickName,
         userImage: app.globalData.userInfo.avatarUrl,
+<<<<<<< HEAD
         isAnonymous: this.data.isAnonymous
+=======
+>>>>>>> 0ed5d705b90e89303bb232971a26928d1c9c8a85
       },
       success(res) {
         console.log("添加树洞成功", res)

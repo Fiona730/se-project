@@ -1,11 +1,14 @@
 // pages/userpage/posts/posts.js
 const app = getApp()
+<<<<<<< HEAD
 let longtap = false;
 // lazy loading things
 let user_posts= undefined;
 let num_loaded=0;
 let next_loaded=0;
 const batch_size = 10;
+=======
+>>>>>>> 0ed5d705b90e89303bb232971a26928d1c9c8a85
 
 Page({
 
@@ -129,6 +132,7 @@ Page({
   loadBatch: function(){
     console.log("num_loaded", num_loaded);
     let len = user_posts.length;
+<<<<<<< HEAD
     if(len==num_loaded)return;
     let _this=this;
     let new_batch = Math.min(batch_size, len-num_loaded);
@@ -136,6 +140,9 @@ Page({
     wx.showLoading({title: '加载中',mask:true});
 
     for (let i = num_loaded; i < num_loaded + new_batch; i++) {
+=======
+    for(let i=0; i<len; i++){
+>>>>>>> 0ed5d705b90e89303bb232971a26928d1c9c8a85
       wx.cloud.callFunction({
         name: "getHolebyId",
         data: {
@@ -179,6 +186,20 @@ Page({
         },
       })
     }
+<<<<<<< HEAD
+=======
+  },
+
+  /**
+   * 生命周期函数--监听页面加载
+   */
+  onLoad: function (options) {
+    // this.generatePseudoTests();
+    // console.log("posts_value_1", this.data.posts)
+    this.getPostsFromUser()
+    // console.log("posts_value_2", this.data.posts)
+  },
+>>>>>>> 0ed5d705b90e89303bb232971a26928d1c9c8a85
 
     
   },
