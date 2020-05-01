@@ -21,6 +21,7 @@ exports.main = async (event, context) => {
       userName: event.userName,
       userId: event.userId,
       userImage: event.userImage,
+      collections:[]
     }
   })
 }
