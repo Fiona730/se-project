@@ -43,69 +43,55 @@ Page({
     let postID = this.data.posts[this.selectedPost]._id;
     let _this=this;
     wx.cloud.callFunction({
-	  name: "delePost",
-	  data: {
-	    holeId: postID,
-	    userId: _this.data.user_id
-	  },
-	  success(res) {
-      console.log("删除树洞成功", res)
-      user_posts = app.globalData.userData.posts;
-      wx.cloud.callFunction({
-        name: "getCollection",
-        data: {
-          holeId: postID
-        },
-        success(res){
-          console.log("获得树洞关联收藏成功", res)
-          console.log(res.result.data)
-          _this.deleteCollection(res.result.data[0].collectors);
-          wx.cloud.callFunction({
-            name: "deleHoleInCollection",
-            data: {
-              holeId: postID
-            },
-            success(res){
-              console.log("删除Collections中树洞成功", res)
-            },
-            fail(res){
-              console.log("删除Collections中树洞失败", res)
-            },
-          })
-        },
-        fail(res) {
-          console.log("获得树洞关联收藏失败", res)
-        }
-      })
-      for(let i=0; i<_this.data.num_posts; i++){
-        if(app.globalData.userData.posts[i] == postID){
-          app.globalData.userData.posts.splice(i,1);
-          break;
-        }
+      name: "getHoleByHoleId",
+      data: {
+        holeId: postID,
+      },
+      success(res){
+        console.log("获取树洞信息成功", res)
+        _this.deleteCollection(res.result.data.collections, postID);
+        wx.cloud.callFunction({
+          name: "delePost",
+          data: {
+            holeId: postID,
+            userId: _this.data.user_id
+          },
+          success(res) {
+            console.log("删除树洞成功", res)
+            for(let i=0; i<_this.data.num_posts; i++){
+              if(app.globalData.userData.posts[i] == postID){
+                app.globalData.userData.posts.splice(i,1);
+                break;
+              }
+            }
+            user_posts = app.globalData.userData.posts;
+            _this.setData({num_posts: user_posts.length});
+            _this.setData({posts:[]});
+            console.log("user_posts after deletion", user_posts)
+            num_loaded=next_loaded=0;
+            _this.loadBatch();
+          },
+          fail(res) {
+            console.log("删除树洞失败", res)
+          }
+        })
+      },
+      fail(res) {
+        console.log("获取树洞信息失败", res)
       }
-      user_posts = app.globalData.userData.posts;
-      _this.setData({num_posts: user_posts.length});
-      _this.setData({posts:[]});
-      console.log("user_posts after deletion", user_posts)
-      num_loaded=next_loaded=0;
-      _this.loadBatch();
-	  },
-	  fail(res) {
-	    console.log("删除树洞失败", res)
-	  }
-  })
+    })
     this.hideOptions();
   },
 
-  deleteCollection:function(collectors){
+  deleteCollection:function(collectors, postID){
     let len = collectors.length;
     let _this=this;
     for (let i = 0; i < len; i++){
       wx.cloud.callFunction({
         name: "deleCollectionInUser",
         data: {
-          userId: _this.data.user_id,
-          holeId: collectors[i]
+          userId: collectors[i],
+          holeId: postID
         },
         success(res) {
           console.log("删除用户栏收藏成功", res)

@@ -8,16 +8,12 @@ const _ = db.command
 exports.main = async (event, context) => {
   db.collection('Holes').doc(event.holeId).update({
     data: {
-      hot:_.inc(-1)
+      hot:_.inc(-1),
+      collections:_.pull(event.userId)
     }
   })
-  db.collection('Collections').where({
-    postid: event.holeId,
-  }).update({
-    data: {
-      collectors:_.pull(event.userId)
-    }
-  })
+
+
   return await db.collection('Users').doc(event.userId).update({
     data: {
       collections: _.pull(event.holeId)
