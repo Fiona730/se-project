@@ -12,6 +12,10 @@
 			</view>
 		</view>
 		<view class="group">
+      <view class="group-header">描述</view>
+      <view class="group-body">
+          <textarea placeholder="整点儿内容" bindinput="contentInput"></textarea>
+      </view>
 			<view class="group-header">选项</view>
 			<view class="group-body">
 				<view class="input-list">

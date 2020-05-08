@@ -17,6 +17,11 @@ Page({
       titleValue: e.detail.value
     })
   },
+  contentInput: function(e){
+    this.setData({
+      inputValue: e.detail.value
+    })
+  },
   aInput: function (e) {
     this.setData({
       aValue: e.detail.value
