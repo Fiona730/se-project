@@ -54,12 +54,11 @@ Page({
       name: "addHole",
       data: {
         holeTitle: this.data.titleValue,
-
-        holeContent: {vote: [{ name: this.data.aValue, id: 0, num: 0 }, {name: this.data.bValue, id: 1, num: 0}, {name: this.data.cValue, id: 2, num: 0
-    }, {name: this.data.dValue, id: 3, num: 0}], voter:[]},
-
-        holeContent: [this.data.aValue, this.data.bValue, this.data.cValue, this.data.dValue],
-
+        holeContent: {
+          vote: [{ name: this.data.aValue, id: 0, num: 0 }, { name: this.data.bValue, id: 1, num: 0 }, {
+            name: this.data.cValue, id: 2, num: 0
+          }, { name: this.data.dValue, id: 3, num: 0 }], voter: []
+        },
         holeType: "投票",
         num_likes: 0,
         num_replies: [],
@@ -92,8 +91,8 @@ Page({
       }
     })
     console.log({
-      tag: 'vote', 
-      title: this.data.titleValue, 
+      tag: 'vote',
+      title: this.data.titleValue,
       content: [this.data.aValue, this.data.bValue, this.data.cValue, this.data.dValue],
       img: this.data.imgPath,
       position: this.data.position
