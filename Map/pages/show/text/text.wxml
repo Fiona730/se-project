@@ -29,7 +29,6 @@
       </view>
     </view>
 
-    <view wx:if = "{{Type!='投票'}}" class="text-content text-lg" style = "word-wrap: break-word;word-break: break-all;{{Type=='求助'? 'color: rgb(235, 26, 26);font-size: 50rpx;' :''}}">
     <view class="text-content text-lg" style = "word-wrap: break-word;word-break: break-all;{{Type=='求助'? 'color: rgb(235, 26, 26);font-size: 50rpx;':''}}">
       {{Content.content}}
     </view>
