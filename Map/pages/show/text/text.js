@@ -64,6 +64,25 @@ Page({
             that.setData({ HasVote: true })
           }
           resolve(res)
+          wx.cloud.callFunction({
+            name: "getLike",
+            data: {
+              holeId: that.data.PageID,
+              userId: app.globalData.userData._id,
+            },
+            success(res) {
+              console.log("获得like", res)
+              if (res.result.data.length>0){
+                that.setData({ Like: true })
+              }
+              else{
+                that.setData({ Like: false })
+              }
+            },
+            fail(res) {
+              console.log("获得like失败", res)
+            }
+          })
         },
         fail(res) {
           console.log("请求getHolebyId云函数失败", res)
@@ -275,7 +294,38 @@ Page({
   //添加点赞
   AddLike() {
     let that = this
-    that.setData({ Like: !that.data.Like })
+    if (that.data.Like == false) {
+      wx.cloud.callFunction({
+        name: "addLike",
+        data: {
+          holeId: that.data.PageID,
+          userId: app.globalData.userData._id,
+        },
+        success(res) {
+          console.log("添加like成功", res)
+          that.setData({ Like: true })
+        },
+        fail(res) {
+          console.log("添加like失败", res)
+        }
+      })
+    }
+    else {
+      wx.cloud.callFunction({
+        name: "deleLike",
+        data: {
+          holeId: that.data.PageID,
+          userId: app.globalData.userData._id,
+        },
+        success(res) {
+          console.log("取消like成功", res)
+          that.setData({ Like: false })
+        },
+        fail(res) {
+          console.log("取消like失败", res)
+        }
+      })
+    }
   },
 
   //求助类特化
