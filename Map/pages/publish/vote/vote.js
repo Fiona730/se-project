@@ -22,25 +22,29 @@ Page({
       inputValue: e.detail.value
     })
   },
-  aInput: function (e) {
+  AInput: function (e) {
     this.setData({
       aValue: e.detail.value
     })
+    console.log(e.detail.value);
   },
-  bInput: function (e) {
+  BInput: function (e) {
     this.setData({
       bValue: e.detail.value
-    })
+    });
+    console.log(e.detail.value);
   },
-  cInput: function (e) {
+  CInput: function (e) {
     this.setData({
       cValue: e.detail.value
-    })
+    });
+    console.log(e.detail.value);
   },
-  dInput: function (e) {
+  DInput: function (e) {
     this.setData({
       dValue: e.detail.value
-    })
+    });
+    console.log(e.detail.value);
   },
   checkboxChange: function (e) {
     console.log(e.detail.value);
@@ -127,10 +131,11 @@ Page({
       }
     })
   },
-  editImage: function () {
-    this.setData({
-      editable: !this.data.editable
-    })
+  viewImage:function(e){
+    wx.previewImage({
+      urls: [this.data.imgPath],
+      current: e.currentTarget.dataset.url
+    });
   },
   deleteImg: function (e) {
     console.log(e.currentTarget.dataset.index);
