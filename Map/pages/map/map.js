@@ -39,13 +39,13 @@ Page({
     const mks = that.data.list.map((value,index) =>{
       console.log("mkrs", value)
       if (that.data.tablist[that.data.tabname[value.type]].add){
-        color = '#77b6e962'
+        color = '#39b54a62'
         if (value.type=='求助'){
           if(value.content.help==false){
             color = '#e9777762'
           }
           else{
-            color = '#8ee97762'
+            color = '#39b54a62'
           }
         }
         return {
