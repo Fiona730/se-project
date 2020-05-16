@@ -392,6 +392,14 @@ Page({
     })
   },
   
+  // 查看用户个人主页
+  ShowUser(e){
+    let uid = e.currentTarget.dataset.target;
+    wx.navigateTo({
+      url: `/pages/userpage/homepage/homepage?user=${uid}`,
+    });
+  },
+
   //添加关注模态框
   ShowModel(e) {
     console.log("关注", e.currentTarget.dataset)

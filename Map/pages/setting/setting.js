@@ -45,7 +45,7 @@ Page({
     if(this.data.hasUserInfo){
       // Todo: jump to user's homepage
       wx.navigateTo({
-        url: `/pages/userpage/homepage/homepage`,
+        url: `/pages/userpage/homepage/homepage?user=${this.data.userData._id}`,
       });
     }
     else{
@@ -95,22 +95,15 @@ Page({
   },
   
   toPosts:function(){
-    // wx.navigateTo({
-    //   url: '/pages/userpage/posts/posts',
-    // })   
-    
     wx.navigateTo({
-      url: `/pages/userpage/collections/collections?mode=posts&user=${app.globalData.openid}`,
+      url: `/pages/userpage/posts/posts?mode=posts&user=${this.data.userData._id}`,
     })
   },
 
   toCollections:function(){
     wx.navigateTo({
-      url: `/pages/userpage/collections/collections?mode=collections&user=${app.globalData.openid}`,
+      url: `/pages/userpage/posts/posts?mode=collections&user=${this.data.userData._id}`,
     })
-    // this.data.userData.collections
   },
-
-
 
 })

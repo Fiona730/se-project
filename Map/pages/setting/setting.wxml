@@ -75,7 +75,7 @@
     </block>
 
     <view class="quit flex-item">
-      <button class="cu-btn bg-red margin-tb-sm lg" bindtap="tapLogout">退出登录</button>
+      <button class="cu-btn bg-red margin-tb-sm lg shadow" bindtap="tapLogout">退出登录</button>
     </view>
 
   </block>
