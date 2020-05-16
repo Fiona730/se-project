@@ -1,9 +1,17 @@
 <scroll-view scroll-y class="scrollPage">
   <view class="UCenter-bg">
 
-    <!-- <image src="/resources/nouser_akarin.jpg" class="png" mode="widthFix"></image> -->
-    <view class="cu-avatar xl round margin-bottom" style="background-image:url(/resources/nouser_akarin.jpg);"></view>
-  
+
+    <button wx:if="{{1}}" class="add-friend cu-btn round bg-white" bindtap="followUser">
+      <text class="cuIcon-friendadd"></text>关注Ta
+    </button>
+    <button wx:elif="{{1}}" class="add-friend cu-btn round bg-green">
+      <text class="cuIcon-friendfavor"></text>已关注
+    </button>
+
+
+    <view class="cu-avatar xl round margin-bottom" style="background-image:url(/resources/nouser_akarin.jpg);" bindtap="cancelFollow"></view>
+
     <view class="text-xl">Username
       <text class="text-df">{{"small"}}</text>
     </view>
@@ -12,13 +20,14 @@
     </view>
 
   </view>
+
   <view class="padding flex text-center text-grey bg-white shadow shadow-lg">
-    <view class="flex flex-sub flex-direction solid-right">
+    <view class="flex flex-sub flex-direction solid-right" bindtap="toUserPosts">
       <view class="text-xxl text-orange">1</view>
       <view class="margin-top-sm">
         <text class="cuIcon-formfill"></text> Posts</view>
     </view>
-    <view class="flex flex-sub flex-direction solid-right">
+    <view class="flex flex-sub flex-direction solid-right" bindtap="toUserCollections">
       <view class="text-xxl text-blue">2</view>
       <view class="margin-top-sm">
         <text class="cuIcon-favorfill"></text> Collections </view>
