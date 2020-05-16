@@ -413,11 +413,12 @@ Page({
   //添加关注
   AddFriend() {
     let that = this
+    console.log("好友", that.data.Model_id),
     wx.cloud.callFunction({
       name: "addFriend",
       data: { 
         userId: app.globalData.userData._id,
-        newFriend: that.data.Modal_id
+        newFriend: that.data.Model_id
        },
       success(res) {
         console.log("添加好友成功", res)
