@@ -49,16 +49,24 @@
       <cover-image class="marker" src="/resources/location.png"></cover-image>
     </cover-view>
     <cover-view class="addbottom" bindtap="addloc" animation="{{animloc}}">
-      <cover-image class="marker" src="/resources/0.png"></cover-image>
+      <cover-view class="bg-green padding radius text-center shadow-blur">
+        <cover-view class="text-lg">集合</cover-view>
+      </cover-view>
     </cover-view>
     <cover-view class="addbottom" bindtap="addmail" animation="{{animmail}}">
-      <cover-image class="marker" src="/resources/2.png"></cover-image>
+      <cover-view class="bg-green padding radius text-center shadow-blur">
+        <cover-view class="text-lg">帖子</cover-view>
+      </cover-view>
     </cover-view>
     <cover-view class="addbottom" bindtap="addchk" animation="{{animchk}}">
-      <cover-image class="marker" src="/resources/3.png"></cover-image>
+      <cover-view class="bg-green padding radius text-center shadow-blur">
+        <cover-view class="text-lg">投票</cover-view>
+      </cover-view>
     </cover-view>
     <cover-view class="addbottom" bindtap="addhlp" animation="{{animhlp}}">
-      <cover-image class="marker" src="/resources/1.png"></cover-image>
+      <cover-view class="bg-green padding radius text-center shadow-blur">
+        <cover-view class="text-lg">求助</cover-view>
+      </cover-view>
     </cover-view>
     <cover-view class="add" bindtap="add" animation="{{animadd}}">
       <cover-image class="marker" src="/resources/add.png"></cover-image>
