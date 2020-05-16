@@ -71,16 +71,7 @@
     </view>
 
     <block wx:if="{{isDev}}">
-      <view class="cells-title">
-        <text class="title-text">开发者选项</text>
-      </view>
-      <view class ="my">
-      <view class="my-item">
-        <view class="myitem-name">
-          <text>变身！</text>
-        </view>
-      </view>
-      </view>
+      
     </block>
 
     <view class="quit flex-item">
