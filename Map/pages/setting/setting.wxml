@@ -7,7 +7,7 @@
     </view>
     <view class="user-info flex-item">
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      <text wx:if="{{hasUserInfo}}" class="edit">查看或编辑个人主页</text>
+      <text wx:if="{{hasUserInfo}}" class="edit">查看个人主页</text>
       <text wx:else class="edit">点击登录哦~</text>
     </view>
   </view>

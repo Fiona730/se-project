@@ -224,15 +224,24 @@ Page({
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    // this.generatePseudoTests();
-
-    num_loaded = next_loaded = 0;
-    this.getCollectionsFromUser();
-    this.setData({ user_id: app.globalData.userData._id })
+  onLoad: function (args) {
+    /*  Arguments
+      user: user_id [[[需要usedata.openid,而不是userdata._id为什么呢]]]
+      mode: 'collections'|'posts' 
+    */
+    // 其他用户/自己 的 收藏/发布(4种情况)
+    this.num_loaded = this.next_loaded = 0;
+    this.mode=args.mode;
+    this.tgt_user=args.user;
+    console.log(this.tgt_user);
+    // this.getCollectionsFromUser();
+    this.getPostsFromUser();
+    this.setData({ 
+                user_id: app.globalData.userData._id,  // 当前登录用户的ID
+                mode: args.mode,    // 模式：发布 OR 收藏
+                tgt_user: args.user, // 当前被浏览用户的openID
+                isMe: (args.user == app.globalData.userData._id)  // 这用户是我吗...(权限检查) 
+                 })  
   },
 
   onReachBottom: function () {
