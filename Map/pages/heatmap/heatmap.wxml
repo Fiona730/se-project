@@ -1,0 +1,50 @@
+<view class="Mmap">
+  <map 
+    id="map" 
+    longitude="{{longitude}}" 
+    latitude="{{latitude}}" 
+    scale="{{scale}}" 
+    controls="{{controls}}" bindcontroltap="controltap" 
+    markers="{{markers}}" bindmarkertap="markertap"
+    polyline="{{polyline}}" 
+    circles="{{circles}}" 
+    show-location
+    bindregionchange="regionchange" 
+    style="width: 100%; height: 100vh;">
+    <cover-view class="top">
+      <cover-view wx:if="{{hasUserInfo && !userInfo.avatarUrl}}" class="userimg" bindtap="userchange">
+        <cover-image class="userimg-avatar" src="/resources/nouser.png"></cover-image>
+      </cover-view>
+      <cover-view wx:elif="{{hasUserInfo}}" class="userimg" bindtap="userchange">
+        <cover-image class="userimg-avatar" src="{{userInfo.avatarUrl}}"></cover-image>
+      </cover-view>
+      <cover-view wx:else class="nouser" bindtap="nouser">
+        <cover-image class="userimg-avatar" src="/resources/nouser_akarin.jpg"></cover-image>
+      </cover-view>
+      <cover-view class="search-box" bindtap='tapInput'>
+        <cover-view class='text'>{{inputInfo}}</cover-view>
+        <input class='input' value='{{inputModel}}' focus='{{inputFocus}}' bindblur='blurInput'></input>
+      </cover-view>
+      <cover-view class="choose-box">
+        <cover-view class="bottom" bindtap="searchtab">搜索</cover-view>
+        <cover-view class="tab" bindtap="choosetab"> </cover-view>    
+      </cover-view>
+    </cover-view>
+    <cover-view wx:if="{{hassearch}}" class="searchlist">
+      <cover-view wx:for="{{searchlist}}" wx:key="key" class="search" id= "{{item._id}}" type= "{{item.type}}" bindtap="ChooseSearch">
+        <cover-view id= "{{item._id}}" type= "{{item.type}}"> {{item.title}} </cover-view>
+        <cover-view id= "{{item._id}}" type= "{{item.type}}" style="text-align: right; font-size: 30rpx; color: rgb(94, 171, 235);"> {{item.userName}} </cover-view>
+      </cover-view>
+    </cover-view>
+    <cover-view wx:if="{{hastablist}}" class="tablist">
+      <cover-view wx:for="{{tablist}}" wx:key="key" class="tab" id= "{{item.id}}" bindtap="addtab">
+        <cover-view wx:if="{{item.add}}" class="existtab">
+        </cover-view>
+        <cover-view wx:else class="notexisttab">
+        </cover-view>
+        {{item.value}}
+      </cover-view>
+    </cover-view>
+  </map>
+</view>
+<canvas canvas-id="myCanvas" class="myCanvas" style="width: 320px; height: 504px;" ></canvas>

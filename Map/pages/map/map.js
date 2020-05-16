@@ -5,6 +5,7 @@ Page({
     "longitude": "",
     "latitude": "",
     "location": true,
+    "scale": 14,
     hasUserInfo: false,
     UserInfo: {},
     //帖子集合
@@ -368,5 +369,23 @@ Page({
       url: '../publish/help/help'
 
     })
-  }
+  },
+  heatmap: function () {
+    var that = this;
+    that.mapCtx.getRegion({
+      success(res) {
+        console.log(res);
+        var str1 = res.southwest.longitude;
+        var str2 = res.southwest.latitude;
+        var str3 = res.northeast.longitude;
+        var str4 = res.northeast.latitude;
+        var str5 = that.data.longitude;
+        var str6 = that.data.latitude;
+        wx.navigateTo({
+          url: '../heatmap/heatmap?str1=' + str1 + '&str2=' + str2 + '&str3=' + str3 + '&str4=' + str4 + '&str5=' + str5 + '&str6=' + str6
+        })
+      }
+    })
+
+  },
 })
