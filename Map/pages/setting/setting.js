@@ -43,8 +43,10 @@ Page({
   tapUserPage: function(){
     // 用户点击用户页面入口
     if(this.data.hasUserInfo){
-      this.saySth('开发中> <');
       // Todo: jump to user's homepage
+      wx.navigateTo({
+        url: `/pages/userpage/homepage/homepage`,
+      });
     }
     else{
       // 没登录...!
@@ -63,7 +65,6 @@ Page({
   },
 
   toMessages: function(){
-    
     // this.data.userData.messages
     // wx.navigateTo({
     //   url: '/pages/userpage/messages/messages',
@@ -72,7 +73,6 @@ Page({
   },
 
   toFriends:function(){
-    // this.saySth("开发中> <")
     // this.data.userData.friends
     // example cloud function usage for adding friends
     let _this = this;
@@ -95,46 +95,22 @@ Page({
   },
   
   toPosts:function(){
+    // wx.navigateTo({
+    //   url: '/pages/userpage/posts/posts',
+    // })   
+    
     wx.navigateTo({
-      url: '/pages/userpage/posts/posts',
-    })   
+      url: `/pages/userpage/collections/collections?mode=posts&user=${app.globalData.openid}`,
+    })
   },
 
   toCollections:function(){
     wx.navigateTo({
-      url: '/pages/userpage/collections/collections',
+      url: `/pages/userpage/collections/collections?mode=collections&user=${app.globalData.openid}`,
     })
-    // this.saySth("开发中> <")
     // this.data.userData.collections
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
 
 
 })

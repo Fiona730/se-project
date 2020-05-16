@@ -1,40 +1,78 @@
 const app = getApp()
-let longtap=false;
-// lazy loading things
-let user_collections = undefined;
-let num_loaded = 0;
-let next_loaded = 0;
 const batch_size = 8;
 
 Page({
 
-  /**
-   * 页面的初始数据
-   */
   data: {
     posts: [],
-    num_posts: undefined,
-    selected_post: undefined,
   },
 
-  // generatePseudoTests: function () {
-  //   let posts = this.data.posts;
-  //   for (let i = 0; i < 10; i++) {
-  //     posts.push({
-  //       title: `Title${i}`,
-  //       content: `Content${i}`.repeat(15),
-  //       // article: `Article${i}`,
-  //       userName: `User${i}`,
-  //       type: '帖子',
-  //       avatarURL: "/resources/nouser_akarin.jpg",
-  //       hot: 0,
-  //       num_likes: 0,
-  //       num_replies: 0,
-  //       createTime: "2000-00-00",
-  //     })
-  //   };
-  //   this.setData({ "posts": posts });
-  // },
+  deletePost: function () {
+    // 删除当前选中的帖子...
+    let postID = this.data.posts[this.selectedPost]._id;
+    let _this = this;
+    wx.cloud.callFunction({
+      name: "getHoleByHoleId",
+      data: {
+        holeId: postID,
+      },
+      success(res) {
+        console.log("获取树洞信息成功", res)
+        _this.deleteCollection(res.result.data.collections, postID);
+        wx.cloud.callFunction({
+          name: "delePost",
+          data: {
+            holeId: postID,
+            userId: _this.data.user_id
+          },
+          success(res) {
+            console.log("删除树洞成功", res)
+            for (let i = 0; i < _this.data.num_posts; i++) {
+              if (app.globalData.userData.posts[i] == postID) {
+                app.globalData.userData.posts.splice(i, 1);
+                break;
+              }
+            }
+            user_posts = app.globalData.userData.posts;
+            _this.setData({ num_posts: user_posts.length });
+            _this.setData({ posts: [] });
+            console.log("user_posts after deletion", user_posts)
+            this.num_loaded = this.next_loaded = 0;
+            _this.loadBatch();
+          },
+          fail(res) {
+            console.log("删除树洞失败", res)
+          }
+        })
+      },
+      fail(res) {
+        console.log("获取树洞信息失败", res)
+      }
+    })
+    this.hideOptions();
+  },
+
+  deleteCollection: function (collectors, postID) {
+    // 这个函数是delectPost调用的
+    // 跟removeCollection区分一下~
+    let len = collectors.length;
+    let _this = this;
+    for (let i = 0; i < len; i++) {
+      wx.cloud.callFunction({
+        name: "deleCollectionInUser",
+        data: {
+          userId: collectors[i],
+          holeId: postID
+        },
+        success(res) {
+          console.log("删除用户栏收藏成功", res)
+        },
+        fail(res) {
+          console.log("删除用户栏收藏失败", res)
+        }
+      })
+    }
+  },
 
   removeCollection: function(){
     // 取消当前帖子的收藏... T T
@@ -43,7 +81,6 @@ Page({
     let postID = this.data.posts[this.selectedPost]._id;
     let that=this;
     wx.showLoading({ title: '正在请求'});
-
 
     wx.cloud.callFunction({
       name: "deleCollection",
@@ -100,19 +137,18 @@ Page({
     this.hideOptions();
   }, // 从帖子选单进入查看帖子 就包装一下
 
-  longtapPost: function (e) {
-    longtap = true;
+  longtapPost: function (e) { // warpper
+    this.longtap = true;
     this.showOptions(e);
   },
 
-  selectedPost: undefined,
-  selectedItemEvent: undefined,
+
   showOptions: function (e) {
     // 点击了相应帖子的“更多”选项
     let idx = e.currentTarget.dataset.idx;
-    this.setData({ showOptions: true });
-    
     this.selectedPost = idx; //记住当前选中的帖子
+    this.setData({ showOptions: true });
+    this.setData({ selectedPost: this.data.posts[this.selectedPost] })
     this.selectedItemEvent = e;
   },
 
@@ -124,21 +160,18 @@ Page({
 
   loadBatch: function () {
 
-    let len = user_collections.length;
-    if (len == num_loaded) return;
+    let len = this.listPosts.length;
+    if (len == this.num_loaded) return;
     let _this = this;
-    let new_batch = Math.min(batch_size, len - num_loaded);
-    next_loaded += new_batch;
+    let new_batch = Math.min(batch_size, len - this.num_loaded);
+    this.next_loaded += new_batch;
     wx.showLoading({ title: '加载中'});
 
-    console.log(num_loaded);
-    console.log(next_loaded);
-
-    for (let i = num_loaded; i < num_loaded + new_batch; i++) {
+    for (let i = this.num_loaded; i < this.num_loaded + new_batch; i++) {
       wx.cloud.callFunction({
         name: "getHolebyId",
         data: {
-          holeId: user_collections[i]
+          holeId: this.listPosts[i]
         },
         success(res) {
           console.log("请求getHolebyId云函数成功", res)
@@ -163,10 +196,8 @@ Page({
           _this.setData({
             [`posts[${i}]`]: cur_post,
           })
-          num_loaded += 1;
-          console.log(num_loaded);
-          console.log(next_loaded);
-          if (num_loaded == next_loaded) {
+          _this.num_loaded += 1;
+          if (_this.num_loaded == _this.next_loaded) {
             wx.hideLoading();
             wx.showToast({
               title: '加载完成',
@@ -182,6 +213,37 @@ Page({
     }
   },
 
+  revQuestState: function () {
+    // 变化求助类型帖子标记 reverse the state of quest type
+    this.data.selected_post.content.help = !this.data.selected_post.content.help;
+    wx.showLoading({ title: '正在请求' });
+    let that = this;
+    wx.cloud.callFunction({
+      name: "updateHole",
+      data: {
+        holeId: that.data.selected_post._id,
+        holeContect: that.data.selected_post.content
+      },
+      success(res) {
+        console.log("updateHole成功", res);
+        that.setData({ posts: that.data.posts });
+        wx.showToast({
+          title: '状态已变更',
+          icon: 'success',
+          duration: 1000,
+        });
+      },
+      fail(res) {
+        console.log("updateHole失败", res)
+      },
+      complete(res) {
+        wx.hideLoading();
+      }
+
+    })
+    this.hideOptions();
+  },
+
   getCollectionsFromUser: function(){
     let _this = this
     wx.cloud.callFunction({
@@ -192,20 +254,44 @@ Page({
       success(res){
         console.log("请求getUser云函数成功", res)
         app.globalData.userData = res.result.data[0]
+        _this.listPosts = app.globalData.userData.collections;
+        _this.setData({ num_posts: _this.listPosts.length });
+        _this.loadBatch();
       },
       fail(res){
         console.log("请求getUser云函数失败", res)
       }
     })
-    user_collections = app.globalData.userData.collections;
-    this.setData({ num_posts: user_collections.length});
-    this.loadBatch();
+  },
+
+  getPostsFromUser:function(){
+    let _this = this
+    wx.cloud.callFunction({
+      name: "getUser",
+      data: {
+        openId: _this.tgt_user,
+      },
+      success(res) {
+        console.log("请求getUser云函数成功", res);
+        _this.userData = res.result.data[0];
+        if(_this.mode=='posts')
+          _this.listPosts=_this.userData.posts;
+        else if(_this.mode=='collections')
+          _this.listPosts=_this.userData.collections;
+        _this.setData({ num_posts: _this.listPosts.length });
+        _this.loadBatch();
+      },
+      fail(res) {
+        console.log("请求getUser云函数失败", res);
+        assert(false);  // hoho
+      }
+    })
   },
 
   tapPost: function (e) {
     // 进入相应帖子的查看界面
-    if(longtap==true){
-      longtap=false;
+    if(this.longtap==true){
+      this.longtap=false;
       return;
     }
     let idx = e.currentTarget.dataset.idx;
@@ -245,7 +331,7 @@ Page({
   },
 
   onReachBottom: function () {
-    // lady loading 测试版...!
+    // lady loading
     this.loadBatch();
   }
 

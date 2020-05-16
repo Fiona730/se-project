@@ -85,7 +85,6 @@
       <view class="cu-item" hover-class="hover-common" catchtap="deletePost">
         <view class="content">
           <view class="option-item">
-
             <text>删除帖子</text>
           </view>
         </view>
