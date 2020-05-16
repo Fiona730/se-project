@@ -29,6 +29,10 @@ Page({
     //交互信息
     Collect: false,
     Like: false,
+    //关注
+    ModelName: '',
+    ModelUrl: '',
+    Model_id: null
   },
 
   //查询数据库获得帖子本身信息
@@ -64,6 +68,25 @@ Page({
             that.setData({ HasVote: true })
           }
           resolve(res)
+          wx.cloud.callFunction({
+            name: "getLike",
+            data: {
+              holeId: that.data.PageID,
+              userId: app.globalData.userData._id,
+            },
+            success(res) {
+              console.log("获得like", res)
+              if (res.result.data.length>0){
+                that.setData({ Like: true })
+              }
+              else{
+                that.setData({ Like: false })
+              }
+            },
+            fail(res) {
+              console.log("获得like失败", res)
+            }
+          })
         },
         fail(res) {
           console.log("请求getHolebyId云函数失败", res)
@@ -275,7 +298,38 @@ Page({
   //添加点赞
   AddLike() {
     let that = this
-    that.setData({ Like: !that.data.Like })
+    if (that.data.Like == false) {
+      wx.cloud.callFunction({
+        name: "addLike",
+        data: {
+          holeId: that.data.PageID,
+          userId: app.globalData.userData._id,
+        },
+        success(res) {
+          console.log("添加like成功", res)
+          that.setData({ Like: true })
+        },
+        fail(res) {
+          console.log("添加like失败", res)
+        }
+      })
+    }
+    else {
+      wx.cloud.callFunction({
+        name: "deleLike",
+        data: {
+          holeId: that.data.PageID,
+          userId: app.globalData.userData._id,
+        },
+        success(res) {
+          console.log("取消like成功", res)
+          that.setData({ Like: false })
+        },
+        fail(res) {
+          console.log("取消like失败", res)
+        }
+      })
+    }
   },
 
   //求助类特化
@@ -336,6 +390,43 @@ Page({
         console.log("updateHole失败", res)
       }
     })
-  }
+  },
   
+  //添加关注模态框
+  ShowModel(e) {
+    console.log("关注", e.currentTarget.dataset)
+    this.setData({
+      ModelName: e.currentTarget.dataset.name,
+      ModelUrl: e.currentTarget.dataset.url,
+      Model_id: e.currentTarget.dataset.target
+    })
+  },
+
+  HideModel(e) {
+    this.setData({
+      ModelName: '',
+      ModelUrl: '',
+      Model_id: null
+    })
+  },
+
+  //添加关注
+  AddFriend() {
+    let that = this
+    wx.cloud.callFunction({
+      name: "addFriend",
+      data: { 
+        userId: app.globalData.userData._id,
+        newFriend: that.data.Modal_id
+       },
+      success(res) {
+        console.log("添加好友成功", res)
+      },
+    })
+    this.setData({
+      Model_id: null,
+      ModelName: '',
+      ModelUrl: '',
+    })
+  }
 })
