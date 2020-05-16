@@ -1,6 +1,6 @@
 // 云函数入口文件
 const cloud = require('wx-server-sdk')
-cloud.init({env: 'se-course-0ypqs'})
+cloud.init({ env: 'se-course-0ypqs' })
 const db = cloud.database()
 const _ = db.command
 
@@ -8,15 +8,14 @@ const _ = db.command
 exports.main = async (event, context) => {
   db.collection('Holes').doc(event.holeId).update({
     data: {
-      hot:_.inc(-1),
-      collections:_.pull(event.userId)
+      num_likes: _.inc(1),
+      hot: _.inc(1)
     }
   })
-
-
-  return await db.collection('Users').doc(event.userId).update({
+  return await db.collection('Likes').add({
     data: {
-      collections: _.pull(event.holeId)
+      holeId: event.holeId,
+      userId: event.userId
     }
-  }).then(res => { console.log(res) })
+  })
 }

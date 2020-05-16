@@ -172,3 +172,8 @@ page {
   line-height: 36rpx;
   word-break: break-all;
 }
+
+.hover-common{
+  opacity: 0.90;
+  background: #f7f7f7;
+}

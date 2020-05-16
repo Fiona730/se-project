@@ -29,6 +29,10 @@ Page({
     //交互信息
     Collect: false,
     Like: false,
+    //关注
+    ModelName: '',
+    ModelUrl: '',
+    Model_id: null
   },
 
   //查询数据库获得帖子本身信息
@@ -64,6 +68,25 @@ Page({
             that.setData({ HasVote: true })
           }
           resolve(res)
+          wx.cloud.callFunction({
+            name: "getLike",
+            data: {
+              holeId: that.data.PageID,
+              userId: app.globalData.userData._id,
+            },
+            success(res) {
+              console.log("获得like", res)
+              if (res.result.data.length>0){
+                that.setData({ Like: true })
+              }
+              else{
+                that.setData({ Like: false })
+              }
+            },
+            fail(res) {
+              console.log("获得like失败", res)
+            }
+          })
         },
         fail(res) {
           console.log("请求getHolebyId云函数失败", res)
@@ -85,8 +108,10 @@ Page({
           console.log("请求getUserByUserId云函数成功", res)
           that.setData({
             PostUserUrl: res.result.data[0].userinfo.avatarUrl,
+
             PostUserName: res.result.data[0].userinfo.nickName,
             MyPost: that.data.PostUserId == app.globalData.userData._id,
+
           })
           resolve(res)
         },
@@ -273,7 +298,38 @@ Page({
   //添加点赞
   AddLike() {
     let that = this
-    that.setData({ Like: !that.data.Like })
+    if (that.data.Like == false) {
+      wx.cloud.callFunction({
+        name: "addLike",
+        data: {
+          holeId: that.data.PageID,
+          userId: app.globalData.userData._id,
+        },
+        success(res) {
+          console.log("添加like成功", res)
+          that.setData({ Like: true })
+        },
+        fail(res) {
+          console.log("添加like失败", res)
+        }
+      })
+    }
+    else {
+      wx.cloud.callFunction({
+        name: "deleLike",
+        data: {
+          holeId: that.data.PageID,
+          userId: app.globalData.userData._id,
+        },
+        success(res) {
+          console.log("取消like成功", res)
+          that.setData({ Like: false })
+        },
+        fail(res) {
+          console.log("取消like失败", res)
+        }
+      })
+    }
   },
 
   //求助类特化
@@ -334,6 +390,52 @@ Page({
         console.log("updateHole失败", res)
       }
     })
-  }
+  },
   
+  // 查看用户个人主页
+  ShowUser(e){
+    let uid = e.currentTarget.dataset.target;
+    wx.navigateTo({
+      url: `/pages/userpage/homepage/homepage?user=${uid}`,
+    });
+  },
+
+  //添加关注模态框
+  ShowModel(e) {
+    console.log("关注", e.currentTarget.dataset)
+    this.setData({
+      ModelName: e.currentTarget.dataset.name,
+      ModelUrl: e.currentTarget.dataset.url,
+      Model_id: e.currentTarget.dataset.target
+    })
+  },
+
+  HideModel(e) {
+    this.setData({
+      ModelName: '',
+      ModelUrl: '',
+      Model_id: null
+    })
+  },
+
+  //添加关注
+  AddFriend() {
+    let that = this
+    console.log("好友", that.data.Model_id),
+    wx.cloud.callFunction({
+      name: "addFriend",
+      data: { 
+        userId: app.globalData.userData._id,
+        newFriend: that.data.Model_id
+       },
+      success(res) {
+        console.log("添加好友成功", res)
+      },
+    })
+    this.setData({
+      Model_id: null,
+      ModelName: '',
+      ModelUrl: '',
+    })
+  }
 })

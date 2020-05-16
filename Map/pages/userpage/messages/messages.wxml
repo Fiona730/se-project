@@ -1,0 +1,62 @@
+<!--pages/userpage/messages/messages.wxml-->
+<scroll-view scroll-y="true">
+
+  <!-- 消息类型：新回复 -->
+  <view class="cu-card dynamic {{isCard?'no-card':''}}" bindtap="showPost">
+    <view class="cu-item shadow">
+
+      <view class="cu-list menu-avatar comment">
+
+        <view class="cu-item">
+          <view class="cu-avatar round" style="background-image:url(/resources/nouser_akarin.jpg);"></view>
+          <view class="content">
+            <view class="text-grey">老哥的昵称 回复了你的帖子！</view>
+            <view class="text-gray text-content text-df">
+              这是老哥回复的文字
+            </view>
+            <view class="bg-grey padding-sm radius margin-top-sm  text-sm">
+              <view class="flex">
+                <view>你的昵称：</view>
+                <view class="flex-sub">你相应帖子的标题</view>
+              </view>
+            </view>
+            <view class="margin-top-sm flex justify-between">
+              <view class="text-gray text-df">日期</view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+    </view>
+  </view>
+
+
+  <!-- 消息类型：新的赞 -->
+  <view class="cu-card dynamic {{isCard?'no-card':''}}" bindtap="showPost">
+    <view class="cu-item shadow">
+
+      <view class="cu-list menu-avatar comment">
+
+        <view class="cu-item">
+          <!-- <view class="cu-avatar round" style="background-image:url(/resources/nouser_akarin.jpg);"></view> -->
+          <view class="content">
+            <view class="text-grey">你的帖子有了 666 个新的赞👍！</view>
+            <view class="bg-grey padding-sm radius margin-top-sm  text-sm">
+              <view class="flex">
+                <view>你的昵称：</view>
+                <view class="flex-sub">你相应帖子的标题</view>
+              </view>
+            </view>
+            <view class="margin-top-sm flex justify-between">
+              <view class="text-gray text-df">日期</view>
+            </view>
+          </view>
+        </view>
+
+      </view>
+
+    </view>
+  </view>
+
+</scroll-view>

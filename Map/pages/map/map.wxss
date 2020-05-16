@@ -182,7 +182,7 @@
   height: 100rpx;
   background: #fff;
   border-radius: 50%;
-  box-shadow: 0 0 10rpx rgba(0,0,0,0.1);
+  box-shadow: 0 0 10rpx rgb(0, 0, 0);
   position: absolute;
   bottom: 220rpx;
   right: 60rpx;
@@ -215,12 +215,13 @@
 }
 .addbottom {
   width: 120rpx;
-  height: 120rpx;
+  height: 90rpx;
   background: rgba(255, 255, 255, 0);
   box-shadow: 0 0 10rpx rgba(0,0,0,0.1);
   position: absolute;
   bottom: 50rpx;
   right: 320rpx;
+  border-radius: 20%;
   opacity: 0;
 }
 .addbottom .marker {

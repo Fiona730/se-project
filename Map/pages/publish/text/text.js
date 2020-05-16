@@ -63,6 +63,7 @@ Page({
         console.log("添加树洞失败", res)
       }
     })
+
     console.log({
       tag: 'text', 
       title: this.data.titleValue, 
@@ -101,17 +102,18 @@ Page({
       }
     })
   },
-  editImage:function(){
-    this.setData({
-      editable: !this.data.editable
-    })
+  viewImage:function(e){
+    wx.previewImage({
+      urls: [this.data.imgPath],
+      current: e.currentTarget.dataset.url
+    });
   },
   deleteImg:function(e){
     console.log(e.currentTarget.dataset.index);
     this.setData({
       editable: !this.data.editable,
       imgPath: ''
-    })
+    });
   },
 
   onLoad: function (options) {

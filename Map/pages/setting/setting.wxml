@@ -7,7 +7,7 @@
     </view>
     <view class="user-info flex-item">
       <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      <text wx:if="{{hasUserInfo}}" class="edit">查看或编辑个人主页</text>
+      <text wx:if="{{hasUserInfo}}" class="edit">查看个人主页</text>
       <text wx:else class="edit">点击登录哦~</text>
     </view>
   </view>
@@ -29,7 +29,7 @@
           {{msgNum}}
         </view>
       </view>
-      <view class="my-item" bindtap="toPosts">
+      <view class="my-item" bindtap="toPosts" hover-class="hover-common">
         <view class="icon">
           <image src="/pages/setting/res/posts.png"></image>
         </view>
@@ -37,7 +37,7 @@
           <text>我发布的</text>
         </view>
       </view>
-      <view class="my-item" bindtap="toCollections">
+      <view class="my-item" bindtap="toCollections" hover-class="hover-common">
         <view class="icon">
           <image src="/pages/setting/res/star.png"></image>
         </view>
@@ -71,20 +71,11 @@
     </view>
 
     <block wx:if="{{isDev}}">
-      <view class="cells-title">
-        <text class="title-text">开发者选项</text>
-      </view>
-      <view class ="my">
-      <view class="my-item">
-        <view class="myitem-name">
-          <text>变身！</text>
-        </view>
-      </view>
-      </view>
+      
     </block>
 
     <view class="quit flex-item">
-      <button class="cu-btn bg-red margin-tb-sm lg" bindtap="tapLogout">退出登录</button>
+      <button class="cu-btn bg-red margin-tb-sm lg shadow" bindtap="tapLogout">退出登录</button>
     </view>
 
   </block>

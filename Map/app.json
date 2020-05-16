@@ -4,7 +4,7 @@
     "pages/map/map",
     "pages/setting/setting",
     "pages/userpage/posts/posts",
-    "pages/userpage/collections/collections",
+    "pages/userpage/homepage/homepage",
     "pages/publish/text/text",
     "pages/publish/meet/meet",
     "pages/publish/help/help",
@@ -15,7 +15,7 @@
     "backgroundTextStyle": "light",
     "navigationBarBackgroundColor": "#66ccff",
     "navigationBarTitleText": "字条罗盘",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "style": "v2",
   "sitemapLocation": "sitemap.json",

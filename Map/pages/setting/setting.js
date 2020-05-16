@@ -12,7 +12,7 @@ Page({
     isDev: true,
     msgNum: 0,
     switch1Chked : false,
-    switch2Chked : false
+    switch2Chked : false,
   },
 
   /**
@@ -26,7 +26,7 @@ Page({
         userData: app.globalData.userData
       })
     }else{
-      this.setData({hasUserInfo:false})
+      this.setData({hasUserInfo:false});
       //是否强制登录？
     }
   },
@@ -36,39 +36,43 @@ Page({
     app.globalData.userInfo = null;
     wx.redirectTo({
       url: '/pages/setting/setting',
-    })
-    this.saySth("已退出")
+    });
+    this.saySth("已退出");
   },
 
   tapUserPage: function(){
     // 用户点击用户页面入口
     if(this.data.hasUserInfo){
-      this.saySth('开发中> <')
       // Todo: jump to user's homepage
+      wx.navigateTo({
+        url: `/pages/userpage/homepage/homepage?user=${this.data.userData._id}`,
+      });
     }
     else{
       // 没登录...!
       wx.redirectTo({
         url: '/pages/login/login',
-      })
+      });
     }
   },
 
   saySth:function(sth){
     wx.showToast({
       title: sth,
-      duration: 1500,
-      mask: true,
-    })
+      icon: 'success',
+      duration: 1000,
+    });
   },
 
   toMessages: function(){
-    this.saySth("开发中> <")
     // this.data.userData.messages
+    // wx.navigateTo({
+    //   url: '/pages/userpage/messages/messages',
+    // });
+    this.saySth("开发中> <");
   },
 
   toFriends:function(){
-    // this.saySth("开发中> <")
     // this.data.userData.friends
     // example cloud function usage for adding friends
     let _this = this;
@@ -92,45 +96,14 @@ Page({
   
   toPosts:function(){
     wx.navigateTo({
-      url: '/pages/userpage/posts/posts',
-    })   
+      url: `/pages/userpage/posts/posts?mode=posts&user=${this.data.userData._id}`,
+    })
   },
 
   toCollections:function(){
     wx.navigateTo({
-      url: '/pages/userpage/collections/collections',
+      url: `/pages/userpage/posts/posts?mode=collections&user=${this.data.userData._id}`,
     })
-    // this.saySth("开发中> <")
-    // this.data.userData.collections
   },
-
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function () {
-
-  },
-
 
 })

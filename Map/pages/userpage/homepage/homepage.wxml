@@ -1,0 +1,79 @@
+<scroll-view scroll-y class="scrollPage">
+  <view class="UCenter-bg">
+
+
+    <button wx:if="{{!isMe&&1}}" class="add-friend cu-btn round bg-white" bindtap="followUser">
+      <text class="cuIcon-friendadd"></text>关注Ta
+    </button>
+    <button wx:elif="{{!isMe&&1}}" class="add-friend cu-btn round bg-green" bindtap="cancelFollow">
+      <text class="cuIcon-friendfavor"></text>已关注
+    </button>
+
+    <view class="cu-avatar xl round margin-bottom" style="background-image:url({{userData.userinfo.avatarUrl}});"></view>
+
+    <view class="text-xl">{{userData.userinfo.nickName}}
+      <text class="text-df">{{}}</text>
+    </view>
+    <view class="margin-top-sm">
+      <text>用户</text>
+    </view>
+
+  </view>
+
+  <view class="padding flex text-center text-grey bg-white shadow shadow-lg">
+    <view class="flex flex-sub flex-direction solid-right" bindtap="toUserPosts">
+      <view class="text-xxl text-orange"> {{userData.posts.length}}</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-formfill"></text> 发帖</view>
+    </view>
+    <view class="flex flex-sub flex-direction solid-right" bindtap="toUserCollections">
+      <view class="text-xxl text-blue">{{userData.collections.length}}</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-favorfill"></text> 收藏</view>
+    </view>
+    <view class="flex flex-sub flex-direction">
+      <view class="text-xxl text-green">{{userData.friends.length}}</view>
+      <view class="margin-top-sm">
+        <text class="cuIcon-friendfill"></text> 关注</view>
+    </view>
+  </view>
+
+  <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
+    <view class="cu-item arrow">
+      <view class="content" bindtap="toUserPosts">
+        <text class="cuIcon-formfill text-green"></text>
+        <text class="text-grey">Ta发布的帖子</text>
+      </view>
+    </view>
+    <view class="cu-item arrow">
+      <view class="content" bindtap="toUserCollections">
+        <text class="cuIcon-favorfill text-yellow"></text>
+        <text class="text-grey">Ta收藏的帖子</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="cu-tabbar-height"></view>
+</scroll-view>
+
+<view class="cu-modal {{Model_id==null?'':'show'}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">是否关注？</view>
+      <view class="action" bindtap="HideModel">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view wx:if = "{{ModelUrl}}" class="cu-avatar lg round" style="background-image:url({{ModelUrl}});"></view>
+      <view wx:else class="cu-avatar lg round" style="background-image:url(/resources/nouser.png); ="></view>
+      <text class="text-black text-bold text-xl">{{ModelName}}</text>
+    </view>
+    <view class="cu-bar padding-xl flex flex-wrap justify-between align-center bg-white">
+      <view class="action">
+        <button class="cu-btn line-green text-green fl padding-sm" style="width:280rpx" bindtap="HideModel">取消</button>
+        <button class="cu-btn bg-green fr padding-sm" style="width:280rpx" bindtap="AddFriend">关注</button>
+      </view>
+    </view>
+  </view>
+</view>

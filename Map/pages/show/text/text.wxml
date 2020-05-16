@@ -1,16 +1,17 @@
 <view class="cu-card dynamic no-card">
   <view class="cu-item shadow">
     <view class="solid-bottom text-xl padding">
-      <text class="text-black text-bold" style = "{{Type=='求助'? 'color: rgb(235, 26, 26);font-size: 50rpx;' :''}}">{{Title}}</text>
+      <text class="text-black text-bold" style="{{Type=='求助'? 'color: rgb(235, 26, 26);font-size: 50rpx;' :''}}">{{Title}}</text>
     </view>
     <view wx:if="{{!Anonymous}}" class="cu-list menu-avatar">
-      <view class="cu-item">
-        <view wx:if = "{{PostUserUrl}}" class="cu-avatar lg round" style="background-image:url({{PostUserUrl}});"></view>
+      <!-- <view class="cu-item" bindtap="ShowModel" data-url="{{PostUserUrl}}" data-name="{{PostUserName}}" data-target="{{PostUserId}}" > -->
+      <view class="cu-item" bindtap="ShowUser" data-url="{{PostUserUrl}}" data-name="{{PostUserName}}" data-target="{{PostUserId}}">
+        <view wx:if="{{PostUserUrl}}" class="cu-avatar lg round" style="background-image:url({{PostUserUrl}});"></view>
         <view wx:else class="cu-avatar lg round" style="background-image:url(/resources/nouser.png); ="></view>
         <view class="content flex-sub">
           <text class="text-black text-bold text-xl">{{PostUserName}}</text>
           <view class="text-gray text-sm flex justify-between">
-            <view>{{Day}} {{Time}}</view> 
+            <view>{{Day}} {{Time}}</view>
           </view>
         </view>
       </view>
@@ -19,68 +20,69 @@
       <text class="text-gray text-sm text-bold ">{{Day}} {{Time}}</text>
     </view>
 
-    <view wx:if = "{{Type=='求助'}}" class="cu-bar bg-white solid-bottom" style = "{{Content.help==true? 'background-color: rgb(73, 194, 17);':'background-color: rgb(238, 22, 22);'}}">
+    <view wx:if="{{Type=='求助'}}" class="cu-bar bg-white solid-bottom" style="{{Content.help==true? 'background-color: rgb(73, 194, 17);':'background-color: rgb(238, 22, 22);'}}">
       <view class='action'>
-        <view wx:if = "{{Content.help==true}}" class='cuIcon-titles text-mauve text-bold'>问题已解决！</view> 
-        <view wx:if = "{{Content.help==false}}" class='cuIcon-titles text-cyan text-bold'>求助！求助！</view> 
+        <view wx:if="{{Content.help==true}}" class='cuIcon-titles text-mauve text-bold'>问题已解决！</view>
+        <view wx:if="{{Content.help==false}}" class='cuIcon-titles text-cyan text-bold'>求助！求助！</view>
       </view>
-        <view wx:if = "{{MyPost}}" class='action'>
+      <view wx:if="{{MyPost}}" class='action'>
         <switch class='sm' checked='{{Content.help}}' bindchange='Help'></switch>
       </view>
     </view>
 
-    <view wx:if = "{{Type!='投票'}}" class="text-content text-lg" style = "word-wrap: break-word;word-break: break-all;{{Type=='求助'? 'color: rgb(235, 26, 26);font-size: 50rpx;' :''}}">
+    <view class="text-content text-lg" style="word-wrap: break-word;word-break: break-all;{{Type=='求助'? 'color: rgb(235, 26, 26);font-size: 50rpx;':''}}">
       {{Content.content}}
     </view>
 
     <view class="grid flex-sub padding-lr {{isCard?'col-3 grid-square':'col-1'}}">
-      <view wx:if = "{{ImgPath}}">
-        <image src="{{ImgPath}}">  
-        </image>  
+      <view wx:if="{{ImgPath}}">
+        <image src="{{ImgPath}}">
+        </image>
       </view>
     </view>
 
-    <radio-group wx:if = "{{Type=='投票'}}" class="block" bindchange="ChsVote">
-      <view wx:for="{{Content.vote}}" wx:if = "{{item.name!=''}}" class="cu-form-group">
-        <view wx:if = "{{MyPost}}" class="title">{{item.name}}({{item.num}})</view>
+    <radio-group wx:if="{{Type=='投票'}}" class="block" bindchange="ChsVote">
+      <view wx:for="{{Content.vote}}" wx:if="{{item.name!=''}}" class="cu-form-group">
+        <view wx:if="{{MyPost}}" class="title">{{item.name}}({{item.num}})</view>
         <view wx:else class="title">{{item.name}}</view>
         <radio class="radio" value="{{item.id}}"></radio>
       </view>
-      <button wx:if = "{{HasVote}}" class="cu-btn block bg-green margin-tb-sm lg" disabled>已投票</button>
-      <button wx:elif = "{{!Vote}}" class="cu-btn block bg-green margin-tb-sm lg" disabled>未投票</button>
+      <button wx:if="{{HasVote}}" class="cu-btn block bg-green margin-tb-sm lg" disabled>已投票</button>
+      <button wx:elif="{{!Vote}}" class="cu-btn block bg-green margin-tb-sm lg" disabled>未投票</button>
       <button wx:else class="cu-btn block bg-green margin-tb-sm lg" bindtap='PubVote'>发布投票</button>
     </radio-group>
 
 
     <view class="text-gray text-xl text-right padding">
-      <text class="cuIcon-attentionfill margin-lr" style = "{{Collect? 'color: rgb(13, 173, 21)' :''}}" bindtap="AddCollect"></text> 
-      <text class="cuIcon-appreciatefill margin-lr" style = "{{Like? 'color: rgb(201, 10, 10)' :''}}" bindtap="AddLike"></text> 
-      <text class="cuIcon-messagefill margin-lr"> {{Comments.length}} </text> 
+      <text class="cuIcon-attentionfill margin-lr" style="{{Collect? 'color: rgb(13, 173, 21)' :''}}" bindtap="AddCollect"></text>
+      <text class="cuIcon-appreciatefill margin-lr" style="{{Like? 'color: rgb(201, 10, 10)' :''}}" bindtap="AddLike"></text>
+      <text class="cuIcon-messagefill margin-lr"> {{Comments.length}} </text>
     </view>
 
 
     <view wx:if="{{!Anonymous}}" class="cu-list menu-avatar comment solids-top">
-      <view wx:for="{{Comments}}" wx:key="key" class="cu-item">
-        <view wx:if = "{{item.userUrl}}" class="cu-avatar round" style="background-image:url({{item.userUrl}});"></view>
+      <!-- <view wx:for="{{Comments}}" wx:key="key" class="cu-item" bindtap="ShowModel" data-url="{{item.userUrl}}" data-name="{{item.userName}}" data-target="{{item.userId}}"> -->
+      <view wx:for="{{Comments}}" wx:key="key" class="cu-item" bindtap="ShowUser" data-url="{{item.userUrl}}" data-name="{{item.userName}}" data-target="{{item.userId}}">
+        <view wx:if="{{item.userUrl}}" class="cu-avatar round" style="background-image:url({{item.userUrl}});"></view>
         <view wx:else class="cu-avatar round" style="background-image:url(/resources/nouser.png); ="></view>
         <view class="content">
           <view class="text-grey">{{item.userName}}</view>
-          <view class="text-content text-df" style = "word-wrap: break-word;word-break: break-all;">
+          <view class="text-content text-df" style="word-wrap: break-word;word-break: break-all;">
             {{item.content}}
           </view>
           <view class="margin-top-sm flex justify-between">
             <view class="text-gray text-sm">{{item.createTime}}</view>
           </view>
         </view>
-      </view> 
+      </view>
     </view>
     <view wx:else>
       <view wx:for="{{Comments}}" wx:key="key" class="cu-item">
         <view class="solid-bottom text-xl padding">
-          <view class="text-content text-df" style = "word-wrap: break-word;word-break: break-all;">{{item.content}}</view>
+          <view class="text-content text-df" style="word-wrap: break-word;word-break: break-all;">{{item.content}}</view>
           <text class="text-gray text-sm text-bold ">{{item.createTime}}</text>
         </view>
-      </view> 
+      </view>
     </view>
 
 
@@ -95,3 +97,24 @@
   <button class="cu-btn bg-green shadow" style="width:200rpx" bindtap="AddComment">发送</button>
 </view>
 
+<view class="cu-modal {{Model_id==null?'':'show'}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">是否关注？</view>
+      <view class="action" bindtap="HideModel">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view wx:if="{{ModelUrl}}" class="cu-avatar lg round" style="background-image:url({{ModelUrl}});"></view>
+      <view wx:else class="cu-avatar lg round" style="background-image:url(/resources/nouser.png); ="></view>
+      <text class="text-black text-bold text-xl">{{ModelName}}</text>
+    </view>
+    <view class="cu-bar padding-xl flex flex-wrap justify-between align-center bg-white">
+      <view class="action">
+        <button class="cu-btn line-green text-green fl padding-sm" style="width:280rpx" bindtap="HideModel">取消</button>
+        <button class="cu-btn bg-green fr padding-sm" style="width:280rpx" bindtap="AddFriend">关注</button>
+      </view>
+    </view>
+  </view>
+</view>

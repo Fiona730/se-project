@@ -1,4 +1,5 @@
 {
   "usingComponents": {},
-  "navigationBarTitleText": "我发布的"
+  "navigationBarTitleText": "帖子列表",
+  "onReachBottomDistance": 10
 }

@@ -19,6 +19,7 @@ Page({
     })
   },
   bindButtonPublish: function () {
+
     wx.cloud.callFunction({
       name: "addHole",
       data: {
@@ -55,6 +56,7 @@ Page({
         console.log("添加树洞失败", res)
       }
     })
+
     console.log({
       tag: 'help', 
       title: this.data.titleValue, 
@@ -91,10 +93,11 @@ Page({
       }
     })
   },
-  editImage: function () {
-    this.setData({
-      editable: !this.data.editable
-    })
+  viewImage:function(e){
+    wx.previewImage({
+      urls: [this.data.imgPath],
+      current: e.currentTarget.dataset.url
+    });
   },
   deleteImg: function (e) {
     console.log(e.currentTarget.dataset.index);
