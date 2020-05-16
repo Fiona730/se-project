@@ -5,7 +5,7 @@ Page({
     "longitude": "",
     "latitude": "",
     "location": true,
-    "scale": 9,
+    "scale": 14,
     hasUserInfo: false,
     UserInfo: {},
     //帖子集合
@@ -18,10 +18,12 @@ Page({
     //tab菜单
     tablist: [
       { id: 0, add: true, value: "集合" },
+
       { id: 1, add: true, value: "求助"},
       { id: 2, add: true, value: "帖子" },
       { id: 3, add: true, value: "投票" }],
     tabname: { "集合": 0, "求助": 1, "帖子":2, "投票": 3},
+
     tabnum: 0,
     hasinput: false,
     inputInfo: '请输入关键字',
@@ -133,7 +135,7 @@ Page({
  */
   onReady: function () {
     // 使用 wx.createMapContext 获取 map 上下文
-    this.mapCtx = wx.createMapContext('map');
+    this.mapCtx = wx.createMapContext('map')
   },
   //回到当前定位位置
   tapclick() {
@@ -142,10 +144,7 @@ Page({
     that.setData({
       location: true
     })
-    this.mapCtx.moveToLocation();
-    that.setData({
-      scale: 14
-    })
+    this.mapCtx.moveToLocation()
   },
   //当移动地图时触发
   regionchange: function (e) {
@@ -360,6 +359,7 @@ Page({
     wx.navigateTo({
       // url: '../publish/checkin/checkin',
       url: '../publish/vote/vote'
+
     })
   },
   //求助  
@@ -367,9 +367,10 @@ Page({
     wx.navigateTo({
       // url: '../publish/checkin/checkin',
       url: '../publish/help/help'
+
     })
   },
-  heatmap: function() {
+  heatmap: function () {
     var that = this;
     that.mapCtx.getRegion({
       success(res) {
@@ -380,15 +381,11 @@ Page({
         var str4 = res.northeast.latitude;
         var str5 = that.data.longitude;
         var str6 = that.data.latitude;
-        console.log("FUCK", str3-str1);
-        console.log("FUCK", str1);
-        console.log("FUCK", str3);
-        console.log("FUCK", str5);
         wx.navigateTo({
-          url: '../heatmap/heatmap?str1='+str1 +'&str2='+ str2 + '&str3=' + str3 + '&str4=' + str4 + '&str5=' + str5 + '&str6=' + str6
+          url: '../heatmap/heatmap?str1=' + str1 + '&str2=' + str2 + '&str3=' + str3 + '&str4=' + str4 + '&str5=' + str5 + '&str6=' + str6
         })
       }
     })
-    
+
   },
 })
