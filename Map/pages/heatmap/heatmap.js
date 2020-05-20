@@ -132,7 +132,7 @@ Page({
           height: 35,
           clickable: true,
           callout: {
-            content: value.title,
+            content: value.title.slice(0, 5),
             color: '#444141',
             borderRadius: 3,
             borderWidth: 1,

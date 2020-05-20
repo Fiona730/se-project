@@ -59,7 +59,7 @@ Page({
           height: 35,
           clickable: true,
           callout: {
-            content: value.title,
+            content: value.title.slice(0, 5),
             color: '#444141',  
             borderRadius: 3, 
             borderWidth: 1, 
@@ -108,7 +108,10 @@ Page({
   },
 
   onLoad: function () {
-
+    var that = this;
+    that.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
   onShow: function () {
     if (app.globalData.userInfo) {
@@ -126,7 +129,7 @@ Page({
     var that = this;
     that.setData({
       location: true,
-      userInfo: app.globalData.userInfo,
+      userInfo: app.globalData.userInfo
     })
     that.getLocation()
   },
@@ -136,6 +139,10 @@ Page({
   onReady: function () {
     // 使用 wx.createMapContext 获取 map 上下文
     this.mapCtx = wx.createMapContext('map')
+    var that = this;
+    that.setData({
+      userInfo: app.globalData.userInfo
+    })
   },
   //回到当前定位位置
   tapclick() {
