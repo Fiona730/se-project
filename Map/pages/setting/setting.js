@@ -31,13 +31,22 @@ Page({
     }
   },
 
-  tapLogout: function(){
-    // 用户点击退出登录
+  Logout:function(){
     app.globalData.userInfo = null;
     wx.redirectTo({
       url: '/pages/setting/setting',
     });
     this.saySth("已退出");
+    this.hideQuit();
+  },
+
+  showQuit: function(){
+    // 用户点击退出登录
+    this.setData({showQuit: true});
+  },
+
+  hideQuit:function(){
+    this.setData({ showQuit: false });
   },
 
   tapUserPage: function(){

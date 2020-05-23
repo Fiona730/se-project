@@ -2,10 +2,10 @@
   <view class="UCenter-bg">
 
 
-    <button wx:if="{{!isMe&&1}}" class="add-friend cu-btn round bg-white" bindtap="followUser">
+    <button wx:if="{{!isMe&&1}}" class="add-friend cu-btn round bg-white" bindtap="ShowModel">
       <text class="cuIcon-friendadd"></text>关注Ta
     </button>
-    <button wx:elif="{{!isMe&&1}}" class="add-friend cu-btn round bg-green" bindtap="cancelFollow">
+    <button wx:elif="{{!isMe&&1}}" class="add-friend cu-btn round bg-green" bindtap="ShowModel">
       <text class="cuIcon-friendfavor"></text>已关注
     </button>
 
@@ -69,10 +69,10 @@
       <view wx:else class="cu-avatar lg round" style="background-image:url(/resources/nouser.png); ="></view>
       <text class="text-black text-bold text-xl">{{ModelName}}</text>
     </view>
-    <view class="cu-bar padding-xl flex flex-wrap justify-between align-center bg-white">
+    <view class="cu-bar padding justify-center align-center bg-white">
       <view class="action">
-        <button class="cu-btn line-green text-green fl padding-sm" style="width:280rpx" bindtap="HideModel">取消</button>
-        <button class="cu-btn bg-green fr padding-sm" style="width:280rpx" bindtap="AddFriend">关注</button>
+        <button class="cu-btn line-green text-green fl margin" style="width:200rpx;margin:30rpx" bindtap="HideModel">取消</button>
+        <button class="cu-btn bg-green fr margin shadow" style="width:200rpx;margin:30rpx" bindtap="AddFriend">关注</button>
       </view>
     </view>
   </view>

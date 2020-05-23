@@ -152,9 +152,9 @@
 .feed-item .feed-content .actions{
   display: inline-block;
   vertical-align: text-bottom;
-  margin: 35rpx 0 0 0; 
-  color: #00aaff;
-  font-size: 26rpx;
+  margin: 40rpx 0 0 0; 
+  color: #b4b4b4;
+  font-size: 28rpx;
 }
 
 .hover-common{
