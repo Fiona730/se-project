@@ -6,12 +6,15 @@ Page({
   data: {
     isDev: true,
     msgNum: 0,
+    isFriend: undefined,
   },
 
   onLoad: function (args) {
     this.user_id = args.user;
     this.setData({ isMe: this.user_id == app.globalData.userData._id})
     this.getUserData();
+    // 如果不是我 检查是否已是好友 and set isFriend variable
+    
   },
 
   tapLogout: function () {
@@ -80,16 +83,14 @@ Page({
   ShowModel(e) {
     console.log("关注", e.currentTarget.dataset)
     this.setData({
-      ModelName: e.currentTarget.dataset.name,
-      ModelUrl: e.currentTarget.dataset.url,
-      Model_id: e.currentTarget.dataset.target
+      ModelName: this.userData.userinfo.nickName,
+      ModelUrl: this.userData.userinfo.avatarUrl,
+      Model_id: this.user_id,
     })
   },
 
   HideModel(e) {
     this.setData({
-      ModelName: '',
-      ModelUrl: '',
       Model_id: null
     })
   },
@@ -101,16 +102,12 @@ Page({
       name: "addFriend",
       data: {
         userId: app.globalData.userData._id,
-        newFriend: that.data.Modal_id
+        newFriend: that.user_id
       },
       success(res) {
         console.log("添加好友成功", res)
       },
-    })
-    this.setData({
-      Model_id: null,
-      ModelName: '',
-      ModelUrl: '',
-    })
+    });
+    this.HideModel();
   }
 })

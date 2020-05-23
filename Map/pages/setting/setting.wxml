@@ -75,9 +75,26 @@
     </block>
 
     <view class="quit flex-item">
-      <button class="cu-btn bg-red margin-tb-sm lg shadow" bindtap="tapLogout">退出登录</button>
+      <button class="cu-btn bg-red margin-tb-sm lg shadow" bindtap="showQuit">退出登录</button>
     </view>
 
   </block>
 
+</view>
+
+<view class="cu-modal {{showQuit?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">是否确定退出登录？</view>
+      <view class="action" bindtap="hideQuit">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="cu-bar padding justify-center align-center bg-white">
+      <view class="action">
+        <button class="cu-btn line-green text-green fl margin" style="width:200rpx;margin:30rpx" bindtap="hideQuit">取消</button>
+        <button class="cu-btn bg-green fr margin shadow" style="width:200rpx;margin:30rpx" bindtap="Logout">退出</button>
+      </view>
+    </view>
+  </view>
 </view>

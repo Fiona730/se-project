@@ -64,7 +64,9 @@
           <view wx:else class="empty"></view>
 
           <view class="actions">
-            <text>{{item.hot}}° · {{item.num_likes}} Likes · {{item.num_replies}} Replies</text>
+            <text class="cuIcon-attentionfill text-gray margin-right-sm"></text>{{item.hot}}
+            <text class="cuIcon-appreciatefill text-gray margin-sm"></text>{{item.num_likes}} 
+            <text class="cuIcon-messagefill text-gray margin-sm"></text>{{item.num_replies}} 
           </view>
 
         </view>
