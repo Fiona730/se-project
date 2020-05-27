@@ -64,7 +64,7 @@ Page({
             that.setData({ Collect: true })
           }
           //投票信息
-          if (that.data.Type == '投票' && that.data.Content.voter.indexOf(app.globalData.userData._id)>=0) {
+          if (that.data.Type == '投票' && that.data.Content.voter.indexOf(app.globalData.userData._id)>=0)          {
             that.setData({ HasVote: true })
           }
           resolve(res)

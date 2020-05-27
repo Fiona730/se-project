@@ -36,7 +36,7 @@
 
     <view class="grid flex-sub padding-lr {{isCard?'col-3 grid-square':'col-1'}}">
       <view wx:if="{{ImgPath}}">
-        <image src="{{ImgPath}}">
+        <image wx:if="{{ImgPath}}" class='photo' src="{{ImgPath}}">
         </image>
       </view>
     </view>

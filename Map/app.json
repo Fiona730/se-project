@@ -9,7 +9,8 @@
     "pages/publish/meet/meet",
     "pages/publish/help/help",
     "pages/publish/vote/vote",
-    "pages/heatmap/heatmap"
+    "pages/heatmap/heatmap",
+    "pages/show/text/text"
   ],
   "window": {
     "backgroundTextStyle": "light",
