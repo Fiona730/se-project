@@ -9,6 +9,7 @@ Page({
     cValue: '',
     dValue: '',
     imgPath: '',
+    local_imgPath: '',
     isAnonymous: false,
     position: null
   },
@@ -53,7 +54,7 @@ Page({
       isAnonymous: newValue
     });
   },
-  bindButtonPublish: function () {
+  addHole: function() {
     wx.cloud.callFunction({
       name: "addHole",
       data: {
@@ -95,6 +96,35 @@ Page({
         console.log("添加树洞失败", res)
       }
     })
+  },
+  bindButtonPublish: function () {
+    if (this.data.local_imgPath != ""){
+      const filePath = this.data.local_imgPath;
+      let timestamp = (new Date()).valueOf();
+      const cloudPath = app.globalData.openid + "_" + timestamp + filePath.match(/\.[^.]+?$/)[0];
+      wx.cloud.uploadFile({
+        cloudPath:cloudPath,
+        filePath: filePath,
+        success: res => {
+          console.log('[上传文件] 成功：', res)
+          this.setData({
+            imgPath: res.fileID
+          })
+          console.log("this.data", this.data.imgPath)
+          this.addHole()
+        },
+        fail: e => {
+          console.error('[上传文件] 失败：', e)
+          wx.showToast({
+            icon: 'none',
+            title: '上传失败',
+          })
+        }
+      });
+    }
+    else {
+      this.addHole()
+    }
     console.log({
       tag: 'vote',
       title: this.data.titleValue,
@@ -120,7 +150,7 @@ Page({
           title: '上传中',
         })
         _this.setData({
-          imgPath: res.tempFilePaths[0]
+          local_imgPath: res.tempFilePaths[0]
         })
       },
       fail: e => {
@@ -133,7 +163,7 @@ Page({
   },
   viewImage:function(e){
     wx.previewImage({
-      urls: [this.data.imgPath],
+      urls: [this.data.local_imgPath],
       current: e.currentTarget.dataset.url
     });
   },
@@ -141,7 +171,7 @@ Page({
     console.log(e.currentTarget.dataset.index);
     this.setData({
       editable: !this.data.editable,
-      imgPath: ''
+      local_imgPath: ''
     })
   },
 
