@@ -11,6 +11,7 @@ Page({
 
   onLoad: function (args) {
     this.user_id = args.user;
+    this.viewer_id = args.viewer;
     this.setData({ isMe: this.user_id == app.globalData.userData._id})
     this.getUserData();
     // 如果不是我 检查是否已是好友 and set isFriend variable
@@ -42,6 +43,34 @@ Page({
     }
   },
 
+  judgeFriend: function () {
+    let that = this;
+    wx.cloud.callFunction({
+      name: "getUserByUserId",
+      data: {
+        userId: this.viewer_id,
+      },
+      success(res) {
+        console.log("请求getUser云函数成功", res);
+        that.viewer_userData = res.result.data[0];
+        let len = that.viewer_userData.friends.length;
+        let flag = false;
+        for (let i = 0; i < len; i++){
+          if(that.viewer_userData.friends[i] == that.user_id){
+            flag = true;
+            break;
+          }
+        }
+        that.setData({ isFriend: flag})
+        console.log('isFriend', that.data.isFriend)
+      },
+      fail(res) {
+        console.log("请求getUser云函数失败", res);
+        assert(false);  // hoho
+      }
+    })
+  },
+
   getUserData: function () {
     wx.showLoading({ title: '加载中' });
     let that = this
@@ -54,6 +83,7 @@ Page({
         console.log("请求getUser云函数成功", res);
         that.userData = res.result.data[0];
         that.setData({userData: that.userData});
+        that.judgeFriend();
       },
       fail(res) {
         console.log("请求getUser云函数失败", res);
@@ -75,6 +105,12 @@ Page({
   toUserCollections: function () {
     wx.navigateTo({
       url: `/pages/userpage/posts/posts?mode=collections&user=${this.data.userData._id}`,
+    });
+  },
+
+  toUserFriends: function () {
+    wx.navigateTo({
+      url: `/pages/userpage/friends/friends?user=${this.data.userData._id}`,
     });
   },
 
@@ -109,5 +145,22 @@ Page({
       },
     });
     this.HideModel();
-  }
+    that.setData({ isFriend: true})
+  },
+
+  DeleFriend() {
+    let that = this
+    wx.cloud.callFunction({
+      name: "deleFriend",
+      data: {
+        userId: app.globalData.userData._id,
+        newFriend: that.user_id
+      },
+      success(res) {
+        console.log("删除好友成功", res)
+      },
+    });
+    this.HideModel();
+    that.setData({ isFriend: false})
+  },
 })

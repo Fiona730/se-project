@@ -18,10 +18,10 @@
 			<view class="group-header">上传图片</view>
 			<view class="group-body">
 				<view class="img-upload">
-					<view class="img-add" bindtap="chooseImage" wx:if="{{local_imgPath === ''}}"></view>
+					<view class="img-add" bindtap="chooseImage" wx:if="{{imgPath === ''}}"></view>
 					<view class="img-item" bindlongtap="editImage">
 						<icon type="clear" size="20" color="red" style="display:{{editable ? 'block':'none'}}" bindtap="deleteImg"/>
-						<image src="{{local_imgPath}}" mode="aspectFill"></image>
+						<image src="{{imgPath}}" mode="aspectFill"></image>
 					</view>
 				</view>
 			</view>
@@ -47,13 +47,13 @@
 	</view>	
 	<view class="cu-form-group">
 		<view class="grid col-4 grid-square flex-sub">
-			<view class="bg-img" wx:if="{{local_imgPath !== ''}}" bindtap="viewImage" data-url="{{local_imgPath}}">
-				<image src='{{local_imgPath}}' mode='aspectFill'></image>
+			<view class="bg-img" wx:if="{{imgPath !== ''}}" bindtap="viewImage" data-url="{{imgPath}}">
+				<image src='{{imgPath}}' mode='aspectFill'></image>
 				<view class="cu-tag bg-red" catchtap="deleteImg" data-index="{{index}}">
 					<text class="cuIcon-close"></text>
 				</view>
 			</view>
-			<view class="solids" bindtap="chooseImage" wx:if="{{local_imgPath === ''}}">
+			<view class="solids" bindtap="chooseImage" wx:if="{{imgPath === ''}}">
 				<text class="cuIcon-cameraadd"></text>
 			</view>
 		</view>

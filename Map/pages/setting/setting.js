@@ -54,7 +54,7 @@ Page({
     if(this.data.hasUserInfo){
       // Todo: jump to user's homepage
       wx.navigateTo({
-        url: `/pages/userpage/homepage/homepage?user=${this.data.userData._id}`,
+        url: `/pages/userpage/homepage/homepage?user=${this.data.userData._id}&viewer=${this.data.userData._id}`,
       });
     }
     else{
@@ -82,24 +82,8 @@ Page({
   },
 
   toFriends:function(){
-    // this.data.userData.friends
-    // example cloud function usage for adding friends
-    let _this = this;
-    wx.cloud.callFunction({
-      name: "addFriend",
-      data: {
-        userId: _this.data.userData._id,
-        newFriend: {
-          nickName: "Sherry",
-          openId: "Sherry's _id",
-        }
-      },
-      success(res) {
-        console.log("添加好友成功", res)
-      },
-      fail(res) {
-        console.log("添加好友失败", res)
-      }
+    wx.navigateTo({
+      url: `/pages/userpage/friends/friends?user=${this.data.userData._id}`,
     })
   },
   

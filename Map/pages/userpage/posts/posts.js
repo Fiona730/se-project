@@ -311,7 +311,7 @@ Page({
   toUser:function(e){
     let uid = e.currentTarget.dataset.id;
     wx.navigateTo({
-      url: `/pages/userpage/homepage/homepage?user=${uid}`,
+      url: `/pages/userpage/homepage/homepage?user=${uid}&viewer=${this.tgt_user}`,
     });
   },
 

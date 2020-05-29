@@ -6,10 +6,8 @@
   <block wx:for="{{posts}}" wx:key="key" wx:for-index="index">
     <view class="feed-item" hover-class="hover-common" id="{{item._id}}" bindtap="tapPost" bindlongtap="longtapPost" data-idx="{{index}}">
 
-      <!-- <view wx:if="{{item.image}}" class="solid-bottom bg-img" style="background-image:url({{item.image}}); height:160rpx; border-top-left-radius: 10rpx; border-top-right-radius: 10rpx;">
-      </view> -->
-      <image wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill" class="solid-bottom" style="width:100%; height:160rpx; border-top-left-radius: 10rpx; border-top-right-radius: 10rpx;  z-index:1">
-      </image>
+      <view wx:if="{{item.image}}" class="solid-bottom bg-img" style="background-image:url({{item.image}}); height:160rpx; border-top-left-radius: 10rpx; border-top-right-radius: 10rpx;">
+      </view>
 
       <view class="ex-image">
         <view class="feed-user">
@@ -126,7 +124,10 @@
 </view>
 
 <block wx:if="{{num_posts==0}}">
-  <view class="empty-hint">
+  <view wx:if="{{mode=='posts'}}" class="empty-hint">
+    <text>还没有发布帖子...</text>
+  </view>
+  <view wx:if="{{mode=='collections'}}" class="empty-hint">
     <text>收藏夹是空的...</text>
   </view>
 </block>

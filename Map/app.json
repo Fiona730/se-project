@@ -10,7 +10,8 @@
     "pages/publish/help/help",
     "pages/publish/vote/vote",
     "pages/heatmap/heatmap",
-    "pages/show/text/text"
+    "pages/show/text/text",
+    "pages/userpage/friends/friends"
   ],
   "window": {
     "backgroundTextStyle": "light",

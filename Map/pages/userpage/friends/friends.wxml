@@ -1,0 +1,27 @@
+<!--pages/userpage/friends/friends.wxml-->
+<scroll-view scroll-y="true" class="post-container">
+
+  <block wx:for="{{friends}}" wx:key="key" wx:for-index="index">
+    <view class="feed-item" hover-class="hover-common" data-idx="{{index}}">
+    
+      <view class="ex-image">
+        <view class="feed-user">
+          <view class="avatar" bindtap="toUser" data-id="{{item._id}}">
+            <image src="{{item.image}}"></image>
+          </view>
+
+          <view class="source">
+            <view class="username">{{item.nickName}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+
+</scroll-view>
+
+<block wx:if="{{num_friends==0}}">
+  <view class="empty-hint">
+    <text>还没有关注朋友...</text>
+  </view>
+</block>

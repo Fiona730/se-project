@@ -396,7 +396,7 @@ Page({
   ShowUser(e){
     let uid = e.currentTarget.dataset.target;
     wx.navigateTo({
-      url: `/pages/userpage/homepage/homepage?user=${uid}`,
+      url: `/pages/userpage/homepage/homepage?user=${uid}&viewer=${app.globalData.userData._id}`,
     });
   },
 

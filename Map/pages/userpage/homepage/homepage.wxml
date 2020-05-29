@@ -2,10 +2,10 @@
   <view class="UCenter-bg">
 
 
-    <button wx:if="{{!isMe&&1}}" class="add-friend cu-btn round bg-white" bindtap="ShowModel">
+    <button wx:if="{{!isMe&&!isFriend}}" class="add-friend cu-btn round bg-white" bindtap="ShowModel">
       <text class="cuIcon-friendadd"></text>关注Ta
     </button>
-    <button wx:elif="{{!isMe&&1}}" class="add-friend cu-btn round bg-green" bindtap="ShowModel">
+    <button wx:elif="{{!isMe&&isFriend}}" class="add-friend cu-btn round bg-green" bindtap="ShowModel">
       <text class="cuIcon-friendfavor"></text>已关注
     </button>
 
@@ -31,7 +31,7 @@
       <view class="margin-top-sm">
         <text class="cuIcon-favorfill"></text> 收藏</view>
     </view>
-    <view class="flex flex-sub flex-direction">
+    <view class="flex flex-sub flex-direction" bindtap="toUserFriends">
       <view class="text-xxl text-green">{{userData.friends.length}}</view>
       <view class="margin-top-sm">
         <text class="cuIcon-friendfill"></text> 关注</view>
@@ -57,7 +57,7 @@
 </scroll-view>
 
 <view class="cu-modal {{Model_id==null?'':'show'}}">
-  <view class="cu-dialog">
+  <view class="cu-dialog" wx:if="{{!isMe&&!isFriend}}">
     <view class="cu-bar bg-white justify-end">
       <view class="content">是否关注？</view>
       <view class="action" bindtap="HideModel">
@@ -73,6 +73,26 @@
       <view class="action">
         <button class="cu-btn line-green text-green fl margin" style="width:200rpx;margin:30rpx" bindtap="HideModel">取消</button>
         <button class="cu-btn bg-green fr margin shadow" style="width:200rpx;margin:30rpx" bindtap="AddFriend">关注</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="cu-dialog" wx:if="{{!isMe&&isFriend}}">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">是否取消关注？</view>
+      <view class="action" bindtap="HideModel">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="padding-xl">
+      <view wx:if = "{{ModelUrl}}" class="cu-avatar lg round" style="background-image:url({{ModelUrl}});"></view>
+      <view wx:else class="cu-avatar lg round" style="background-image:url(/resources/nouser.png); ="></view>
+      <text class="text-black text-bold text-xl">{{ModelName}}</text>
+    </view>
+    <view class="cu-bar padding justify-center align-center bg-white">
+      <view class="action">
+        <button class="cu-btn line-green text-green fl margin" style="width:200rpx;margin:30rpx" bindtap="HideModel">继续关注</button>
+        <button class="cu-btn bg-green fr margin shadow" style="width:200rpx;margin:30rpx" bindtap="DeleFriend">取消关注</button>
       </view>
     </view>
   </view>
