@@ -55,20 +55,6 @@
       </view>
     </view>
 
-    <view class="cells-title">
-      <text class="title-text">设置</text>
-    </view>
-
-    <view class="my">
-      <view class="my-item">
-        <view class="myitem-name">
-          <text>秘密机关</text>
-        </view>
-        <view class="switch">
-          <switch checked="{{switch1Chked}}"></switch>
-        </view>
-      </view>
-    </view>
 
     <block wx:if="{{isDev}}">
       

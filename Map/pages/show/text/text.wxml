@@ -62,11 +62,11 @@
 
     <view wx:if="{{!Anonymous}}" class="cu-list menu-avatar comment solids-top">
       <!-- <view wx:for="{{Comments}}" wx:key="key" class="cu-item" bindtap="ShowModel" data-url="{{item.userUrl}}" data-name="{{item.userName}}" data-target="{{item.userId}}"> -->
-      <view wx:for="{{Comments}}" wx:key="key" class="cu-item" bindtap="ShowUser" data-url="{{item.userUrl}}" data-name="{{item.userName}}" data-target="{{item.userId}}">
-        <view wx:if="{{item.userUrl}}" class="cu-avatar round" style="background-image:url({{item.userUrl}});"></view>
-        <view wx:else class="cu-avatar round" style="background-image:url(/resources/nouser.png); ="></view>
+      <view wx:for="{{Comments}}" wx:key="key" class="cu-item" data-url="{{item.userUrl}}" data-name="{{item.userName}}" data-target="{{item.userId}}">
+        <view wx:if="{{item.userUrl}}" class="cu-avatar round"  bindtap="ShowUser" style="background-image:url({{item.userUrl}});"></view>
+        <view wx:else class="cu-avatar round"  style="background-image:url(/resources/nouser.png); ="></view>
         <view class="content">
-          <view class="text-grey">{{item.userName}}</view>
+          <view class="text-grey"  bindtap="ShowUser">{{item.userName}}</view>
           <view class="text-content text-df" style="word-wrap: break-word;word-break: break-all;">
             {{item.content}}
           </view>

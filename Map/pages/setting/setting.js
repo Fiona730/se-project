@@ -51,10 +51,10 @@ Page({
 
   tapUserPage: function(){
     // 用户点击用户页面入口
-    if(this.data.hasUserInfo){
+    if (app.globalData.userInfo){
       // Todo: jump to user's homepage
       wx.navigateTo({
-        url: `/pages/userpage/homepage/homepage?user=${this.data.userData._id}&viewer=${this.data.userData._id}`,
+        url: `/pages/userpage/homepage/homepage?user=${app.globalData.userData._id}&viewer=${app.globalData.userData._id}`,
       });
     }
     else{

@@ -164,13 +164,35 @@ Page({
   },
   //点击头像，进入用户界面
   userchange: function () {
-    wx.navigateTo({
-      url: '/pages/setting/setting',
-    })
+    // 用户点击用户页面入口
+    if (app.globalData.userInfo) {
+      // Todo: jump to user's homepage
+      wx.navigateTo({
+        url: `/pages/userpage/homepage/homepage?user=${app.globalData.userData._id}&viewer=${app.globalData.userData._id}`,
+      });
+    }
+    else {
+      // 没登录...!
+      wx.redirectTo({
+        url: '/pages/login/login',
+      });
+    }
   },
   //点击未登录头像，登录
   nouser: function () {
-    wx.navigateTo({ url: '/pages/setting/setting', })
+    // 用户点击用户页面入口
+    if (app.globalData.userInfo) {
+      // Todo: jump to user's homepage
+      wx.navigateTo({
+        url: `/pages/userpage/homepage/homepage?user=${app.globalData.userData._id}&viewer=${app.globalData.userData._id}`,
+      });
+    }
+    else {
+      // 没登录...!
+      wx.redirectTo({
+        url: '/pages/login/login',
+      });
+    }
   },
   //点击帖子
   markertap: function (event) {

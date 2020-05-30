@@ -6,9 +6,10 @@
   <block wx:for="{{posts}}" wx:key="key" wx:for-index="index">
     <view class="feed-item" hover-class="hover-common" id="{{item._id}}" bindtap="tapPost" bindlongtap="longtapPost" data-idx="{{index}}">
 
-      <view wx:if="{{item.image}}" class="solid-bottom bg-img" style="background-image:url({{item.image}}); height:160rpx; border-top-left-radius: 10rpx; border-top-right-radius: 10rpx;">
-      </view>
-
+      <!-- <view wx:if="{{item.image}}" class="solid-bottom bg-img" style="background-image:url({{item.image}}); height:160rpx; border-top-left-radius: 10rpx; border-top-right-radius: 10rpx;">
+      </view> -->
+      <image wx:if="{{item.image}}" src="{{item.image}}" mode="aspectFill" class="solid-bottom" style="width:100%; height:160rpx; border-top-left-radius: 10rpx; border-top-right-radius: 10rpx;  z-index:1">
+      </image>
       <view class="ex-image">
         <view class="feed-user">
           <view class="avatar" bindtap="toUser" data-id="{{item.poster_id}}">

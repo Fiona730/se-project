@@ -1,4 +1,5 @@
 {
-  "usingComponents": {},
-  "navigationBarTitleText": "用户主页"
+    "backgroundTextStyle": "light",
+    "navigationStyle": "custom"
+  
 }

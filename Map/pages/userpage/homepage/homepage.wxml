@@ -1,20 +1,19 @@
 <scroll-view scroll-y class="scrollPage">
-  <view class="UCenter-bg">
+  <view class="UCenter-bg" style=" opacity:0.95">
 
-
-    <button wx:if="{{!isMe&&!isFriend}}" class="add-friend cu-btn round bg-white" bindtap="ShowModel">
+    <button wx:if="{{!isMe&&isFriend==false}}" class="add-friend cu-btn round bg-white shadow" bindtap="ShowModel" style="opacity:1.0">
       <text class="cuIcon-friendadd"></text>关注Ta
     </button>
-    <button wx:elif="{{!isMe&&isFriend}}" class="add-friend cu-btn round bg-green" bindtap="ShowModel">
+    <button wx:elif="{{!isMe&&isFriend}}" class="add-friend cu-btn round bg-green shadow" bindtap="ShowModel" style="opacity:1.0">
       <text class="cuIcon-friendfavor"></text>已关注
     </button>
 
-    <view class="cu-avatar xl round margin-bottom" style="background-image:url({{userData.userinfo.avatarUrl}});"></view>
+    <view class="cu-avatar xl round margin-bottom" style="background-image:url({{userData.userinfo.avatarUrl}});opacity:1.0;"></view>
 
-    <view class="text-xl">{{userData.userinfo.nickName}}
+    <view class="text-xl" style="opacity:1.0">{{userData.userinfo.nickName}}
       <text class="text-df">{{}}</text>
     </view>
-    <view class="margin-top-sm">
+    <view class="margin-top-sm" style="opacity:1.0">
       <text>用户</text>
     </view>
 
@@ -39,22 +38,35 @@
   </view>
 
   <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg radius">
-    <view class="cu-item arrow">
-      <view class="content" bindtap="toUserPosts">
+    <view class="cu-item arrow" bindtap="toUserPosts">
+      <view class="content">
         <text class="cuIcon-formfill text-green"></text>
-        <text class="text-grey">Ta发布的帖子</text>
+        <text class="text-grey">{{isMe?'我':'Ta'}}发布的帖子</text>
       </view>
     </view>
-    <view class="cu-item arrow">
-      <view class="content" bindtap="toUserCollections">
+    <view class="cu-item arrow" bindtap="toUserCollections">
+      <view class="content">
         <text class="cuIcon-favorfill text-yellow"></text>
-        <text class="text-grey">Ta收藏的帖子</text>
+        <text class="text-grey">{{isMe?'我':'Ta'}}收藏的帖子</text>
+      </view>
+    </view>
+    <view class="cu-item arrow" bindtap="toUserFriends">
+      <view class="content">
+        <text class="cuIcon-friendfill text-pink"></text>
+        <text class="text-grey">{{isMe?'我':'Ta'}}的好友</text>
       </view>
     </view>
   </view>
 
-  <view class="cu-tabbar-height"></view>
+  <!-- <view class="cu-tabbar-height"></view> -->
+
+    <view wx:if="{{isMe}}" class="quit flex-item">
+      <button class="cu-btn bg-red margin-tb-sm lg shadow" bindtap="showQuit">退出登录</button>
+    </view>
+
 </scroll-view>
+
+
 
 <view class="cu-modal {{Model_id==null?'':'show'}}">
   <view class="cu-dialog" wx:if="{{!isMe&&!isFriend}}">
@@ -77,6 +89,8 @@
     </view>
   </view>
 
+
+
   <view class="cu-dialog" wx:if="{{!isMe&&isFriend}}">
     <view class="cu-bar bg-white justify-end">
       <view class="content">是否取消关注？</view>
@@ -93,6 +107,23 @@
       <view class="action">
         <button class="cu-btn line-green text-green fl margin" style="width:200rpx;margin:30rpx" bindtap="HideModel">继续关注</button>
         <button class="cu-btn bg-green fr margin shadow" style="width:200rpx;margin:30rpx" bindtap="DeleFriend">取消关注</button>
+      </view>
+    </view>
+  </view>
+</view>
+
+<view class="cu-modal {{showQuit?'show':''}}">
+  <view class="cu-dialog">
+    <view class="cu-bar bg-white justify-end">
+      <view class="content">是否确定退出登录？</view>
+      <view class="action" bindtap="hideQuit">
+        <text class="cuIcon-close text-red"></text>
+      </view>
+    </view>
+    <view class="cu-bar padding justify-center align-center bg-white">
+      <view class="action">
+        <button class="cu-btn line-green text-green fl margin" style="width:200rpx;margin:30rpx" bindtap="hideQuit">取消</button>
+        <button class="cu-btn bg-green fr margin shadow" style="width:200rpx;margin:30rpx" bindtap="Logout">退出</button>
       </view>
     </view>
   </view>

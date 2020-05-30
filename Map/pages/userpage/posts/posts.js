@@ -177,7 +177,7 @@ Page({
           let cur_post = {
             _id: res.result.data._id,
             type: res.result.data.type,
-            title: res.result.data.title.substring(0, 10),
+            title: res.result.data.title.substring(0, 20),
             content: res.result.data.content,
             hot: res.result.data.hot,
             num_likes: res.result.data.num_likes,
