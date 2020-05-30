@@ -2,11 +2,11 @@
 <scroll-view scroll-y="true" class="post-container">
 
   <block wx:for="{{friends}}" wx:key="key" wx:for-index="index">
-    <view class="feed-item" hover-class="hover-common" data-idx="{{index}}" bindtap="toUser" >
+    <view class="feed-item" hover-class="hover-common" data-idx="{{index}}" bindtap="toUser" data-id="{{item._id}}">
     
       <view class="ex-image">
         <view class="feed-user">
-          <view class="avatar"data-id="{{item._id}}">
+          <view class="avatar">
             <image src="{{item.image}}"></image>
           </view>
 
