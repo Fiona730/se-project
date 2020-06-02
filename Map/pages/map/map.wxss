@@ -58,15 +58,14 @@
 }
 
 .top .search-box .text{
-  height: 80px;
-  line-height: 80px;
+  height: 80rpx;
   color: rgba(0, 0, 0, 0.329);
+  
 }
 .top .search-box .input{
-  height: 80px;
-  line-height: 80px;
+  height: 80rpx;
   /* margin-top为text的高度，保持视觉上一致 */
-  margin-top: -80px; 
+   margin-top: -100rpx;
 }
 
 .top .search-box .shu {
