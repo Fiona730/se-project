@@ -100,7 +100,7 @@ Page({
             that.getmess();
           },
           fail: err => {
-            console.error('[云函数] [getHoles] 调用失败', err)
+            console.error('[云函数] [login] 调用失败', err)
           }
         })
       }

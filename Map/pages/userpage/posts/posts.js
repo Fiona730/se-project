@@ -167,12 +167,12 @@ Page({
 
     for (let i = this.num_loaded; i < this.num_loaded + new_batch; i++) {
       wx.cloud.callFunction({
-        name: "getHoleByHoleId",
+        name: "getHolebyId",
         data: {
           holeId: this.listPosts[i]
         },
         success(res) {
-          console.log("请求getHoleByHoleId云函数成功", res)
+          console.log("请求getHolebyId云函数成功", res)
 
           let cur_post = {
             _id: res.result.data._id,
@@ -205,7 +205,7 @@ Page({
           }
         },
         fail(res) {
-          console.log("getHoleByHoleId", res)
+          console.log("请求getHolebyId云函数失败", res)
         },
       })
     }

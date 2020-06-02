@@ -89,7 +89,7 @@ Page({
           })
         },
         fail(res) {
-          console.log("请求getHoleByHoleId云函数失败", res)
+          console.log("请求getHolebyId云函数失败", res)
         },
       })
     })
