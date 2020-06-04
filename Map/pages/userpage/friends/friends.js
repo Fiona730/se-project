@@ -18,6 +18,27 @@ Page({
     wx.showLoading({ title: '加载中' });
 
     for (let i = this.num_loaded; i < this.num_loaded + new_batch; i++) {
+      if (that.listFriends[i].nickName == "Sherry") {
+        let cur_post = {
+          _id: that.listFriends[i],
+          // nickName: "xxx",
+          nickName: "Sherry",
+          image: null
+        }
+        that.setData({
+          [`friends[${i}]`]: cur_post,
+        })
+        that.num_loaded += 1;
+        if (that.num_loaded == that.next_loaded) {
+          wx.hideLoading();
+          wx.showToast({
+            title: '加载完成',
+            icon: 'success',
+            duration: 1000,
+          });
+        }
+        continue;
+      }
       wx.cloud.callFunction({
         name: "getUserByUserId",
         data: {
@@ -75,7 +96,7 @@ Page({
     })
   },
 
-  toUser:function(e){
+  toUser: function (e) {
     let uid = e.currentTarget.dataset.id;
     wx.navigateTo({
       url: `/pages/userpage/homepage/homepage?user=${uid}&viewer=${this.tgt_user}`,
